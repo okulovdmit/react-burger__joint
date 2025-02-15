@@ -1,16 +1,26 @@
 :root {
-	color: rgb(255 255 255 / 87%);
-	font-weight: 400;
-	font-size: 16px;
-	font-family: 'Inter', 'Avenir', 'Helvetica', 'Arial', sans-serif;
-	line-height: 1.5;
-	background-color: #242424;
-	color-scheme: light dark;
-	font-synthesis: none;
-	text-rendering: optimizelegibility;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	text-size-adjust: 100%;
+	--background: #1c1c21;
+	--background-alt: #131316;
+	--background-element: #2f2f37;
+	--offset-base-variable: 2px;
+	--offset-base-size: 4px;
+	--top-constructor-item-border-radius: 88px 88px 40px 40px;
+	--bottom-constructor-item-border-radius: 40px 40px 88px 88px;
+	--common-border-radius: 64px;
+	--common-border-radius-s: 40px;
+	--text-primary-color: white;
+	--text-inactive-color: #8585ad;
+	--colors-interface-accent: #4c4cff;
+	--colors-interface-error: #e52b1a;
+	--colors-interface-success: #00cccc;
+	--colors-button-inactive: #3a3a55;
+	--common-transition: all 0.3s ease-in;
+	box-sizing: border-box;
+	min-width: 320px;
+	max-width: 100%;
+	margin: 0 auto;
+	scrollbar-color: #2f2f37 #8585ad;
+	scrollbar-width: thin;
 }
 
 a {
@@ -27,9 +37,9 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	width: 100%;
 	min-width: 320px;
-	min-height: 100vh;
-	margin: 0;
+	margin: 0 auto;
 }
 
 h1 {
@@ -38,7 +48,13 @@ h1 {
 }
 
 button {
-	padding: 0.6em 1.2em;
+	border: none;
+	border-radius: var(--common-border-radius);
+	outline: none;
+	cursor: pointer;
+	transition: var(--common-transition);
+
+	/* padding: 0.6em 1.2em;
 	font-weight: 500;
 	font-size: 1em;
 	font-family: inherit;
@@ -46,7 +62,7 @@ button {
 	border: 1px solid transparent;
 	border-radius: 8px;
 	cursor: pointer;
-	transition: border-color 0.25s;
+	transition: border-color 0.25s; */
 }
 
 button:hover {
