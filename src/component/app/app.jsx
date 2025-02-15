@@ -7,7 +7,7 @@ export const App = () => {
 	return (
 		<div className={s.page}>
 			<Header />
-			<section className={s.group}>
+			<section className={s.main}>
 				<BurgerIngredients />
 				<BurgerConstructor />
 			</section>

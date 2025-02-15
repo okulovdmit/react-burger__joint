@@ -1,0 +1,19 @@
+.cards {
+	display: flex;
+	flex-flow: row wrap;
+	gap: 24px;
+}
+.card {
+	width: 272px;
+	height: 208px;
+	display: flex;
+	flex-flow: column;
+	justify-content: center;
+	align-items: center;
+	gap: 4px;
+}
+.item {
+	display: flex;
+	align-items: flex-start;
+	gap: 4px;
+}

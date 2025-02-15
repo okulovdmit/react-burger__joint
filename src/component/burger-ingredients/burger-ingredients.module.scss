@@ -3,6 +3,7 @@
 	width: 600px;
 	display: flex;
 	flex-flow: column;
+	overflow-x: hidden;
 }
 .tab {
 	display: flex;
@@ -16,4 +17,10 @@
 	color: white;
 	border-radius: 0;
 	border-bottom: 2px solid hsla(0, 0%, 100%, 0.2);
+}
+
+.cards {
+	display: flex;
+	flex-flow: column wrap;
+	align-items: center;
 }
