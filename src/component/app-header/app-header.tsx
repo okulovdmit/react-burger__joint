@@ -10,21 +10,23 @@ export const Header = () => {
 	return (
 		<header className={`${sHeader.header} mt-10`}>
 			<nav className={sHeader.navigation}>
-				<button className={`${sHeader.btns} item button_size_small`}>
+				<button className={`${sHeader.btns}  text_type_main-default`}>
 					<BurgerIcon type='primary' />
 					<span>Конструктор</span>
 				</button>
-				<button className={`${sHeader.btns} item button_size_small`}>
+				<button className={`${sHeader.btns}  text_type_main-default`}>
 					<ListIcon type='primary' />
 					<span>Лента заказов</span>
 				</button>
 			</nav>
 
-			<Logo className={sHeader.item} />
-			<button className={sHeader.btns}>
-				<ProfileIcon type='primary' />
-				<span>Личный кабинет</span>
-			</button>
+			<Logo />
+			<div className={sHeader.item}>
+				<button className={`${sHeader.btns} text_type_main-default`}>
+					<ProfileIcon type='primary' />
+					<span>Личный кабинет</span>
+				</button>
+			</div>
 		</header>
 	);
 };

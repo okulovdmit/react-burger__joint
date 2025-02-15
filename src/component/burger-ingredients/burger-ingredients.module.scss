@@ -1,0 +1,19 @@
+.main {
+	height: 912px;
+	width: 600px;
+	display: flex;
+	flex-flow: column;
+}
+.tab {
+	display: flex;
+	justify-content: stretch;
+	//width: 100%;
+}
+.btn {
+	height: 56px;
+	width: 100%;
+	background-color: transparent;
+	color: white;
+	border-radius: 0;
+	border-bottom: 2px solid hsla(0, 0%, 100%, 0.2);
+}
