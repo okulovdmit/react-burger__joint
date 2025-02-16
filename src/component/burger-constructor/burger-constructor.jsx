@@ -11,7 +11,7 @@ export const BurgerConstructor = () => {
 	const filterOther = ingridientsData.filter((el) => el.type !== 'bun');
 	const filterBun = ingridientsData.filter((el) => el.type === 'bun');
 	return (
-		<div className={`${sConstructor.main} mt-6`}>
+		<section className={`${sConstructor.main} mt-6`}>
 			<ConstructorElement
 				type='top'
 				isLocked={true}
@@ -47,6 +47,6 @@ export const BurgerConstructor = () => {
 					Оформить заказ
 				</Button>
 			</div>
-		</div>
+		</section>
 	);
 };

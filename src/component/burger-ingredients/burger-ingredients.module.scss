@@ -3,12 +3,18 @@
 	width: 600px;
 	display: flex;
 	flex-flow: column;
-	overflow-x: hidden;
 }
 .tab {
 	display: flex;
 	justify-content: stretch;
 	//width: 100%;
+}
+.ingredients {
+	display: flex;
+	flex-flow: column;
+	justify-content: stretch;
+	height: 100%;
+	overflow-x: hidden;
 }
 .btn {
 	height: 56px;

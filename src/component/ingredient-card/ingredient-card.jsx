@@ -7,11 +7,11 @@ export const IngredientCard = ({ data }) => {
 				<div key={item.id} className={sCard.card}>
 					<img alt='bulka' src={item.image} />
 					<div className={sCard.item}>
-						<span className={'text_type_main-medium'}>{item.price}</span>
+						<p className={'text text_type_main-medium'}>{item.price}</p>
 						<CurrencyIcon type='primary' />
 					</div>
 					<div className={sCard.item}>
-						<span className={'text_type_main-default'}>{item.name}</span>
+						<p className={'text text_type_main-default'}>{item.name}</p>
 					</div>
 				</div>
 			))}

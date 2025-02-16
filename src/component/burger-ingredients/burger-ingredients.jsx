@@ -20,17 +20,19 @@ export const BurgerIngredients = () => {
 					Начинки
 				</button>
 			</div>
-			<h2 className={'text text_type_main-medium mt-10'}>Булки</h2>
-			<div className={sIngredients.cards}>
-				<IngredientCard data={bunFilter} />
-			</div>
-			<h2 className={'text text_type_main-medium mt-10'}>Соусы</h2>
-			<div className={sIngredients.cards}>
-				<IngredientCard data={sauceFilter} />
-			</div>
-			<h2 className={'text text_type_main-medium mt-10'}>Начинки</h2>
-			<div className={sIngredients.cards2}>
-				<IngredientCard data={mainFilter} />
+			<div className={sIngredients.ingredients}>
+				<h2 className={'text text_type_main-medium mt-10'}>Булки</h2>
+				<div className={sIngredients.cards}>
+					<IngredientCard data={bunFilter} />
+				</div>
+				<h2 className={'text text_type_main-medium mt-10'}>Соусы</h2>
+				<div className={sIngredients.cards}>
+					<IngredientCard data={sauceFilter} />
+				</div>
+				<h2 className={'text text_type_main-medium mt-10'}>Начинки</h2>
+				<div className={sIngredients.cards}>
+					<IngredientCard data={mainFilter} />
+				</div>
 			</div>
 		</section>
 	);
