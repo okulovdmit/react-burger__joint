@@ -20,7 +20,7 @@ export const BurgerIngredients = () => {
 					Начинки
 				</button>
 			</div>
-			<div className={sIngredients.ingredients}>
+			<div className={`${sIngredients.ingredients} custom-scroll`}>
 				<h2 className={'text text_type_main-medium mt-10'}>Булки</h2>
 				<div className={sIngredients.cards}>
 					<IngredientCard data={bunFilter} />

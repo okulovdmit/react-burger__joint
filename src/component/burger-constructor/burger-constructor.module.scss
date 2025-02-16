@@ -3,27 +3,14 @@
 	padding-top: 100px;
 	display: flex;
 	flex-flow: column;
-	justify-content: space-around;
-}
-
-.group {
-	height: 480px;
-	overflow-x: hidden;
-	display: flex;
-	flex-flow: column;
-	justify-content: center;
-	gap: 16px;
-}
-.item {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+	align-items: flex-end;
 }
 
 .total {
 	display: flex;
 	justify-content: flex-end;
 	gap: 10px;
+	margin-bottom: 100px;
 }
 .cost {
 	display: flex;
