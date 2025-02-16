@@ -1,13 +1,15 @@
+import * as PropTypes from 'prop-types';
 import sConstructor from './burger-constructor.module.scss';
-import { ingridientsData } from '@utils/data';
+import { ingridientsData } from '../../utils/data';
 import { ConsctructorIngredients } from '../constructor-ingredients/constructor-ingredients';
 import {
 	ConstructorElement,
 	CurrencyIcon,
 	Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { ingredientPropType } from '../../utils/prop-type';
 
-export const BurgerConstructor = () => {
+const BurgerConstructor = () => {
 	const filterOther = ingridientsData.filter((el) => el.type !== 'bun');
 	const filterBun = ingridientsData.filter((el) => el.type === 'bun');
 	return (
@@ -44,3 +46,9 @@ export const BurgerConstructor = () => {
 		</section>
 	);
 };
+
+BurgerConstructor.propTypes = {
+	ingredientsData: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
+};
+
+export default BurgerConstructor;
