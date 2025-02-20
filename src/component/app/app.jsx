@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import s from './app.module.scss';
 import { Header } from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
@@ -17,22 +17,25 @@ export const App = () => {
 	const [isOpenOrder, setIsOpenOrder] = useState(false);
 	const [selectedProduct, setSelectedProduct] = useState(null);
 
-	const toggle = () => {
+	const toggle = useCallback(() => {
 		setIsOpen(!isOpen);
-	};
+	}, [isOpen]);
 
-	const toggleOrder = () => {
+	const toggleOrder = useCallback(() => {
 		setIsOpenOrder(!isOpenOrder);
-	};
+	}, [isOpenOrder]);
 
-	const getProduct = (product) => {
-		setSelectedProduct(product);
-		toggle();
-	};
+	const getProduct = useCallback(
+		(product) => {
+			setSelectedProduct(product);
+			toggle();
+		},
+		[toggle]
+	);
 
-	const getOrder = () => {
+	const getOrder = useCallback(() => {
 		toggleOrder();
-	};
+	}, [toggleOrder]);
 
 	useEffect(() => {
 		const getDataIngredients = async () => {

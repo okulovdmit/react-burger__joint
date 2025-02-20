@@ -9,7 +9,6 @@ import {
 import { ingredientPropType } from '../../utils/prop-type';
 
 const BurgerConstructor = ({ getOrder, ingredients }) => {
-	console.log(getOrder);
 	const filterOther = ingredients.filter((el) => el.type !== 'bun');
 	const filterBun = ingredients.filter((el) => el.type === 'bun');
 
