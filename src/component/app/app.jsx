@@ -5,18 +5,13 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 
 export const App = () => {
-	const [state, setState] = useState({
-		isLoading: false,
-		hasError: false,
-		data: [],
-	});
+	const [data, setData] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+	const [hasError, setHasError] = useState(false);
+
 	useEffect(() => {
-		const fetchData = async () => {
-			setState((prevState) => ({
-				...prevState,
-				isLoading: true,
-				hasError: false,
-			}));
+		const getDataIngredients = async () => {
+			setIsLoading(true);
 			try {
 				const response = await fetch(
 					'https://norma.nomoreparties.space/api/ingredients'
@@ -25,28 +20,37 @@ export const App = () => {
 					throw new Error(`HTTP error! status: ${response.status}`);
 				}
 				const result = await response.json();
-				setState((prevState) => ({
-					...prevState,
-					isLoading: false,
-					data: result.data,
-				}));
+				setData(result.data);
 			} catch (error) {
-				setState((prevState) => ({
-					...prevState,
-					hasError: true,
-					isLoading: false,
-				}));
+				setHasError(true);
+				setIsLoading(false);
 				console.error('Ошибка загрузки данных:', error);
 			}
 		};
-		fetchData();
+		getDataIngredients();
 	}, []);
+
+	if (data.length === 0) {
+		return <div className='text text_type_main-small'>Загрузка...</div>;
+	}
+	if (isLoading) {
+		return <div className='text text_type_main-small'>Загрузка...</div>;
+	}
+
+	if (hasError) {
+		return (
+			<div className='text text_type_main-small'>
+				Произошла ошибка при загрузке данных
+			</div>
+		);
+	}
+
 	return (
 		<div className={s.page}>
 			<Header />
 			<section className={s.main}>
-				<BurgerIngredients ingredients={state.data} />
-				<BurgerConstructor ingredients={state.data} />
+				<BurgerIngredients ingredients={data} />
+				<BurgerConstructor ingredients={data} />
 			</section>
 		</div>
 	);

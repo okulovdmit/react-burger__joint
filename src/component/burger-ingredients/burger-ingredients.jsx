@@ -1,13 +1,12 @@
 import * as PropTypes from 'prop-types';
 import sIngredients from './burger-ingredients.module.scss';
 import { IngredientCard } from '../ingredient-card/ingredient-card';
-import { ingridientsData } from '../../utils/data';
 import { ingredientPropType } from '../../utils/prop-type';
 
-const BurgerIngredients = () => {
-	const bunFilter = ingridientsData.filter((item) => item.type === 'bun');
-	const sauceFilter = ingridientsData.filter((item) => item.type === 'sauce');
-	const mainFilter = ingridientsData.filter((item) => item.type === 'main');
+const BurgerIngredients = ({ ingredients }) => {
+	const bunFilter = ingredients.filter((item) => item.type === 'bun');
+	const sauceFilter = ingredients.filter((item) => item.type === 'sauce');
+	const mainFilter = ingredients.filter((item) => item.type === 'main');
 	return (
 		<section className={sIngredients.main}>
 			<h1 className={'text text_type_main-large mt-10'}>Соберите бургер</h1>
@@ -41,6 +40,6 @@ const BurgerIngredients = () => {
 };
 
 BurgerIngredients.propTypes = {
-	ingredientsData: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
+	ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
 };
 export default BurgerIngredients;

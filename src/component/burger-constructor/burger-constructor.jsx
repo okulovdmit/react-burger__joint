@@ -1,39 +1,22 @@
 import * as PropTypes from 'prop-types';
 import sConstructor from './burger-constructor.module.scss';
-import { ingridientsData } from '../../utils/data';
+import Bun from './bun';
 import { ConsctructorIngredients } from '../constructor-ingredients/constructor-ingredients';
 import {
-	ConstructorElement,
 	CurrencyIcon,
 	Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientPropType } from '../../utils/prop-type';
 
-const BurgerConstructor = () => {
-	const filterOther = ingridientsData.filter((el) => el.type !== 'bun');
-	const filterBun = ingridientsData.filter((el) => el.type === 'bun');
+const BurgerConstructor = ({ ingredients }) => {
+	const filterOther = ingredients.filter((el) => el.type !== 'bun');
+	const filterBun = ingredients.filter((el) => el.type === 'bun');
+
 	return (
 		<section className={`${sConstructor.main} mt-6 pr-4`}>
-			<div className={'mr-10'}>
-				<ConstructorElement
-					type='top'
-					isLocked={true}
-					text={filterBun[0].name}
-					price={filterBun[0].price}
-					thumbnail={filterBun[0].image}
-					className={'mr-10'}
-				/>
-			</div>
+			<Bun type={'top'} bun={filterBun} />
 			<ConsctructorIngredients data={filterOther} />
-			<div className={'mr-10'}>
-				<ConstructorElement
-					type='bottom'
-					isLocked={true}
-					text={filterBun[0].name}
-					price={filterBun[0].price}
-					thumbnail={filterBun[0].image}
-				/>
-			</div>
+			<Bun type={'bottom'} bun={filterBun} />
 			<div className={`${sConstructor.total} mt-10 mr-4`}>
 				<div className={sConstructor.cost}>
 					<p className={'text text_type_main-medium'}>1000</p>
@@ -48,7 +31,7 @@ const BurgerConstructor = () => {
 };
 
 BurgerConstructor.propTypes = {
-	ingredientsData: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
+	ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
 };
 
 export default BurgerConstructor;
