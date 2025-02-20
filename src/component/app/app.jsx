@@ -5,16 +5,24 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import OrderDetailes from '../order-detailes/order-detailes';
+
+const url = 'https://norma.nomoreparties.space/api/ingredients';
 
 export const App = () => {
 	const [data, setData] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [hasError, setHasError] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
+	const [isOpenOrder, setIsOpenOrder] = useState(false);
 	const [selectedProduct, setSelectedProduct] = useState(null);
 
 	const toggle = () => {
 		setIsOpen(!isOpen);
+	};
+
+	const toggleOrder = () => {
+		setIsOpenOrder(!isOpenOrder);
 	};
 
 	const getProduct = (product) => {
@@ -22,13 +30,15 @@ export const App = () => {
 		toggle();
 	};
 
+	const getOrder = () => {
+		toggleOrder();
+	};
+
 	useEffect(() => {
 		const getDataIngredients = async () => {
 			setIsLoading(true);
 			try {
-				const response = await fetch(
-					'https://norma.nomoreparties.space/api/ingredients'
-				);
+				const response = await fetch(url);
 				if (!response.ok) {
 					throw new Error(`HTTP error! status: ${response.status}`);
 				}
@@ -45,7 +55,7 @@ export const App = () => {
 	}, []);
 
 	if (data.length === 0) {
-		return <div className='text text_type_main-small'>Немного подождать</div>;
+		return <div className='text text_type_main-small'>Немного подождeм</div>;
 	}
 	if (isLoading) {
 		return <div className='text text_type_main-small'>Загрузка...</div>;
@@ -68,7 +78,7 @@ export const App = () => {
 					toggle={toggle}
 					getProduct={getProduct}
 				/>
-				<BurgerConstructor ingredients={data} />
+				<BurgerConstructor getOrder={getOrder} ingredients={data} />
 			</section>
 			{isOpen && (
 				<>
@@ -77,6 +87,7 @@ export const App = () => {
 					</Modal>
 				</>
 			)}
+			{isOpenOrder && <OrderDetailes toggleOrder={toggleOrder} />}
 		</div>
 	);
 };
