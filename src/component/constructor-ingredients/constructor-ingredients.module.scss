@@ -1,0 +1,14 @@
+.group {
+	height: 480px;
+	overflow-y: auto;
+	display: flex;
+	flex-flow: column;
+	// align-items: center;
+	gap: 16px;
+}
+
+.item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}

@@ -1,0 +1,32 @@
+.modal {
+	background-color: #1c1c21;
+	width: 720px;
+	height: 539px;
+	border: 1px solid #4c4cff33;
+	border-radius: 40px;
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+}
+
+.header {
+	height: 64px;
+	width: 640px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.info {
+	gap: 20px;
+}
+.item {
+	width: 516px;
+	height: 56px;
+	display: flex;
+	flex-flow: column;
+	justify-content: space-between;
+	align-items: center;
+}
+.close {
+	cursor: pointer;
+}

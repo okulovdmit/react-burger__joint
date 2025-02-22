@@ -1,0 +1,19 @@
+.details {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+}
+.info {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+}
+.item {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	justify-content: space-around;
+}
+.image {
+	height: 240px;
+}

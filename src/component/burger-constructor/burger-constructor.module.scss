@@ -1,0 +1,20 @@
+.main {
+	width: 600px;
+	padding-top: 100px;
+	display: flex;
+	flex-flow: column;
+	align-items: flex-end;
+}
+
+.total {
+	display: flex;
+	justify-content: flex-end;
+	gap: 10px;
+	margin-bottom: 100px;
+}
+.cost {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 8px;
+}
