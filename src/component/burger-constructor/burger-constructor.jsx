@@ -14,9 +14,9 @@ const BurgerConstructor = ({ getOrder, ingredients }) => {
 
 	return (
 		<section className={`${sConstructor.main} mt-6 pr-4`}>
-			<Bun type={'top'} bun={filterBun} />
+			<Bun type={'top'} bun={filterBun} text={'верх'} />
 			<ConsctructorIngredients data={filterOther} />
-			<Bun type={'bottom'} bun={filterBun} />
+			<Bun type={'bottom'} bun={filterBun} text={'низ'} />
 			<div className={`${sConstructor.total} mt-10 mr-4`}>
 				<div className={sConstructor.cost}>
 					<p className={'text text_type_main-medium'}>1000</p>
