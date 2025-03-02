@@ -2,6 +2,7 @@ import * as PropTypes from 'prop-types';
 import sIngredients from './burger-ingredients.module.scss';
 import { IngredientCard } from '../ingredient-card/ingredient-card';
 import { ingredientPropType } from '../../utils/prop-type';
+import { Tabs } from '../tabs/tabs';
 
 const BurgerIngredients = ({ ingredients, toggle, getProduct }) => {
 	const bunFilter = ingredients.filter((item) => item.type === 'bun');
@@ -10,17 +11,7 @@ const BurgerIngredients = ({ ingredients, toggle, getProduct }) => {
 	return (
 		<section className={sIngredients.main}>
 			<h1 className={'text text_type_main-large mt-10'}>Соберите бургер</h1>
-			<div className={`${sIngredients.tab} mt-5`}>
-				<button className={`${sIngredients.btn} text text_type_main-default`}>
-					Булки
-				</button>
-				<button className={`${sIngredients.btn} text text_type_main-default`}>
-					Соусы
-				</button>
-				<button className={`${sIngredients.btn} text text_type_main-default`}>
-					Начинки
-				</button>
-			</div>
+			<Tabs />
 			<div className={`${sIngredients.ingredients} custom-scroll`}>
 				<h2 className={'text text_type_main-medium mt-10'}>Булки</h2>
 				<div className={sIngredients.cards}>

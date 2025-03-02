@@ -14,7 +14,8 @@ export const Header = () => {
 					<BurgerIcon type='primary' />
 					<span>Конструктор</span>
 				</button>
-				<button className={`${sHeader.btns}  text_type_main-default`}>
+				<button
+					className={`${sHeader.btns}  text_type_main-default text_color_inactive`}>
 					<ListIcon type='primary' />
 					<span>Лента заказов</span>
 				</button>
@@ -22,7 +23,8 @@ export const Header = () => {
 
 			<Logo />
 			<div className={sHeader.item}>
-				<button className={`${sHeader.btns} text_type_main-default`}>
+				<button
+					className={`${sHeader.btns} text_type_main-default text_color_inactive`}>
 					<ProfileIcon type='primary' />
 					<span>Личный кабинет</span>
 				</button>
