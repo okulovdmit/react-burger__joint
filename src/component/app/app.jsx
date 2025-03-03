@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import s from './app.module.scss';
 import { Header } from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
@@ -6,13 +7,18 @@ import BurgerConstructor from '../burger-constructor/burger-constructor';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetailes from '../order-detailes/order-detailes';
-
-const url = 'https://norma.nomoreparties.space/api/ingredients';
+import { loadIngredients } from '../../services/ingredients/action';
+import {
+	getAllIngredients,
+	getIngredientsLoading,
+	getIngredientsError,
+} from '../../services/ingredients/reducer';
 
 export const App = () => {
-	const [data, setData] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
-	const [hasError, setHasError] = useState(false);
+	const dispatch = useDispatch();
+	const data = useSelector(getAllIngredients);
+	const isLoading = useSelector(getIngredientsLoading);
+	const hasError = useSelector(getIngredientsError);
 	const [isOpen, setIsOpen] = useState(false);
 	const [isOpenOrder, setIsOpenOrder] = useState(false);
 	const [selectedProduct, setSelectedProduct] = useState(null);
@@ -38,28 +44,9 @@ export const App = () => {
 	}, [toggleOrder]);
 
 	useEffect(() => {
-		const getDataIngredients = async () => {
-			setIsLoading(true);
-			try {
-				const response = await fetch(url);
-				if (!response.ok) {
-					throw new Error(`HTTP error! status: ${response.status}`);
-				}
-				const result = await response.json();
-				setData(result.data);
-				setIsLoading(false);
-			} catch (error) {
-				setHasError(true);
-				setIsLoading(false);
-				console.error('Ошибка загрузки данных:', error);
-			}
-		};
-		getDataIngredients();
-	}, []);
+		dispatch(loadIngredients());
+	}, [dispatch]);
 
-	if (data.length === 0) {
-		return <div className='text text_type_main-small'>Немного подождeм</div>;
-	}
 	if (isLoading) {
 		return <div className='text text_type_main-small'>Загрузка...</div>;
 	}
@@ -70,6 +57,9 @@ export const App = () => {
 				Произошла ошибка при загрузке данных
 			</div>
 		);
+	}
+	if (data.length === 0) {
+		return <h2>No ingredients</h2>;
 	}
 
 	return (
