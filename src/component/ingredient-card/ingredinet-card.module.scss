@@ -12,10 +12,16 @@
 	justify-content: center;
 	align-items: center;
 	gap: 4px;
+	position: relative;
 }
 .item {
 	display: flex;
 	align-items: flex-start;
 	justify-content: center;
 	gap: 4px;
+}
+.count {
+	position: absolute;
+	top: 0;
+	right: 0;
 }

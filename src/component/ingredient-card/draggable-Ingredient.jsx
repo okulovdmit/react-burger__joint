@@ -1,8 +1,14 @@
 import sCard from './ingredinet-card.module.scss';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import {
+	CurrencyIcon,
+	Counter,
+} from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag } from 'react-dnd';
+import { useSelector } from 'react-redux';
+import { getIngredientCounts } from '../../services/ingredients/reducer';
 
 export const DraggableIngredient = ({ item, getProduct }) => {
+	const ingredientCounts = useSelector(getIngredientCounts);
 	const [{ isDragging }, dragRef] = useDrag({
 		type: 'ingredients',
 		item: item,
@@ -27,6 +33,13 @@ export const DraggableIngredient = ({ item, getProduct }) => {
 			<div className={sCard.item}>
 				<p className={'text text_type_main-default'}>{item.name}</p>
 			</div>
+			{ingredientCounts[item._id] > 0 && (
+				<Counter
+					count={ingredientCounts[item._id]}
+					size='default'
+					extraClass='m-1'
+				/>
+			)}
 		</div>
 	);
 };

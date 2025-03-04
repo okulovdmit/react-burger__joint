@@ -7,6 +7,7 @@ const initialState = {
 	error: null,
 	selectedIngredients: [],
 	selectedBun: null,
+	ingredientCounts: {},
 };
 
 export const ingredientsSlice = createSlice({
@@ -14,15 +15,33 @@ export const ingredientsSlice = createSlice({
 	initialState,
 	reducers: {
 		addIngredient: (state, action) => {
+			const ingredient = action.payload;
 			state.selectedIngredients.push(action.payload);
+			if (state.ingredientCounts[ingredient._id]) {
+				state.ingredientCounts[ingredient._id]++;
+			} else {
+				state.ingredientCounts[ingredient._id] = 1;
+			}
 		},
 		addBun: (state, action) => {
-			state.selectedBun = action.payload;
+			const bun = action.payload;
+			if (state.selectedBun) {
+				const oldBunId = state.selectedBun._id;
+				if (state.ingredientCounts[oldBunId]) {
+					delete state.ingredientCounts[oldBunId];
+				}
+			}
+			state.selectedBun = bun;
+			state.ingredientCounts[bun._id] = 2;
 		},
 		deleteIngredient: (state, action) => {
+			const ingredientId = action.payload;
 			state.selectedIngredients = state.selectedIngredients.filter(
 				(ingredient) => ingredient._id !== action.payload
 			);
+			if (state.ingredientCounts[ingredientId]) {
+				delete state.ingredientCounts[ingredientId];
+			}
 		},
 	},
 	selectors: {
@@ -31,6 +50,7 @@ export const ingredientsSlice = createSlice({
 		getIngredientsError: (state) => state.error,
 		getSelectedIngredients: (state) => state.selectedIngredients,
 		getSelectedBun: (state) => state.selectedBun,
+		getIngredientCounts: (state) => state.ingredientCounts,
 	},
 	extraReducers: (builder) => {
 		builder
@@ -54,4 +74,5 @@ export const {
 	getIngredientsError,
 	getSelectedIngredients,
 	getSelectedBun,
+	getIngredientCounts,
 } = ingredientsSlice.selectors;
