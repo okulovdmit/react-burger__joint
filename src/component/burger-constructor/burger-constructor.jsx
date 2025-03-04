@@ -1,4 +1,5 @@
 import * as PropTypes from 'prop-types';
+import { useCallback } from 'react';
 import sConstructor from './burger-constructor.module.scss';
 import Bun from './bun';
 import { ConsctructorIngredients } from '../constructor-ingredients/constructor-ingredients';
@@ -11,9 +12,11 @@ import {
 	getSelectedBun,
 	getSelectedIngredients,
 } from '../../services/ingredients/reducer';
-import { useSelector } from 'react-redux';
+import { getOrder } from '../../services/ingredients/action';
+import { useSelector, useDispatch } from 'react-redux';
 
-const BurgerConstructor = ({ getOrder, onDropHandler, onHandlerDelete }) => {
+const BurgerConstructor = ({ toggleOrder, onDropHandler, onHandlerDelete }) => {
+	const dispatch = useDispatch();
 	const bun = useSelector(getSelectedBun);
 	const ingredients = useSelector(getSelectedIngredients);
 
@@ -23,6 +26,18 @@ const BurgerConstructor = ({ getOrder, onDropHandler, onHandlerDelete }) => {
 	);
 	const bunCost = bun ? bun.price * 2 : 0;
 	const total = bunCost + ingredientsCost;
+
+	const gettingOrder = useCallback(() => {
+		const ingredientIds = [];
+		if (bun) {
+			ingredientIds.push(bun._id);
+		}
+		ingredients.forEach((ingredient) => {
+			ingredientIds.push(ingredient._id);
+		});
+		dispatch(getOrder(ingredientIds));
+		toggleOrder();
+	}, [dispatch, bun, ingredients, toggleOrder]);
 
 	return (
 		<section className={`${sConstructor.main} mt-6 pr-4`}>
@@ -41,7 +56,7 @@ const BurgerConstructor = ({ getOrder, onDropHandler, onHandlerDelete }) => {
 					htmlType='button'
 					type='primary'
 					size='large'
-					onClick={() => getOrder()}>
+					onClick={() => gettingOrder()}>
 					Оформить заказ
 				</Button>
 			</div>

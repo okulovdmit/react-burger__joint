@@ -19,3 +19,13 @@ export const getIngredients = () => {
 		headers: ingredientsApiConfig.headers,
 	}).then(getResponse);
 };
+
+export const getNumber = (ingredientIds) => {
+	return fetch('https://norma.nomoreparties.space/api/orders', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({ ingredients: ingredientIds }),
+	}).then(getResponse);
+};

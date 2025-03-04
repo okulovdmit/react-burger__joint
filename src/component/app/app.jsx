@@ -63,10 +63,6 @@ export const App = () => {
 		[toggle]
 	);
 
-	const getOrder = useCallback(() => {
-		toggleOrder();
-	}, [toggleOrder]);
-
 	useEffect(() => {
 		dispatch(loadIngredients());
 	}, [dispatch]);
@@ -93,8 +89,8 @@ export const App = () => {
 				<section className={s.main}>
 					<BurgerIngredients toggle={toggle} getProduct={getProduct} />
 					<BurgerConstructor
+						toggleOrder={toggleOrder}
 						onDropHandler={handleDrop}
-						getOrder={getOrder}
 						onHandlerDelete={handleDeleteIngredient}
 					/>
 				</section>

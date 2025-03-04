@@ -1,4 +1,4 @@
-import { loadIngredients } from './action.js';
+import { loadIngredients, getOrder } from './action.js';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -8,6 +8,9 @@ const initialState = {
 	selectedIngredients: [],
 	selectedBun: null,
 	ingredientCounts: {},
+	orderNumber: null,
+	orderLoading: false,
+	orderError: null,
 };
 
 export const ingredientsSlice = createSlice({
@@ -51,6 +54,9 @@ export const ingredientsSlice = createSlice({
 		getSelectedIngredients: (state) => state.selectedIngredients,
 		getSelectedBun: (state) => state.selectedBun,
 		getIngredientCounts: (state) => state.ingredientCounts,
+		getOrderNumber: (state) => state.orderNumber,
+		getOrderLoading: (state) => state.orderLoading,
+		getOrderError: (state) => state.orderError,
 	},
 	extraReducers: (builder) => {
 		builder
@@ -64,6 +70,17 @@ export const ingredientsSlice = createSlice({
 			.addCase(loadIngredients.fulfilled, (state, action) => {
 				state.ingredients = action.payload.data;
 				state.loading = false;
+			})
+			.addCase(getOrder.pending, (state) => {
+				state.orderLoading = true;
+			})
+			.addCase(getOrder.fulfilled, (state, action) => {
+				state.orderNumber = action.payload.order.number;
+				state.orderLoading = false;
+			})
+			.addCase(getOrder.rejected, (state, action) => {
+				state.orderLoading = false;
+				state.orderError = action.error?.message;
 			});
 	},
 });
@@ -75,4 +92,7 @@ export const {
 	getSelectedIngredients,
 	getSelectedBun,
 	getIngredientCounts,
+	getOrderNumber,
+	getOrderLoading,
+	getOrderError,
 } = ingredientsSlice.selectors;

@@ -27,9 +27,13 @@ export default function Modal({ toggle, children }) {
 				aria-hidden='true'>
 				<header className={`${sModal.header} mt-10 ml-10 mr-10`}>
 					<h2 className={'text text_type_main-large'}>Детали заказа</h2>
-					<bitton className={sModal.close} onClick={toggle}>
+					<div
+						role='button'
+						className={sModal.close}
+						onClick={toggle}
+						aria-hidden='true'>
 						<CloseIcon type='primary' />
-					</bitton>
+					</div>
 				</header>
 				<main>{children}</main>
 			</div>
