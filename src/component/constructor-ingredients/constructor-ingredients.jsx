@@ -22,8 +22,8 @@ export const ConsctructorIngredients = ({ onDropHandler, onHandlerDelete }) => {
 			className={`${sIngredients.group} m-4 custom-scroll`}
 			onClick={(e) => e.stopPropagation()}
 			aria-hidden='true'>
-			{ingredients.map((item) => (
-				<div key={item._id} className={sIngredients.item}>
+			{ingredients.map((item, index) => (
+				<div key={index} className={sIngredients.item}>
 					<DragIcon type='primary' />
 					<ConstructorElement
 						text={item.name}
