@@ -1,5 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import s from './app.module.scss';
 import { Header } from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
@@ -7,7 +9,12 @@ import BurgerConstructor from '../burger-constructor/burger-constructor';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetailes from '../order-detailes/order-detailes';
-import { loadIngredients } from '../../services/ingredients/action';
+import {
+	loadIngredients,
+	addIngredient,
+	addBun,
+	deleteIngredient,
+} from '../../services/ingredients/action';
 import {
 	getAllIngredients,
 	getIngredientsLoading,
@@ -22,6 +29,23 @@ export const App = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isOpenOrder, setIsOpenOrder] = useState(false);
 	const [selectedProduct, setSelectedProduct] = useState(null);
+
+	const handleDrop = useCallback(
+		(item) => {
+			if (item.type === 'bun') {
+				dispatch(addBun(item));
+			} else {
+				dispatch(addIngredient(item));
+			}
+		},
+		[dispatch]
+	);
+	const handleDeleteIngredient = useCallback(
+		(id) => {
+			dispatch(deleteIngredient(id));
+		},
+		[dispatch]
+	);
 
 	const toggle = useCallback(() => {
 		setIsOpen(!isOpen);
@@ -65,14 +89,17 @@ export const App = () => {
 	return (
 		<div className={s.page}>
 			<Header />
-			<section className={s.main}>
-				<BurgerIngredients
-					ingredients={data}
-					toggle={toggle}
-					getProduct={getProduct}
-				/>
-				<BurgerConstructor getOrder={getOrder} ingredients={data} />
-			</section>
+			<DndProvider backend={HTML5Backend}>
+				<section className={s.main}>
+					<BurgerIngredients toggle={toggle} getProduct={getProduct} />
+					<BurgerConstructor
+						onDropHandler={handleDrop}
+						getOrder={getOrder}
+						onHandlerDelete={handleDeleteIngredient}
+					/>
+				</section>
+			</DndProvider>
+
 			{isOpen && (
 				<>
 					<Modal toggle={toggle}>

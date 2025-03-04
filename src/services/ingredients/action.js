@@ -7,3 +7,18 @@ export const loadIngredients = createAsyncThunk(
 		return getIngredients();
 	}
 );
+
+export const addIngredient = (ingredient) => ({
+	type: 'ingredients/addIngredient',
+	payload: ingredient,
+});
+
+export const deleteIngredient = (id) => ({
+	type: 'ingredients/deleteIngredient',
+	payload: id,
+});
+
+export const addBun = (bun) => ({
+	type: 'ingredients/addBun',
+	payload: bun,
+});

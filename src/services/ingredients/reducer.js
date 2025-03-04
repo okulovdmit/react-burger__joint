@@ -5,16 +5,32 @@ const initialState = {
 	ingredients: [],
 	loading: false,
 	error: null,
+	selectedIngredients: [],
+	selectedBun: null,
 };
 
 export const ingredientsSlice = createSlice({
 	name: 'ingredients',
 	initialState,
-	reducers: {},
+	reducers: {
+		addIngredient: (state, action) => {
+			state.selectedIngredients.push(action.payload);
+		},
+		addBun: (state, action) => {
+			state.selectedBun = action.payload;
+		},
+		deleteIngredient: (state, action) => {
+			state.selectedIngredients = state.selectedIngredients.filter(
+				(ingredient) => ingredient._id !== action.payload
+			);
+		},
+	},
 	selectors: {
 		getAllIngredients: (state) => state.ingredients,
 		getIngredientsLoading: (state) => state.loading,
 		getIngredientsError: (state) => state.error,
+		getSelectedIngredients: (state) => state.selectedIngredients,
+		getSelectedBun: (state) => state.selectedBun,
 	},
 	extraReducers: (builder) => {
 		builder
@@ -32,5 +48,10 @@ export const ingredientsSlice = createSlice({
 	},
 });
 
-export const { getAllIngredients, getIngredientsLoading, getIngredientsError } =
-	ingredientsSlice.selectors;
+export const {
+	getAllIngredients,
+	getIngredientsLoading,
+	getIngredientsError,
+	getSelectedIngredients,
+	getSelectedBun,
+} = ingredientsSlice.selectors;

@@ -1,20 +1,31 @@
 .main {
+	height: 912px;
 	width: 600px;
 	padding-top: 100px;
 	display: flex;
 	flex-flow: column;
 	align-items: flex-end;
+	position: relative;
 }
 
 .total {
 	display: flex;
 	justify-content: flex-end;
 	gap: 10px;
-	margin-bottom: 100px;
+	margin-bottom: 120px;
+	// position: absolute;
+	// bottom: 50px;
+	// right: 16px;
 }
 .cost {
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
 	gap: 8px;
+}
+.bun {
+	height: 100px;
+	width: 500px;
+	background: rgba(120, 120, 120, 0.51);
+	border-radius: 30px;
 }

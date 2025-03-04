@@ -8,15 +8,18 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { ingredientPropType } from '../../utils/prop-type';
 
-const BurgerConstructor = ({ getOrder, ingredients }) => {
-	const filterOther = ingredients.filter((el) => el.type !== 'bun');
-	const filterBun = ingredients.filter((el) => el.type === 'bun');
+const BurgerConstructor = ({ getOrder, onDropHandler, onHandlerDelete }) => {
+	// const filterOther = ingredients.filter((el) => el.type !== 'bun');
+	// const filterBun = ingredients.filter((el) => el.type === 'bun');
 
 	return (
 		<section className={`${sConstructor.main} mt-6 pr-4`}>
-			<Bun type={'top'} bun={filterBun} text={'верх'} />
-			<ConsctructorIngredients data={filterOther} />
-			<Bun type={'bottom'} bun={filterBun} text={'низ'} />
+			<Bun type={'top'} text={'верх'} onDropHandler={onDropHandler} />
+			<ConsctructorIngredients
+				onDropHandler={onDropHandler}
+				onHandlerDelete={onHandlerDelete}
+			/>
+			<Bun type={'bottom'} text={'низ'} onDropHandler={onDropHandler} />
 			<div className={`${sConstructor.total} mt-10 mr-4`}>
 				<div className={sConstructor.cost}>
 					<p className={'text text_type_main-medium'}>1000</p>

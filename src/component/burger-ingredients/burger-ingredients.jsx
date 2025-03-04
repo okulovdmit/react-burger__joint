@@ -1,15 +1,18 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import * as PropTypes from 'prop-types';
 import sIngredients from './burger-ingredients.module.scss';
 import { IngredientCard } from '../ingredient-card/ingredient-card';
 import { ingredientPropType } from '../../utils/prop-type';
 import { Tabs } from '../tabs/tabs';
 import { Section } from '../tabs/section';
+import { getAllIngredients } from '../../services/ingredients/reducer';
 
-const BurgerIngredients = ({ ingredients, toggle, getProduct }) => {
-	const bunFilter = ingredients.filter((item) => item.type === 'bun');
-	const sauceFilter = ingredients.filter((item) => item.type === 'sauce');
-	const mainFilter = ingredients.filter((item) => item.type === 'main');
+const BurgerIngredients = ({ toggle, getProduct }) => {
+	const data = useSelector(getAllIngredients);
+	const bunFilter = data.filter((item) => item.type === 'bun');
+	const sauceFilter = data.filter((item) => item.type === 'sauce');
+	const mainFilter = data.filter((item) => item.type === 'main');
 
 	const [activeTab, setActiveTab] = useState('булки');
 
@@ -60,6 +63,6 @@ const BurgerIngredients = ({ ingredients, toggle, getProduct }) => {
 };
 
 BurgerIngredients.propTypes = {
-	ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
+	data: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
 };
 export default BurgerIngredients;
