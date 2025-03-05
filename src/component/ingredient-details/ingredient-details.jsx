@@ -1,12 +1,12 @@
 import sDetails from './ingredient-details.module.scss';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-export default function IngredientDetails({ product }) {
+export default function IngredientDetails({ product, toggle }) {
 	const { name, image, calories, proteins, fat, carbohydrates } = product;
 	return (
 		<div className={`${sDetails.details} mb-15`}>
 			<header className={`${sDetails.header} mt-10 ml-10 mr-10`}>
 				<h2 className={'text text_type_main-large'}>Детали заказа</h2>
-				<div className={sModal.close}>
+				<div aria-hidden='true' className={sDetails.close} onClick={toggle}>
 					<CloseIcon type='primary' />
 				</div>
 			</header>

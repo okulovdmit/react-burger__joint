@@ -4,10 +4,14 @@ import {
 	CheckMarkIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 
-export default function OrderDetailes({ number }) {
+export default function OrderDetailes({ toggle, number }) {
 	return (
 		<div className={sOrder.order}>
-			<div role='button' className={sOrder.close}>
+			<div
+				aria-hidden='true'
+				role='button'
+				className={sOrder.close}
+				onClick={toggle}>
 				<CloseIcon type='primary' />
 			</div>
 			<p className={'text text_type_digits-large mt-30'}>{number}</p>

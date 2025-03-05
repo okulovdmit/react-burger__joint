@@ -109,14 +109,14 @@ export const App = () => {
 			{isOpen && (
 				<>
 					<Modal toggle={toggle}>
-						<IngredientDetails product={selectedProduct} />
+						<IngredientDetails toggle={toggle} product={selectedProduct} />
 					</Modal>
 				</>
 			)}
 			{isOpenOrder && (
 				<>
 					<Modal toggle={toggleOrder}>
-						<OrderDetailes number={number} />
+						<OrderDetailes toggle={toggleOrder} number={number} />
 					</Modal>
 				</>
 			)}
