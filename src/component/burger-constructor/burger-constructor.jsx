@@ -7,7 +7,7 @@ import {
 	CurrencyIcon,
 	Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ingredientPropType } from '../../utils/prop-type';
+// import { ingredientPropType } from '../../utils/prop-type';
 import {
 	getSelectedBun,
 	getSelectedIngredients,
@@ -71,7 +71,11 @@ const BurgerConstructor = ({
 };
 
 BurgerConstructor.propTypes = {
-	ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
+	// ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
+	toggleOrder: PropTypes.func.isRequired,
+	onDropHandler: PropTypes.func.isRequired,
+	onHandlerDelete: PropTypes.func.isRequired,
+	onMoveIngredient: PropTypes.func.isRequired,
 };
 
 export default BurgerConstructor;
