@@ -18,6 +18,7 @@ import {
 	getAllIngredients,
 	getIngredientsLoading,
 	getIngredientsError,
+	getOrderNumber,
 } from '../../services/ingredients/reducer';
 
 export const App = () => {
@@ -25,6 +26,7 @@ export const App = () => {
 	const data = useSelector(getAllIngredients);
 	const isLoading = useSelector(getIngredientsLoading);
 	const hasError = useSelector(getIngredientsError);
+	const number = useSelector(getOrderNumber);
 	const [isOpen, setIsOpen] = useState(false);
 	const [isOpenOrder, setIsOpenOrder] = useState(false);
 	const [selectedProduct, setSelectedProduct] = useState(null);
@@ -109,7 +111,13 @@ export const App = () => {
 					</Modal>
 				</>
 			)}
-			{isOpenOrder && <OrderDetailes toggleOrder={toggleOrder} />}
+			{isOpenOrder && (
+				<>
+					<Modal toggle={toggleOrder}>
+						<OrderDetailes number={number} />
+					</Modal>
+				</>
+			)}
 		</div>
 	);
 };

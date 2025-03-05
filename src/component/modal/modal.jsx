@@ -2,7 +2,6 @@ import { createPortal } from 'react-dom';
 import { useEffect, useCallback } from 'react';
 import sModal from './modal.module.scss';
 import ModalOverlay from '../modal-overlay/modal-overlay';
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const rootModal = document.getElementById('root-modal');
 export default function Modal({ toggle, children }) {
@@ -25,17 +24,7 @@ export default function Modal({ toggle, children }) {
 				className={sModal.modal}
 				onClick={(e) => e.stopPropagation()}
 				aria-hidden='true'>
-				<header className={`${sModal.header} mt-10 ml-10 mr-10`}>
-					<h2 className={'text text_type_main-large'}>Детали заказа</h2>
-					<div
-						role='button'
-						className={sModal.close}
-						onClick={toggle}
-						aria-hidden='true'>
-						<CloseIcon type='primary' />
-					</div>
-				</header>
-				<main>{children}</main>
+				{children}
 			</div>
 		</ModalOverlay>,
 		rootModal
