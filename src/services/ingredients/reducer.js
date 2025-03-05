@@ -46,6 +46,13 @@ export const ingredientsSlice = createSlice({
 				delete state.ingredientCounts[ingredientId];
 			}
 		},
+		moveIngredient: (state, action) => {
+			const { dragIndex, hoverIndex } = action.payload;
+			const draggedItem = state.selectedIngredients[dragIndex];
+			state.selectedIngredients[dragIndex] =
+				state.selectedIngredients[hoverIndex];
+			state.selectedIngredients[hoverIndex] = draggedItem;
+		},
 	},
 	selectors: {
 		getAllIngredients: (state) => state.ingredients,

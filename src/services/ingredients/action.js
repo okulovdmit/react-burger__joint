@@ -27,3 +27,8 @@ export const addBun = (bun) => ({
 	type: 'ingredients/addBun',
 	payload: bun,
 });
+
+export const moveIngredient = (dragIndex, hoverIndex) => ({
+	type: 'ingredients/moveIngredient',
+	payload: { dragIndex, hoverIndex },
+});

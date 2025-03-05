@@ -14,6 +14,7 @@ import {
 	addIngredient,
 	addBun,
 	deleteIngredient,
+	moveIngredient,
 } from '../../services/ingredients/action';
 import {
 	getAllIngredients,
@@ -43,6 +44,12 @@ export const App = () => {
 	const handleDeleteIngredient = useCallback(
 		(id) => {
 			dispatch(deleteIngredient(id));
+		},
+		[dispatch]
+	);
+	const handleMoveIngredient = useCallback(
+		(dragIndex, hoverIndex) => {
+			dispatch(moveIngredient(dragIndex, hoverIndex));
 		},
 		[dispatch]
 	);
@@ -92,6 +99,7 @@ export const App = () => {
 						toggleOrder={toggleOrder}
 						onDropHandler={handleDrop}
 						onHandlerDelete={handleDeleteIngredient}
+						onMoveIngredient={handleMoveIngredient}
 					/>
 				</section>
 			</DndProvider>

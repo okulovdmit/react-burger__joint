@@ -1,13 +1,14 @@
 import sIngredients from './constructor-ingredients.module.scss';
-import {
-	ConstructorElement,
-	DragIcon,
-} from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrop } from 'react-dnd';
 import { useSelector } from 'react-redux';
 import { getSelectedIngredients } from '../../services/ingredients/reducer';
+import { RenderIngredient } from './render-ingredient';
 
-export const ConsctructorIngredients = ({ onDropHandler, onHandlerDelete }) => {
+export const ConsctructorIngredients = ({
+	onDropHandler,
+	onHandlerDelete,
+	onMoveIngredient,
+}) => {
 	const ingredients = useSelector(getSelectedIngredients);
 	const [, dropRef] = useDrop({
 		accept: 'ingredients',
@@ -23,17 +24,24 @@ export const ConsctructorIngredients = ({ onDropHandler, onHandlerDelete }) => {
 			onClick={(e) => e.stopPropagation()}
 			aria-hidden='true'>
 			{ingredients.map((item, index) => (
-				<div key={index} className={sIngredients.item}>
-					<DragIcon type='primary' />
-					<ConstructorElement
-						text={item.name}
-						price={item.price}
-						thumbnail={item.image}
-						handleClose={() => {
-							onHandlerDelete(item._id);
-						}}
-					/>
-				</div>
+				<RenderIngredient
+					key={item._id}
+					item={item}
+					index={index}
+					onHandlerDelete={onHandlerDelete}
+					onMoveIngredient={onMoveIngredient}
+				/>
+				// <div key={index} className={sIngredients.item}>
+				// 	<DragIcon type='primary' />
+				// 	<ConstructorElement
+				// 		text={item.name}
+				// 		price={item.price}
+				// 		thumbnail={item.image}
+				// 		handleClose={() => {
+				// 			onHandlerDelete(item._id);
+				// 		}}
+				// 	/>
+				// </div>
 			))}
 		</div>
 	);

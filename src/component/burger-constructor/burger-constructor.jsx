@@ -15,7 +15,12 @@ import {
 import { getOrder } from '../../services/ingredients/action';
 import { useSelector, useDispatch } from 'react-redux';
 
-const BurgerConstructor = ({ toggleOrder, onDropHandler, onHandlerDelete }) => {
+const BurgerConstructor = ({
+	toggleOrder,
+	onDropHandler,
+	onHandlerDelete,
+	onMoveIngredient,
+}) => {
 	const dispatch = useDispatch();
 	const bun = useSelector(getSelectedBun);
 	const ingredients = useSelector(getSelectedIngredients);
@@ -45,6 +50,7 @@ const BurgerConstructor = ({ toggleOrder, onDropHandler, onHandlerDelete }) => {
 			<ConsctructorIngredients
 				onDropHandler={onDropHandler}
 				onHandlerDelete={onHandlerDelete}
+				onMoveIngredient={onMoveIngredient}
 			/>
 			<Bun type={'bottom'} text={'низ'} onDropHandler={onDropHandler} />
 			<div className={`${sConstructor.total} mt-10 mr-4`}>
