@@ -29,28 +29,36 @@ export const ingredientsSlice = createSlice({
 				}
 			},
 			prepare: (item) => {
-				const key = uuidv4();
-				return { payload: { ...item, key: key } };
+				return { payload: { ...item, key: uuidv4() } };
 			},
 		},
-		addBun: (state, action) => {
-			const bun = action.payload;
-			if (state.selectedBun) {
-				const oldBunId = state.selectedBun._id;
-				if (state.ingredientCounts[oldBunId]) {
-					delete state.ingredientCounts[oldBunId];
+		addBun: {
+			reducer: (state, action) => {
+				const bun = action.payload;
+				if (state.selectedBun) {
+					const oldBunId = state.selectedBun._id;
+					if (state.ingredientCounts[oldBunId]) {
+						delete state.ingredientCounts[oldBunId];
+					}
 				}
-			}
-			state.selectedBun = bun;
-			state.ingredientCounts[bun._id] = 2;
+				state.selectedBun = bun;
+				state.ingredientCounts[bun._id] = 2;
+			},
+			prepare: (item) => {
+				return { payload: { ...item, key: uuidv4() } };
+			},
 		},
+
 		deleteIngredient: (state, action) => {
-			const ingredientId = action.payload;
 			state.selectedIngredients = state.selectedIngredients.filter(
 				(ingredient) => ingredient.key !== action.payload
 			);
-			if (state.ingredientCounts[ingredientId]) {
-				delete state.ingredientCounts[ingredientId];
+		},
+		deleteCounts: (state, action) => {
+			if (state.ingredientCounts[action.payload] > 1) {
+				state.ingredientCounts[action.payload]--;
+			} else if (state.ingredientCounts[action.payload] === 1) {
+				delete state.ingredientCounts[action.payload];
 			}
 		},
 		moveIngredient: (state, action) => {
@@ -111,5 +119,10 @@ export const {
 	getOrderError,
 } = ingredientsSlice.selectors;
 
-export const { addIngredient, addBun, deleteIngredient, moveIngredient } =
-	ingredientsSlice.actions;
+export const {
+	addIngredient,
+	addBun,
+	deleteIngredient,
+	deleteCounts,
+	moveIngredient,
+} = ingredientsSlice.actions;

@@ -14,6 +14,7 @@ import {
 	addIngredient,
 	addBun,
 	deleteIngredient,
+	deleteCounts,
 	moveIngredient,
 	getAllIngredients,
 	getIngredientsLoading,
@@ -42,8 +43,9 @@ export const App = () => {
 		[dispatch]
 	);
 	const handleDeleteIngredient = useCallback(
-		(id) => {
-			dispatch(deleteIngredient(id));
+		(key, id) => {
+			dispatch(deleteIngredient(key));
+			dispatch(deleteCounts(id));
 		},
 		[dispatch]
 	);

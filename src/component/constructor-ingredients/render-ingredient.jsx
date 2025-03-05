@@ -30,7 +30,6 @@ export const RenderIngredient = ({
 			}
 			const dragIndex = item.index;
 			const hoverIndex = index;
-
 			if (dragIndex === hoverIndex) {
 				return;
 			}
@@ -49,7 +48,7 @@ export const RenderIngredient = ({
 				dragIndex > hoverIndex && hoverClientY > hoverMiddleY;
 
 			if (isBelowHoverMiddle || isAboveHoverMiddle) {
-				onMoveIngredient(dragIndex, hoverIndex);
+				onMoveIngredient({ dragIndex, hoverIndex });
 				item.index = hoverIndex;
 			}
 		},
@@ -67,7 +66,7 @@ export const RenderIngredient = ({
 				text={item.name}
 				price={item.price}
 				thumbnail={item.image}
-				handleClose={() => onHandlerDelete(item.key)}
+				handleClose={() => onHandlerDelete(item.key, item._id)}
 			/>
 		</div>
 	);
