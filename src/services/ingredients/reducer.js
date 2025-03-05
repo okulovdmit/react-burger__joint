@@ -1,5 +1,6 @@
 import { loadIngredients, getOrder } from './action.js';
-import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid';
 
 const initialState = {
 	ingredients: [],
@@ -28,7 +29,8 @@ export const ingredientsSlice = createSlice({
 				}
 			},
 			prepare: (item) => {
-				return { payload: { ...item, key: nanoid() } };
+				const key = uuidv4();
+				return { payload: { ...item, key: key } };
 			},
 		},
 		addBun: (state, action) => {
@@ -45,7 +47,7 @@ export const ingredientsSlice = createSlice({
 		deleteIngredient: (state, action) => {
 			const ingredientId = action.payload;
 			state.selectedIngredients = state.selectedIngredients.filter(
-				(ingredient) => ingredient._id !== action.payload
+				(ingredient) => ingredient.key !== action.payload
 			);
 			if (state.ingredientCounts[ingredientId]) {
 				delete state.ingredientCounts[ingredientId];
@@ -108,3 +110,6 @@ export const {
 	getOrderLoading,
 	getOrderError,
 } = ingredientsSlice.selectors;
+
+export const { addIngredient, addBun, deleteIngredient, moveIngredient } =
+	ingredientsSlice.actions;

@@ -13,22 +13,22 @@ export const getOrder = createAsyncThunk(
 		return getNumber(id);
 	}
 );
-export const addIngredient = (ingredient) => ({
-	type: 'ingredients/addIngredient',
-	payload: ingredient,
-});
+// export const addIngredient = (ingredient) => ({
+// 	type: 'ingredients/addIngredient',
+// 	payload: ingredient,
+// });
 
-export const deleteIngredient = (id) => ({
-	type: 'ingredients/deleteIngredient',
-	payload: id,
-});
+// export const deleteIngredient = (id) => ({
+// 	type: 'ingredients/deleteIngredient',
+// 	payload: id,
+// });
 
-export const addBun = (bun) => ({
-	type: 'ingredients/addBun',
-	payload: bun,
-});
+// export const addBun = (bun) => ({
+// 	type: 'ingredients/addBun',
+// 	payload: bun,
+// });
 
-export const moveIngredient = (dragIndex, hoverIndex) => ({
-	type: 'ingredients/moveIngredient',
-	payload: { dragIndex, hoverIndex },
-});
+// export const moveIngredient = (dragIndex, hoverIndex) => ({
+// 	type: 'ingredients/moveIngredient',
+// 	payload: { dragIndex, hoverIndex },
+// });

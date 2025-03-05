@@ -67,7 +67,7 @@ export const RenderIngredient = ({
 				text={item.name}
 				price={item.price}
 				thumbnail={item.image}
-				handleClose={() => onHandlerDelete(item._id)}
+				handleClose={() => onHandlerDelete(item.key)}
 			/>
 		</div>
 	);

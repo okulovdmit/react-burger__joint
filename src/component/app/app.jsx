@@ -9,14 +9,12 @@ import BurgerConstructor from '../burger-constructor/burger-constructor';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetailes from '../order-detailes/order-detailes';
+import { loadIngredients } from '../../services/ingredients/action';
 import {
-	loadIngredients,
 	addIngredient,
 	addBun,
 	deleteIngredient,
 	moveIngredient,
-} from '../../services/ingredients/action';
-import {
 	getAllIngredients,
 	getIngredientsLoading,
 	getIngredientsError,

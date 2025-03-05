@@ -25,7 +25,7 @@ export const ConsctructorIngredients = ({
 			aria-hidden='true'>
 			{ingredients.map((item, index) => (
 				<RenderIngredient
-					key={index}
+					key={item.key}
 					item={item}
 					index={index}
 					onHandlerDelete={onHandlerDelete}
