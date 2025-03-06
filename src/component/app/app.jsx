@@ -1,4 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import s from './app.module.scss';
 import { Header } from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
@@ -6,16 +9,52 @@ import BurgerConstructor from '../burger-constructor/burger-constructor';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetailes from '../order-detailes/order-detailes';
-
-const url = 'https://norma.nomoreparties.space/api/ingredients';
+import { loadIngredients } from '../../services/ingredients/action';
+import {
+	addIngredient,
+	addBun,
+	deleteIngredient,
+	deleteCounts,
+	moveIngredient,
+	getAllIngredients,
+	getIngredientsLoading,
+	getIngredientsError,
+	getOrderNumber,
+} from '../../services/ingredients/reducer';
 
 export const App = () => {
-	const [data, setData] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
-	const [hasError, setHasError] = useState(false);
+	const dispatch = useDispatch();
+	const data = useSelector(getAllIngredients);
+	const isLoading = useSelector(getIngredientsLoading);
+	const hasError = useSelector(getIngredientsError);
+	const number = useSelector(getOrderNumber);
 	const [isOpen, setIsOpen] = useState(false);
 	const [isOpenOrder, setIsOpenOrder] = useState(false);
 	const [selectedProduct, setSelectedProduct] = useState(null);
+
+	const handleDrop = useCallback(
+		(item) => {
+			if (item.type === 'bun') {
+				dispatch(addBun(item));
+			} else {
+				dispatch(addIngredient(item));
+			}
+		},
+		[dispatch]
+	);
+	const handleDeleteIngredient = useCallback(
+		(key, id) => {
+			dispatch(deleteIngredient(key));
+			dispatch(deleteCounts(id));
+		},
+		[dispatch]
+	);
+	const handleMoveIngredient = useCallback(
+		(dragIndex, hoverIndex) => {
+			dispatch(moveIngredient(dragIndex, hoverIndex));
+		},
+		[dispatch]
+	);
 
 	const toggle = useCallback(() => {
 		setIsOpen(!isOpen);
@@ -33,33 +72,10 @@ export const App = () => {
 		[toggle]
 	);
 
-	const getOrder = useCallback(() => {
-		toggleOrder();
-	}, [toggleOrder]);
-
 	useEffect(() => {
-		const getDataIngredients = async () => {
-			setIsLoading(true);
-			try {
-				const response = await fetch(url);
-				if (!response.ok) {
-					throw new Error(`HTTP error! status: ${response.status}`);
-				}
-				const result = await response.json();
-				setData(result.data);
-				setIsLoading(false);
-			} catch (error) {
-				setHasError(true);
-				setIsLoading(false);
-				console.error('Ошибка загрузки данных:', error);
-			}
-		};
-		getDataIngredients();
-	}, []);
+		dispatch(loadIngredients());
+	}, [dispatch]);
 
-	if (data.length === 0) {
-		return <div className='text text_type_main-small'>Немного подождeм</div>;
-	}
 	if (isLoading) {
 		return <div className='text text_type_main-small'>Загрузка...</div>;
 	}
@@ -71,26 +87,39 @@ export const App = () => {
 			</div>
 		);
 	}
+	if (data.length === 0) {
+		return <h2>No ingredients</h2>;
+	}
 
 	return (
 		<div className={s.page}>
 			<Header />
-			<section className={s.main}>
-				<BurgerIngredients
-					ingredients={data}
-					toggle={toggle}
-					getProduct={getProduct}
-				/>
-				<BurgerConstructor getOrder={getOrder} ingredients={data} />
-			</section>
+			<DndProvider backend={HTML5Backend}>
+				<section className={s.main}>
+					<BurgerIngredients toggle={toggle} getProduct={getProduct} />
+					<BurgerConstructor
+						toggleOrder={toggleOrder}
+						onDropHandler={handleDrop}
+						onHandlerDelete={handleDeleteIngredient}
+						onMoveIngredient={handleMoveIngredient}
+					/>
+				</section>
+			</DndProvider>
+
 			{isOpen && (
 				<>
 					<Modal toggle={toggle}>
-						<IngredientDetails product={selectedProduct} />
+						<IngredientDetails toggle={toggle} product={selectedProduct} />
 					</Modal>
 				</>
 			)}
-			{isOpenOrder && <OrderDetailes toggleOrder={toggleOrder} />}
+			{isOpenOrder && (
+				<>
+					<Modal toggle={toggleOrder}>
+						<OrderDetailes toggle={toggleOrder} number={number} />
+					</Modal>
+				</>
+			)}
 		</div>
 	);
 };

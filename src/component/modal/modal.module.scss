@@ -7,15 +7,9 @@
 	display: flex;
 	flex-flow: column;
 	align-items: center;
+	justify-content: center;
 }
 
-.header {
-	height: 64px;
-	width: 640px;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-}
 .info {
 	gap: 20px;
 }
@@ -26,7 +20,4 @@
 	flex-flow: column;
 	justify-content: space-between;
 	align-items: center;
-}
-.close {
-	cursor: pointer;
 }
