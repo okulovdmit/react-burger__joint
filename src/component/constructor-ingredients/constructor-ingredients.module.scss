@@ -3,7 +3,7 @@
 	overflow-y: auto;
 	display: flex;
 	flex-flow: column;
-	// align-items: center;
+	align-items: center;
 	gap: 16px;
 }
 
@@ -11,4 +11,13 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+}
+.text {
+	height: 80px;
+	width: 500px;
+	background: rgba(120, 120, 120, 0.51);
+	border-radius: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }

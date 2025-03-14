@@ -23,7 +23,9 @@ export default function Bun({ type, text, onDropHandler }) {
 					className={'mr-10'}
 				/>
 			) : (
-				<div className={sBun.bun}></div>
+				<div className={`${sBun.bun} text text_type_main-medium`}>
+					Выберите булку
+				</div>
 			)}
 		</div>
 	);

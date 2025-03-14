@@ -24,8 +24,12 @@
 	gap: 8px;
 }
 .bun {
-	height: 100px;
+	height: 80px;
 	width: 500px;
 	background: rgba(120, 120, 120, 0.51);
 	border-radius: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 28px;
 }
