@@ -16,11 +16,10 @@ export const ConsctructorIngredients = ({
 			onDropHandler(item);
 		},
 	});
-	console.log('ingredient', ingredients.length);
 	return (
 		<div
 			ref={dropRef}
-			className={`${sIngredients.group} m-4 custom-scroll`}
+			className={`${sIngredients.group} m-4 mr-4 custom-scroll`}
 			onClick={(e) => e.stopPropagation()}
 			aria-hidden='true'>
 			{ingredients.length > 0 ? (
