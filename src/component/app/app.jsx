@@ -20,7 +20,7 @@ import {
 	getIngredientsError,
 	getOrderNumber,
 } from '../../services/ingredients/reducer';
-import { Home } from '../../pages/index';
+import { Home, Login } from '../../pages/index';
 
 export const App = () => {
 	const dispatch = useDispatch();
@@ -112,6 +112,11 @@ export const App = () => {
 						/>
 					</Routes>
 				</DndProvider>
+			</section>
+			<section className={s.form}>
+				<Routes>
+					<Route path='/login' element={<Login />} />
+				</Routes>
 			</section>
 
 			{isOpen && (
