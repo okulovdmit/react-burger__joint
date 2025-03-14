@@ -2,10 +2,9 @@ import { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { Route, Routes } from 'react-router-dom';
 import s from './app.module.scss';
 import { Header } from '../app-header/app-header';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetailes from '../order-detailes/order-detailes';
@@ -21,6 +20,7 @@ import {
 	getIngredientsError,
 	getOrderNumber,
 } from '../../services/ingredients/reducer';
+import { Home } from '../../pages/index';
 
 export const App = () => {
 	const dispatch = useDispatch();
@@ -94,17 +94,25 @@ export const App = () => {
 	return (
 		<div className={s.page}>
 			<Header />
-			<DndProvider backend={HTML5Backend}>
-				<section className={s.main}>
-					<BurgerIngredients toggle={toggle} getProduct={getProduct} />
-					<BurgerConstructor
-						toggleOrder={toggleOrder}
-						onDropHandler={handleDrop}
-						onHandlerDelete={handleDeleteIngredient}
-						onMoveIngredient={handleMoveIngredient}
-					/>
-				</section>
-			</DndProvider>
+			<section className={s.main}>
+				<DndProvider backend={HTML5Backend}>
+					<Routes>
+						<Route
+							path='/'
+							element={
+								<Home
+									toggle={toggle}
+									getProduct={getProduct}
+									toggleOrder={toggleOrder}
+									handleDrop={handleDrop}
+									handleDeleteIngredient={handleDeleteIngredient}
+									handleMoveIngredient={handleMoveIngredient}
+								/>
+							}
+						/>
+					</Routes>
+				</DndProvider>
+			</section>
 
 			{isOpen && (
 				<>
