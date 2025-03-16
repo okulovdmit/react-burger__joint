@@ -26,6 +26,7 @@ import {
 	Register,
 	ForgotPassword,
 	ResetPassword,
+	Profile,
 } from '../../pages/index';
 
 export const App = () => {
@@ -125,6 +126,7 @@ export const App = () => {
 					<Route path='/register' element={<Register />} />
 					<Route path='/forgot-password' element={<ForgotPassword />} />
 					<Route path='/reset-password' element={<ResetPassword />} />
+					<Route path='/profile' element={<Profile />} />
 				</Routes>
 			</section>
 
