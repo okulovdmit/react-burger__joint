@@ -1,4 +1,4 @@
-import sLogin from './register.module.scss';
+import sRegister from './register.module.scss';
 import { Link } from 'react-router-dom';
 import {
 	Input,
@@ -6,7 +6,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 export const Register = () => {
 	return (
-		<div className={sLogin.container}>
+		<div className={sRegister.container}>
 			<p className='text text_type_main-medium mb-6'>Регистрация</p>
 			<Input
 				type={'text'}

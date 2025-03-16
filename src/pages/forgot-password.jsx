@@ -1,29 +1,16 @@
-import sLogin from './register.module.scss';
+import sForgot from './forgot-password.module.scss';
 import { Link } from 'react-router-dom';
 import {
 	Input,
 	Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-export const Register = () => {
+export const ForgotPassword = () => {
 	return (
-		<div className={sLogin.container}>
-			<p className='text text_type_main-medium mb-6'>Регистрация</p>
-			<Input
-				type={'text'}
-				placeholder={'Имя'}
-				size={'default'}
-				extraClass='ml-1 mb-6'
-			/>
+		<div className={sForgot.container}>
+			<p className='text text_type_main-medium mb-6'>Востановление пароля</p>
 			<Input
 				type={'email'}
-				placeholder={'E-mail'}
-				size={'default'}
-				extraClass='ml-1 mb-6'
-			/>
-			<Input
-				type={'password'}
-				placeholder={'Пароль'}
-				icon={'ShowIcon'}
+				placeholder={'Укажите e-mail'}
 				size={'default'}
 				extraClass='ml-1 mb-6'
 			/>
@@ -32,10 +19,10 @@ export const Register = () => {
 				type='primary'
 				size='medium'
 				extraClass='ml-2 mb-20'>
-				Зарегистрироваться
+				Восстановить
 			</Button>
 			<p className='text text_type_main-small text_color_inactive mb-4'>
-				Уже зарегистрированы? <Link>Войти</Link>
+				Вспомнили пароль? <Link>Войти</Link>
 			</p>
 		</div>
 	);

@@ -20,7 +20,7 @@ import {
 	getIngredientsError,
 	getOrderNumber,
 } from '../../services/ingredients/reducer';
-import { Home, Login, Register } from '../../pages/index';
+import { Home, Login, Register, ForgotPassword } from '../../pages/index';
 
 export const App = () => {
 	const dispatch = useDispatch();
@@ -117,6 +117,7 @@ export const App = () => {
 				<Routes>
 					<Route path='/login' element={<Login />} />
 					<Route path='/register' element={<Register />} />
+					<Route path='/forgot-password' element={<ForgotPassword />} />
 				</Routes>
 			</section>
 
