@@ -1,16 +1,16 @@
-.page {
+.main {
 	display: flex;
 	flex-flow: column;
 	justify-content: center;
 	align-items: center;
 }
 
-.main {
+.home {
 	display: flex;
 	justify-content: center;
 	gap: 40px;
 }
-.form {
+.pages {
 	position: absolute;
 	top: 288px;
 }

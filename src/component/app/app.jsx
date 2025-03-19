@@ -99,9 +99,9 @@ export const App = () => {
 	}
 
 	return (
-		<div className={s.page}>
+		<div className={s.main}>
 			<Header />
-			<section className={s.main}>
+			<section className={s.home}>
 				<DndProvider backend={HTML5Backend}>
 					<Routes>
 						<Route
@@ -120,7 +120,7 @@ export const App = () => {
 					</Routes>
 				</DndProvider>
 			</section>
-			<section className={s.form}>
+			<section className={s.pages}>
 				<Routes>
 					<Route path='/login' element={<Login />} />
 					<Route path='/register' element={<Register />} />
