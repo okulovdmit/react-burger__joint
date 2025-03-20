@@ -1,27 +1,15 @@
-export const ingredientsApiConfig = {
-	baseUrl: 'https://norma.nomoreparties.space/api/ingredients',
-	headers: {
-		Authorization: 'Bearer db46c96636d926f767751cbe7aeb313963a2a4d9',
-		'Content-Type': 'application/json',
-	},
-};
+import { BURGER_API_URL, getResponse } from './constants';
 
-const getResponse = (res) => {
-	if (res.ok) {
-		return res.json();
-	}
-
-	return Promise.reject(`Ошибка ${res.status}`);
-};
-
-export const getIngredients = () => {
-	return fetch(`${ingredientsApiConfig.baseUrl}`, {
-		headers: ingredientsApiConfig.headers,
+export const getIngredients = async () => {
+	return fetch(`${BURGER_API_URL}/ingredients`, {
+		headers: {
+			'Content-Type': 'application/json',
+		},
 	}).then(getResponse);
 };
 
-export const getNumber = (ingredientIds) => {
-	return fetch('https://norma.nomoreparties.space/api/orders', {
+export const getNumber = async (ingredientIds) => {
+	return fetch('${BURGER_API_URL}/orders', {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
