@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import s from './app.module.scss';
 import { Header } from '../app-header/app-header';
 import Modal from '../modal/modal';
@@ -30,12 +30,15 @@ import {
 } from '../../pages/index';
 
 export const App = () => {
+	const location = useLocation();
+	const navigate = useNavigate();
+	const background = location.state && location.state.background;
 	const dispatch = useDispatch();
 	const data = useSelector(getAllIngredients);
 	const isLoading = useSelector(getIngredientsLoading);
 	const hasError = useSelector(getIngredientsError);
 	const number = useSelector(getOrderNumber);
-	const [isOpen, setIsOpen] = useState(false);
+	// const [isOpen, setIsOpen] = useState(false);
 	const [isOpenOrder, setIsOpenOrder] = useState(false);
 	const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -64,20 +67,18 @@ export const App = () => {
 	);
 
 	const toggle = useCallback(() => {
-		setIsOpen(!isOpen);
-	}, [isOpen]);
+		// setIsOpen(!isOpen);
+		navigate(-1);
+	}, [navigate]);
 
 	const toggleOrder = useCallback(() => {
 		setIsOpenOrder(!isOpenOrder);
 	}, [isOpenOrder]);
 
-	const getProduct = useCallback(
-		(product) => {
-			setSelectedProduct(product);
-			toggle();
-		},
-		[toggle]
-	);
+	const getProduct = useCallback((product) => {
+		setSelectedProduct(product);
+		// toggle();
+	}, []);
 
 	useEffect(() => {
 		dispatch(loadIngredients());
@@ -103,7 +104,7 @@ export const App = () => {
 			<Header />
 			<section className={s.home}>
 				<DndProvider backend={HTML5Backend}>
-					<Routes>
+					<Routes location={background || location}>
 						<Route
 							path='/'
 							element={
@@ -115,6 +116,12 @@ export const App = () => {
 									handleDeleteIngredient={handleDeleteIngredient}
 									handleMoveIngredient={handleMoveIngredient}
 								/>
+							}
+						/>
+						<Route
+							path='/ingredients/:ingredientId'
+							element={
+								<IngredientDetails toggle={toggle} product={selectedProduct} />
 							}
 						/>
 					</Routes>
@@ -130,19 +137,22 @@ export const App = () => {
 				</Routes>
 			</section>
 
-			{isOpen && (
-				<>
-					<Modal toggle={toggle}>
-						<IngredientDetails toggle={toggle} product={selectedProduct} />
-					</Modal>
-				</>
+			{background && (
+				<Routes>
+					<Route
+						path='/ingredients/:ingredientId'
+						element={
+							<Modal toggle={toggle}>
+								<IngredientDetails toggle={toggle} product={selectedProduct} />
+							</Modal>
+						}
+					/>
+				</Routes>
 			)}
 			{isOpenOrder && (
-				<>
-					<Modal toggle={toggleOrder}>
-						<OrderDetailes toggle={toggleOrder} number={number} />
-					</Modal>
-				</>
+				<Modal toggle={toggleOrder}>
+					<OrderDetailes toggle={toggleOrder} number={number} />
+				</Modal>
 			)}
 		</div>
 	);

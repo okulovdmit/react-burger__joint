@@ -1,7 +1,16 @@
 import sDetails from './ingredient-details.module.scss';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { getAllIngredients } from '../../services/ingredients/reducer';
+
 export default function IngredientDetails({ product, toggle }) {
-	const { name, image, calories, proteins, fat, carbohydrates } = product;
+	const { ingredientId: id } = useParams();
+	const data = useSelector(getAllIngredients);
+	const productId = data.filter((item) => item._id === id)[0];
+	const { name, image, calories, proteins, fat, carbohydrates } = product
+		? product
+		: productId;
 	return (
 		<div className={`${sDetails.details} mb-15`}>
 			<header className={`${sDetails.header} mt-10 ml-10 mr-10`}>
