@@ -9,7 +9,7 @@ export const getIngredients = async () => {
 };
 
 export const getNumber = async (ingredientIds) => {
-	return fetch('${BURGER_API_URL}/orders', {
+	return fetch(`${BURGER_API_URL}/orders`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',

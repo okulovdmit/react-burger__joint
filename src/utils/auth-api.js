@@ -36,7 +36,7 @@ export const fetchWithRefresh = async (url, options) => {
 	}
 };
 
-export const getUser = async () => {
+export const checkUser = async () => {
 	const request = new Promise((resolve) => {
 		setTimeout(() => {
 			resolve({ user: {} });
@@ -52,7 +52,27 @@ export const getUser = async () => {
 	}
 };
 
-export const login = async () => {
+const register = async ({ email, password, name }) => {
+	return fetch(`${BURGER_API_URL}/auth/register`, {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json;charset=utf-8' },
+		body: JSON.stringify({
+			email: email,
+			password: password,
+			name: name,
+		}),
+	})
+		.then(getResponse)
+		.then((data) => {
+			if (data.success) {
+				localStorage.setItem('accessToken', data.accessToken);
+				localStorage.setItem('refreshToken', data.refreshToken);
+			}
+			return data.user;
+		});
+};
+
+const login = async () => {
 	new Promise((resolve) => {
 		setTimeout(() => {
 			localStorage.setItem('accessToken', 'test-token');
@@ -63,7 +83,7 @@ export const login = async () => {
 	});
 };
 
-export const logout = async () => {
+const logout = async () => {
 	new Promise((resolve) => {
 		setTimeout(() => {
 			localStorage.removeItem('accessToken', 'test-token');
@@ -72,4 +92,10 @@ export const logout = async () => {
 		}),
 			1000;
 	});
+};
+
+export const api = {
+	register,
+	login,
+	logout,
 };
