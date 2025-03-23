@@ -7,7 +7,7 @@ import {
 	Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { register } from '../services/auth/action';
-import { getUser, getUserLoading } from '../services/auth/reducer';
+import { getUserLoading } from '../services/auth/reducer';
 
 export const Register = () => {
 	const dispatch = useDispatch();
@@ -15,17 +15,22 @@ export const Register = () => {
 	const emailRef = useRef('');
 	const passwordRef = useRef('');
 	const nameRef = useRef('');
-	const user = useSelector(getUser);
 	const isLoading = useSelector(getUserLoading);
-	console.log('user', user);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const name = nameRef.current.value;
 		const email = emailRef.current.value;
 		const password = passwordRef.current.value;
-		if (!name || !email || !password) return;
-		dispatch(register({ email, password, name }));
+		if (!name) {
+			nameRef.current.focus();
+		} else if (!email) {
+			emailRef.current.focus();
+		} else if (!password) {
+			passwordRef.current.focus();
+		} else {
+			dispatch(register({ email, password, name }));
+		}
 	};
 
 	if (isLoading) return <div>Загрузка...</div>;
