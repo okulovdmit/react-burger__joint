@@ -1,6 +1,6 @@
 import { BURGER_API_URL, getResponse } from './constants';
 
-export const refreshToken = async () => {
+const refreshToken = async () => {
 	return fetch(`${BURGER_API_URL}/auth/token`, {
 		method: 'POST',
 		headers: {
@@ -20,13 +20,14 @@ export const refreshToken = async () => {
 		});
 };
 
-export const fetchWithRefresh = async (url, options) => {
+const fetchWithRefresh = async (url, options) => {
 	try {
 		const res = await fetch(url, options);
 		return await getResponse(res);
 	} catch (err) {
+		console.log('error', err);
 		if ((err.message = 'jwt expired')) {
-			const refreshData = refreshToken();
+			const refreshData = await refreshToken();
 			options.headers.authorization = refreshData.accessToken;
 			const res = await fetch(url, options);
 			return await getResponse(res);
@@ -37,14 +38,19 @@ export const fetchWithRefresh = async (url, options) => {
 };
 
 export const checkUser = async () => {
-	const request = new Promise((resolve) => {
-		setTimeout(() => {
-			resolve({ user: {} });
-		}, 1000);
-	});
+	const url = `${BURGER_API_URL}/auth/user`;
+	const options = {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json;charset=utf-8',
+			authorization: localStorage.getItem('accessToken'),
+		},
+	};
+
+	const request = await fetchWithRefresh(url, options);
 
 	try {
-		return await request;
+		return request;
 	} catch (error) {
 		localStorage.removeItem('accessToken');
 		localStorage.removeItem('refreshToken');

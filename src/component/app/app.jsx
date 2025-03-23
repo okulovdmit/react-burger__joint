@@ -27,6 +27,8 @@ import {
 	ResetPassword,
 	Profile,
 } from '../../pages/index';
+import { OnlyUnAuth, OnlyAuth } from '../protected-route/protected-route';
+import { checkUserAuth } from '../../services/auth/action';
 
 export const App = () => {
 	const location = useLocation();
@@ -79,6 +81,7 @@ export const App = () => {
 
 	useEffect(() => {
 		dispatch(loadIngredients());
+		dispatch(checkUserAuth());
 	}, [dispatch]);
 
 	if (isLoading) {
@@ -126,11 +129,14 @@ export const App = () => {
 			</section>
 			<section className={s.pages}>
 				<Routes>
-					<Route path='/login' element={<Login />} />
+					<Route path='/login' element={<OnlyUnAuth component={<Login />} />} />
 					<Route path='/register' element={<Register />} />
 					<Route path='/forgot-password' element={<ForgotPassword />} />
 					<Route path='/reset-password' element={<ResetPassword />} />
-					<Route path='/profile' element={<Profile />} />
+					<Route
+						path='/profile'
+						element={<OnlyAuth component={<Profile />} />}
+					/>
 				</Routes>
 			</section>
 
