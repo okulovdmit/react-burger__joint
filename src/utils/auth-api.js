@@ -78,26 +78,41 @@ const register = async ({ email, password, name }) => {
 		});
 };
 
-const login = async () => {
-	new Promise((resolve) => {
-		setTimeout(() => {
-			localStorage.setItem('accessToken', 'test-token');
-			localStorage.setItem('refreshToken', 'test-refresh-token');
-			resolve({ user: {} });
+const login = async ({ email, password }) => {
+	return fetch(`${BURGER_API_URL}/auth/login`, {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json;charset=utf-8' },
+		body: JSON.stringify({
+			email: email,
+			password: password,
 		}),
-			1000;
-	});
+	})
+		.then(getResponse)
+		.then((data) => {
+			if (data.success) {
+				localStorage.setItem('accessToken', data.accessToken);
+				localStorage.setItem('refreshToken', data.refreshToken);
+			}
+			return data.user;
+		});
 };
 
 const logout = async () => {
-	new Promise((resolve) => {
-		setTimeout(() => {
-			localStorage.removeItem('accessToken', 'test-token');
-			localStorage.removeItem('refreshToken', 'test-refresh-token');
-			resolve();
-		}),
-			1000;
-	});
+	return fetch(`${BURGER_API_URL}/auth/logout`, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json;charset=utf-8',
+			authorization: localStorage.getItem('refreshToken'),
+		},
+	})
+		.then(getResponse)
+		.then((data) => {
+			if (data.success) {
+				localStorage.removeItem('accessToken', data.accessToken);
+				localStorage.removeItem('refreshToken', data.refreshToken);
+			}
+			return data;
+		});
 };
 
 export const api = {

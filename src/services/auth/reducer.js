@@ -33,16 +33,32 @@ export const userSlice = createSlice({
 				state.error = action.error?.message;
 				state.loading = false;
 			})
-			.addCase(register.fulfilled, (state, action) => {
+			.addCase(register.fulfilled, (state) => {
 				state.user = action.payload;
+				state.loading = false;
+			})
+			.addCase(login.pending, (state) => {
+				state.loading = true;
+			})
+			.addCase(login.rejected, (state, action) => {
+				state.error = action.error?.message;
 				state.loading = false;
 			})
 			.addCase(login.fulfilled, (state, action) => {
 				state.user = action.payload;
 				state.isAuth = true;
 			})
+			.addCase(logout.pending, (state) => {
+				state.loading = true;
+			})
+			.addCase(logout.rejected, (state, action) => {
+				state.error = action.error?.message;
+				state.loading = false;
+			})
 			.addCase(logout.fulfilled, (state) => {
 				state.user = null;
+				state.loading = false;
+				state.isAuth = false;
 			});
 	},
 });

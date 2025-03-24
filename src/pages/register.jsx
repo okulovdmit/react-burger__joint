@@ -1,6 +1,6 @@
 import sRegister from './register.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
 import {
 	Input,
@@ -8,9 +8,11 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { register } from '../services/auth/action';
 import { getUserLoading } from '../services/auth/reducer';
+import { Preloader } from '../component/preloader/preloader';
 
 export const Register = () => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	const emailRef = useRef('');
 	const passwordRef = useRef('');
@@ -29,11 +31,15 @@ export const Register = () => {
 		} else if (!password) {
 			passwordRef.current.focus();
 		} else {
-			dispatch(register({ email, password, name }));
+			try {
+				dispatch(register({ email, password, name }));
+				isLoading ? <Preloader /> : navigate('/');
+			} catch (err) {
+				console.log(err);
+			}
 		}
 	};
 
-	if (isLoading) return <div>Загрузка...</div>;
 	return (
 		<div className={sRegister.container}>
 			<p className='text text_type_main-medium mb-6'>Регистрация</p>

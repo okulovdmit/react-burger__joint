@@ -6,9 +6,8 @@ export const register = createAsyncThunk('auth/register', async (user) => {
 	return await api.register(user);
 });
 
-export const login = createAsyncThunk('auth/login', async () => {
-	const res = await api.login();
-	return res.user;
+export const login = createAsyncThunk('auth/login', async (user) => {
+	return await api.login(user);
 });
 
 export const logout = createAsyncThunk('auth/logout', async () => {
