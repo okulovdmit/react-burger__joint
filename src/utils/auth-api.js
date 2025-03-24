@@ -108,8 +108,8 @@ const logout = async () => {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json;charset=utf-8',
-			authorization: localStorage.getItem('refreshToken'),
 		},
+		body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
 	})
 		.then(getResponse)
 		.then((data) => {
@@ -117,7 +117,6 @@ const logout = async () => {
 				localStorage.removeItem('accessToken', data.accessToken);
 				localStorage.removeItem('refreshToken', data.refreshToken);
 			}
-			return data;
 		});
 };
 

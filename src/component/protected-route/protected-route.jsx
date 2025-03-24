@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux';
 import { useLocation, Navigate } from 'react-router-dom';
-import { getIsAuth, getUser } from '../../services/auth/reducer';
+import { getIsAuthChecked, getUser } from '../../services/auth/reducer';
 import { Preloader } from '../../component/preloader/preloader.jsx';
 
 const Protected = ({ onlyUnAuth = false, component }) => {
 	const user = useSelector(getUser);
-	const isAuth = useSelector(getIsAuth);
+	const isAuth = useSelector(getIsAuthChecked);
 	const location = useLocation();
 	console.log('user', user);
 	if (!isAuth) {

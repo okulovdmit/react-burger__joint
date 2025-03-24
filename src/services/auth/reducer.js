@@ -5,7 +5,7 @@ const initialState = {
 	user: null,
 	loading: false,
 	error: null,
-	isAuth: false,
+	isAuthChecked: false,
 };
 
 export const userSlice = createSlice({
@@ -15,14 +15,14 @@ export const userSlice = createSlice({
 		setUser: (state, action) => {
 			state.user = action.payload;
 		},
-		setIsAuth: (state, action) => {
-			state.isAuth = action.payload;
+		setIsAuthChecked: (state, action) => {
+			state.isAuthChecked = action.payload;
 		},
 	},
 	selectors: {
 		getUser: (state) => state.user,
 		getUserLoading: (state) => state.loading,
-		getIsAuth: (state) => state.isAuth,
+		getIsAuthChecked: (state) => state.isAuthChecked,
 	},
 	extraReducers: (builder) => {
 		builder
@@ -46,7 +46,7 @@ export const userSlice = createSlice({
 			})
 			.addCase(login.fulfilled, (state, action) => {
 				state.user = action.payload;
-				state.isAuth = true;
+				state.isAuthChecked = true;
 			})
 			.addCase(logout.pending, (state) => {
 				state.loading = true;
@@ -58,10 +58,10 @@ export const userSlice = createSlice({
 			.addCase(logout.fulfilled, (state) => {
 				state.user = null;
 				state.loading = false;
-				state.isAuth = false;
 			});
 	},
 });
 
-export const { getUser, getUserLoading, getIsAuth } = userSlice.selectors;
-export const { setUser, setIsAuth } = userSlice.actions;
+export const { getUser, getUserLoading, getIsAuthChecked } =
+	userSlice.selectors;
+export const { setUser, setIsAuthChecked } = userSlice.actions;

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { checkUser, api } from '../../utils/auth-api';
-import { setUser, setIsAuth } from './reducer';
+import { setUser, setIsAuthChecked } from './reducer';
 
 export const register = createAsyncThunk('auth/register', async (user) => {
 	return await api.register(user);
@@ -20,9 +20,9 @@ export const checkUserAuth = createAsyncThunk(
 		if (localStorage.getItem('accessToken')) {
 			checkUser()
 				.then((res) => dispatch(setUser(res.user)))
-				.finally(() => dispatch(setIsAuth(true)));
+				.finally(() => dispatch(setIsAuthChecked(true)));
 		} else {
-			dispatch(setIsAuth(true));
+			dispatch(setIsAuthChecked(true));
 		}
 	}
 );
