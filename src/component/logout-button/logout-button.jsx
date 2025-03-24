@@ -1,3 +1,4 @@
+import sButton from './logout-button.module.scss';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../services/auth/action';
 
@@ -12,7 +13,7 @@ export const LogoutButton = () => {
 		<button
 			type='button'
 			title='Выйти из аккаунта'
-			className='text text_type_main-medium text_color_inactive'
+			className={`${sButton.btn} text text_type_main-medium text_color_inactive`}
 			onClick={handleLogout}>
 			Выход
 		</button>
