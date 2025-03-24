@@ -1,23 +1,30 @@
 import { BURGER_API_URL, getResponse } from './constants';
 
 const refreshToken = async () => {
-	return fetch(`${BURGER_API_URL}/auth/token`, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json;charset=utf-8',
-		},
-		body: JSON.stringify({
-			token: localStorage.getItem('refreshToken'),
-		}),
-	})
-		.then(getResponse)
-		.then((refreshData) => {
-			if (!refreshData.success) {
-				return Promise.reject(refreshData);
-			}
-			localStorage.setItem('refreshToken', refreshData.refreshToken);
-			localStorage.setItem('accessToken', refreshData.accessToken);
+	try {
+		const response = await fetch(`${BURGER_API_URL}/auth/token`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json;charset=utf-8',
+			},
+			body: JSON.stringify({
+				token: localStorage.getItem('refreshToken'),
+			}),
 		});
+		const refreshData = await getResponse(response);
+		if (!refreshData.success) {
+			localStorage.removeItem('accessToken');
+			localStorage.removeItem('refreshToken');
+			return Promise.reject(new Error(refreshData.message));
+		}
+		localStorage.setItem('refreshToken', refreshData.refreshToken);
+		localStorage.setItem('accessToken', refreshData.accessToken);
+		return refreshData;
+	} catch (err) {
+		localStorage.removeItem('accessToken');
+		localStorage.removeItem('refreshToken');
+		return Promise.reject(err);
+	}
 };
 
 const fetchWithRefresh = async (url, options) => {
@@ -25,8 +32,7 @@ const fetchWithRefresh = async (url, options) => {
 		const res = await fetch(url, options);
 		return await getResponse(res);
 	} catch (err) {
-		console.log('error', err);
-		if ((err.message = 'jwt expired')) {
+		if (err.message === 'jwt expired') {
 			const refreshData = await refreshToken();
 			options.headers.authorization = refreshData.accessToken;
 			const res = await fetch(url, options);
