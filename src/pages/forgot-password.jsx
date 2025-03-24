@@ -4,7 +4,11 @@ import {
 	Input,
 	Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+
 export const ForgotPassword = () => {
+	const handleRecover = (e) => {
+		e.preventDefault();
+	};
 	return (
 		<div className={sForgot.container}>
 			<p className='text text_type_main-medium mb-6'>Востановление пароля</p>
@@ -15,10 +19,11 @@ export const ForgotPassword = () => {
 				extraClass='ml-1 mb-6'
 			/>
 			<Button
-				htmlType='button'
+				htmlType='submit'
 				type='primary'
 				size='medium'
-				extraClass='ml-2 mb-20'>
+				extraClass='ml-2 mb-20'
+				onClick={handleRecover}>
 				Восстановить
 			</Button>
 			<p className='text text_type_main-small text_color_inactive mb-4'>

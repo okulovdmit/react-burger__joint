@@ -120,6 +120,40 @@ const logout = async () => {
 		});
 };
 
+const forgotPassword = async ({ email }) => {
+	return fetch(`${BURGER_API_URL}/password-reset`, {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json;charset=utf-8' },
+		body: JSON.stringify({
+			email: email,
+		}),
+	})
+		.then(getResponse)
+		.then((data) => {
+			if (data.success) {
+				localStorage.setItem('getResetPassword', 'true');
+			}
+		});
+};
+
+const resetPassword = async ({ password, token }) => {
+	return fetch(`${BURGER_API_URL}/password-reset/reset`, {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json;charset=utf-8' },
+		body: JSON.stringify({
+			password: password,
+			token: token,
+		}),
+	})
+		.then(getResponse)
+		.then((data) => {
+			if (data.success) {
+				localStorage.removeItem('getResetPassword');
+			}
+		});
+};
+
+export { forgotPassword, resetPassword };
 export const api = {
 	register,
 	login,
