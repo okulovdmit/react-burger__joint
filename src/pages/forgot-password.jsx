@@ -22,7 +22,7 @@ export const ForgotPassword = () => {
 				Восстановить
 			</Button>
 			<p className='text text_type_main-small text_color_inactive mb-4'>
-				Вспомнили пароль? <Link>Войти</Link>
+				Вспомнили пароль? <Link to='/login'>Войти</Link>
 			</p>
 		</div>
 	);

@@ -62,10 +62,10 @@ export const Login = () => {
 				Войти
 			</Button>
 			<p className='text text_type_main-small text_color_inactive mb-4'>
-				Вы - новый пользователь? <Link>Зарегистрироваться</Link>
+				Вы - новый пользователь? <Link to='/register'>Зарегистрироваться</Link>
 			</p>
 			<p className='text text_type_main-small text_color_inactive mb-4'>
-				Забыли пароль? <Link>Восстановить пароль</Link>
+				Забыли пароль? <Link to='/forgot-password'>Восстановить пароль</Link>
 			</p>
 		</div>
 	);
