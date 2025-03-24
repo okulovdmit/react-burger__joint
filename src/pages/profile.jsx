@@ -4,6 +4,7 @@ import {
 	Input,
 	Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { LogoutButton } from '../component/logout-button/logout-button';
 export const Profile = () => {
 	return (
 		<div className={sProfile.container}>
@@ -15,9 +16,7 @@ export const Profile = () => {
 					<NavLink className={'text text_type_main-medium'}>
 						<span className={'text_color_inactive'}>История заказов</span>
 					</NavLink>
-					<NavLink className={'text text_type_main-medium'}>
-						<span className={'text_color_inactive'}>Выход</span>
-					</NavLink>
+					<LogoutButton />
 				</nav>
 				<p className='text text_type_main-default text_color_inactive'>
 					В этом разделе вы можете изменить свои персональные данные
