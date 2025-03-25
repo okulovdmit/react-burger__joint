@@ -26,6 +26,7 @@ import {
 	ForgotPassword,
 	ResetPassword,
 	Profile,
+	NotFound,
 } from '../../pages/index';
 import { OnlyUnAuth, OnlyAuth } from '../protected-route/protected-route';
 import { checkUserAuth } from '../../services/auth/action';
@@ -124,6 +125,7 @@ export const App = () => {
 								<IngredientDetails toggle={toggle} product={selectedProduct} />
 							}
 						/>
+						<Route path='/*' element={<NotFound />} />
 					</Routes>
 				</DndProvider>
 			</section>

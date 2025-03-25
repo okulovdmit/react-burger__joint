@@ -4,4 +4,13 @@ import { Register } from './register';
 import { ForgotPassword } from './forgot-password';
 import { ResetPassword } from './reset-password';
 import { Profile } from './profile';
-export { Home, Login, Register, ForgotPassword, ResetPassword, Profile };
+import { NotFound } from './not-found';
+export {
+	Home,
+	Login,
+	Register,
+	ForgotPassword,
+	ResetPassword,
+	Profile,
+	NotFound,
+};
