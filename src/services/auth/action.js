@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { checkUser, api } from '../../utils/auth-api';
+import { checkUser, updateUserData, api } from '../../utils/auth-api';
 import { setUser, setIsAuthChecked } from './reducer';
 
 export const register = createAsyncThunk('auth/register', async (user) => {
@@ -12,6 +12,9 @@ export const login = createAsyncThunk('auth/login', async (user) => {
 
 export const logout = createAsyncThunk('auth/logout', async () => {
 	api.logout();
+});
+export const updateData = createAsyncThunk('auth/changeData', async (data) => {
+	return await updateUserData(data);
 });
 
 export const checkUserAuth = createAsyncThunk(

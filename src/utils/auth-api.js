@@ -153,6 +153,22 @@ const resetPassword = async ({ password, token }) => {
 		});
 };
 
+export const updateUserData = async ({ name, email }) => {
+	return fetch(`${BURGER_API_URL}/auth/user`, {
+		method: 'PATCH',
+		headers: {
+			'Content-Type': 'application/json;charset=utf-8',
+			authorization: localStorage.getItem('accessToken'),
+		},
+		body: JSON.stringify({
+			name: name,
+			email: email,
+		}),
+	})
+		.then(getResponse)
+		.then((data) => data.user);
+};
+
 export { forgotPassword, resetPassword };
 export const api = {
 	register,
