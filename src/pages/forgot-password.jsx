@@ -1,18 +1,33 @@
 import sForgot from './forgot-password.module.scss';
-import { Link } from 'react-router-dom';
+import { useRef } from 'react';
+import { Link, Navigate } from 'react-router-dom';
 import {
 	Input,
 	Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { forgotPassword } from '../utils/auth-api';
 
 export const ForgotPassword = () => {
-	const handleRecover = (e) => {
+	const inputRef = useRef('');
+	const redirect = localStorage.getItem('getResetPassword');
+
+	const handleRecover = async (e) => {
 		e.preventDefault();
+		const email = inputRef.current.value;
+		if (!email) {
+			inputRef.current.focus();
+		} else {
+			await forgotPassword({ email });
+		}
 	};
+	if (redirect) {
+		return <Navigate to='/reset-password' />;
+	}
 	return (
 		<div className={sForgot.container}>
 			<p className='text text_type_main-medium mb-6'>Востановление пароля</p>
 			<Input
+				ref={inputRef}
 				type={'email'}
 				placeholder={'Укажите e-mail'}
 				size={'default'}
