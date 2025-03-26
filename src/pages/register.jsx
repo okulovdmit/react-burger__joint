@@ -1,29 +1,70 @@
 import sRegister from './register.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
-import { useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { useRef, useState, useEffect } from 'react';
 import {
 	Input,
 	Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { register } from '../services/auth/action';
-import { getUserLoading } from '../services/auth/reducer';
+import { getError, getUserLoading, clearError } from '../services/auth/reducer';
 import { Preloader } from '../component/preloader/preloader';
+import Modal from '../component/modal/modal';
+import { Notification } from '../component/notification/notification';
 
 export const Register = () => {
+	const location = useLocation();
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
+	const isLoading = useSelector(getUserLoading);
+	const error = useSelector(getError);
+
+	const [name, setName] = useState('');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [typeInput, setTypeInput] = useState('password');
+	const [isDone, setIsDone] = useState(false);
+	const [isError, setIsError] = useState(false);
+
+	const textError =
+		'Введенные вами данные отсутствуют или неверны. Пожалуйста, проверьте ваши данные и попробуйте еще раз.';
+
+	const text = isDone ? 'Вы успешно зарегистрировались!' : textError;
+	const token = localStorage.getItem('accessToken');
 
 	const emailRef = useRef('');
 	const passwordRef = useRef('');
 	const nameRef = useRef('');
-	const isLoading = useSelector(getUserLoading);
 
-	const handleSubmit = (e) => {
+	useEffect(() => {
+		if (error) {
+			setIsError(true);
+			setIsDone(false);
+		}
+	}, [error]);
+
+	useEffect(() => {
+		if (token) {
+			setIsDone(true);
+			setIsError(false);
+		}
+	}, [token]);
+
+	const changeTypeInput = () => {
+		typeInput === 'password' ? setTypeInput('text') : setTypeInput('password');
+	};
+
+	const toggleRegistration = () => {
+		setIsDone(!isDone);
+		dispatch(clearError());
+	};
+	const toggleError = () => {
+		setIsError(!isError);
+		dispatch(clearError());
+	};
+
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const name = nameRef.current.value;
-		const email = emailRef.current.value;
-		const password = passwordRef.current.value;
+
 		if (!name) {
 			nameRef.current.focus();
 		} else if (!email) {
@@ -31,51 +72,86 @@ export const Register = () => {
 		} else if (!password) {
 			passwordRef.current.focus();
 		} else {
-			try {
-				dispatch(register({ email, password, name }));
-				isLoading ? <Preloader /> : navigate('/');
-			} catch (err) {
-				console.log(err);
-			}
+			setIsError(false);
+			setIsDone(false);
+			dispatch(register({ email, password, name }));
 		}
 	};
 
 	return (
 		<div className={sRegister.container}>
-			<p className='text text_type_main-medium mb-6'>Регистрация</p>
-			<Input
-				ref={nameRef}
-				type={'text'}
-				placeholder={'Имя'}
-				size={'default'}
-				extraClass='ml-1 mb-6'
-			/>
-			<Input
-				ref={emailRef}
-				type={'email'}
-				placeholder={'E-mail'}
-				size={'default'}
-				extraClass='ml-1 mb-6'
-			/>
-			<Input
-				ref={passwordRef}
-				type={'password'}
-				placeholder={'Пароль'}
-				icon={'ShowIcon'}
-				size={'default'}
-				extraClass='ml-1 mb-6'
-			/>
-			<Button
-				htmlType='submit'
-				type='primary'
-				size='medium'
-				extraClass='ml-2 mb-20'
-				onClick={handleSubmit}>
-				Зарегистрироваться
-			</Button>
-			<p className='text text_type_main-small text_color_inactive mb-4'>
-				Уже зарегистрированы? <Link to='/login'>Войти</Link>
-			</p>
+			{isLoading ? (
+				<Preloader />
+			) : (
+				<>
+					<p className='text text_type_main-medium mb-6'>Регистрация</p>
+					<Input
+						ref={nameRef}
+						type={'text'}
+						placeholder={'Имя'}
+						onChange={(e) => setName(e.target.value)}
+						value={name}
+						size={'default'}
+						extraClass='ml-1 mb-6'
+					/>
+					<Input
+						ref={emailRef}
+						type={'email'}
+						placeholder={'E-mail'}
+						onChange={(e) => setEmail(e.target.value)}
+						value={email}
+						size={'default'}
+						extraClass='ml-1 mb-6'
+					/>
+					<Input
+						ref={passwordRef}
+						type={typeInput}
+						placeholder={'Пароль'}
+						icon={'ShowIcon'}
+						onChange={(e) => setPassword(e.target.value)}
+						value={password}
+						onIconClick={changeTypeInput}
+						size={'default'}
+						extraClass='ml-1 mb-6'
+					/>
+					<Button
+						htmlType='submit'
+						type='primary'
+						size='medium'
+						extraClass='ml-2 mb-20'
+						onClick={handleSubmit}>
+						Зарегистрироваться
+					</Button>
+					<p className='text text_type_main-small text_color_inactive mb-4'>
+						Уже зарегистрированы?{' '}
+						<Link to='/login' state={{ from: location.pathname }}>
+							Войти
+						</Link>
+					</p>
+				</>
+			)}
+
+			{isDone && (
+				<Modal toggle={toggleRegistration}>
+					<Notification
+						type='done'
+						text={text}
+						to='/login'
+						onClick={toggleRegistration}
+						buttonText='Войти'
+					/>
+				</Modal>
+			)}
+			{isError && (
+				<Modal toggle={toggleError}>
+					<Notification
+						type='error'
+						text={text}
+						onClick={toggleError}
+						buttonText='Назад'
+					/>
+				</Modal>
+			)}
 		</div>
 	);
 };

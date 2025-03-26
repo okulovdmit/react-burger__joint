@@ -1,0 +1,22 @@
+.container {
+	width: 600px;
+	height: 400px;
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	justify-content: center;
+	gap: 30px;
+}
+.close {
+	align-self: flex-end;
+
+	&:hover {
+		cursor: pointer;
+	}
+}
+.icon {
+	transform: scale(4);
+}
+.text {
+	text-align: center;
+}

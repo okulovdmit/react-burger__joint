@@ -18,10 +18,14 @@ export const userSlice = createSlice({
 		setIsAuthChecked: (state, action) => {
 			state.isAuthChecked = action.payload;
 		},
+		clearError: (state) => {
+			state.error = null;
+		},
 	},
 	selectors: {
 		getUser: (state) => state.user,
 		getUserLoading: (state) => state.loading,
+		getError: (state) => state.error,
 		getIsAuthChecked: (state) => state.isAuthChecked,
 	},
 	extraReducers: (builder) => {
@@ -33,9 +37,8 @@ export const userSlice = createSlice({
 				state.error = action.error?.message;
 				state.loading = false;
 			})
-			.addCase(register.fulfilled, (state, action) => {
-				state.user = action.payload;
-				state.loading = false;
+			.addCase(register.fulfilled, (state) => {
+				state.error = false;
 			})
 			.addCase(login.pending, (state) => {
 				state.loading = true;
@@ -47,6 +50,7 @@ export const userSlice = createSlice({
 			.addCase(login.fulfilled, (state, action) => {
 				state.user = action.payload;
 				state.isAuthChecked = true;
+				state.error = null;
 			})
 			.addCase(logout.pending, (state) => {
 				state.loading = true;
@@ -58,6 +62,7 @@ export const userSlice = createSlice({
 			.addCase(logout.fulfilled, (state) => {
 				state.user = null;
 				state.loading = false;
+				state.error = null;
 			})
 			.addCase(updateData.pending, (state) => {
 				state.loading = true;
@@ -69,10 +74,11 @@ export const userSlice = createSlice({
 			.addCase(updateData.fulfilled, (state, action) => {
 				state.user = action.payload;
 				state.loading = false;
+				state.error = null;
 			});
 	},
 });
 
-export const { getUser, getUserLoading, getIsAuthChecked } =
+export const { getUser, getUserLoading, getError, getIsAuthChecked } =
 	userSlice.selectors;
-export const { setUser, setIsAuthChecked } = userSlice.actions;
+export const { setUser, setIsAuthChecked, clearError } = userSlice.actions;
