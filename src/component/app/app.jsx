@@ -104,11 +104,11 @@ export const App = () => {
 		<div className={s.main}>
 			<Header />
 			<section className={s.home}>
-				<DndProvider backend={HTML5Backend}>
-					<Routes location={background || location}>
-						<Route
-							path='/'
-							element={
+				<Routes location={background || location}>
+					<Route
+						path='/'
+						element={
+							<DndProvider backend={HTML5Backend}>
 								<Home
 									toggle={toggle}
 									getProduct={getProduct}
@@ -117,20 +117,15 @@ export const App = () => {
 									handleDeleteIngredient={handleDeleteIngredient}
 									handleMoveIngredient={handleMoveIngredient}
 								/>
-							}
-						/>
-						<Route
-							path='/ingredients/:ingredientId'
-							element={
-								<IngredientDetails toggle={toggle} product={selectedProduct} />
-							}
-						/>
-						<Route path='/*' element={<NotFound />} />
-					</Routes>
-				</DndProvider>
-			</section>
-			<section className={s.pages}>
-				<Routes>
+							</DndProvider>
+						}
+					/>
+					<Route
+						path='/ingredients/:ingredientId'
+						element={
+							<IngredientDetails toggle={toggle} product={selectedProduct} />
+						}
+					/>
 					<Route path='/login' element={<OnlyUnAuth component={<Login />} />} />
 					<Route path='/register' element={<Register />} />
 					<Route path='/forgot-password' element={<ForgotPassword />} />
@@ -139,6 +134,7 @@ export const App = () => {
 						path='/profile'
 						element={<OnlyAuth component={<Profile />} />}
 					/>
+					<Route path='/*' element={<NotFound />} />
 				</Routes>
 			</section>
 
