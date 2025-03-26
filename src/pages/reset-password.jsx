@@ -103,7 +103,7 @@ export const ResetPassword = () => {
 						extraClass='ml-1 mb-6'
 					/>
 					<Button
-						htmlType='submit'
+						htmlType='reset'
 						type='primary'
 						size='medium'
 						extraClass='ml-2 mb-20'

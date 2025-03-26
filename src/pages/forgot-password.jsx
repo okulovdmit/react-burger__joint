@@ -1,7 +1,6 @@
 import sForgot from './forgot-password.module.scss';
-import { useRef, useState, useEffect } from 'react';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useRef, useState } from 'react';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import {
 	Input,
 	Button,
@@ -9,48 +8,44 @@ import {
 import { forgotPassword } from '../utils/auth-api';
 import { Preloader } from '../component/preloader/preloader';
 import Modal from '../component/modal/modal';
-import { getError, getUserLoading, clearError } from '../services/auth/reducer';
 import { Notification } from '../component/notification/notification';
 
 export const ForgotPassword = () => {
 	const location = useLocation();
-	const navigate = useNavigate();
-	const dispatch = useDispatch();
 
-	const isLoading = useSelector(getUserLoading);
-	const error = useSelector(getError);
 	const redirect = localStorage.getItem('getResetPassword');
 
 	const [email, setEmail] = useState('');
+	const [error, setError] = useState('');
 	const [isError, setIsError] = useState(false);
+	const [isLoading, setIsloading] = useState(false);
 
 	const inputRef = useRef('');
-	const textError = 'Проверьте корректность введенного E-mail';
+	const textError = error;
 
-	useEffect(() => {
-		if (error) {
-			setIsError(true);
-		}
-	}, [error]);
-
-	useEffect(() => {
-		if (redirect) {
-			navigate('/reset-password');
-		}
-	}, [redirect, navigate]);
+	if (redirect) {
+		return <Navigate to='/reset-password' />;
+	}
 
 	const handleRecover = async (e) => {
 		e.preventDefault();
 		if (!email) {
 			inputRef.current.focus();
 		} else {
-			await forgotPassword({ email });
+			setIsloading(true);
+			forgotPassword({ email })
+				.catch((err) => {
+					setError(err.message);
+					setIsError(true);
+				})
+				.finally(() => {
+					setIsloading(false);
+				});
 		}
 	};
 
 	const closeError = () => {
 		setIsError(!isError);
-		dispatch(clearError());
 	};
 
 	return (
