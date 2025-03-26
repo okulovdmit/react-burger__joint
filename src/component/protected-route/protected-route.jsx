@@ -7,7 +7,7 @@ const Protected = ({ onlyUnAuth = false, component }) => {
 	const user = useSelector(getUser);
 	const isAuth = useSelector(getIsAuthChecked);
 	const location = useLocation();
-	console.log('user', user);
+
 	if (!isAuth) {
 		return <Preloader />;
 	}

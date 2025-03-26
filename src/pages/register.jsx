@@ -53,11 +53,11 @@ export const Register = () => {
 		typeInput === 'password' ? setTypeInput('text') : setTypeInput('password');
 	};
 
-	const toggleRegistration = () => {
+	const closeRegistration = () => {
 		setIsDone(!isDone);
 		dispatch(clearError());
 	};
-	const toggleError = () => {
+	const closeError = () => {
 		setIsError(!isError);
 		dispatch(clearError());
 	};
@@ -124,7 +124,7 @@ export const Register = () => {
 					</Button>
 					<p className='text text_type_main-small text_color_inactive mb-4'>
 						Уже зарегистрированы?{' '}
-						<Link to='/login' state={{ from: location.pathname }}>
+						<Link to='/login' state={{ from: location }}>
 							Войти
 						</Link>
 					</p>
@@ -132,22 +132,22 @@ export const Register = () => {
 			)}
 
 			{isDone && (
-				<Modal toggle={toggleRegistration}>
+				<Modal toggle={closeRegistration}>
 					<Notification
 						type='done'
 						text={text}
 						to='/login'
-						onClick={toggleRegistration}
+						onClick={closeRegistration}
 						buttonText='Войти'
 					/>
 				</Modal>
 			)}
 			{isError && (
-				<Modal toggle={toggleError}>
+				<Modal toggle={closeError}>
 					<Notification
 						type='error'
 						text={text}
-						onClick={toggleError}
+						onClick={closeError}
 						buttonText='Назад'
 					/>
 				</Modal>
