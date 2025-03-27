@@ -132,9 +132,18 @@ export const App = () => {
 						}
 					/>
 					<Route path='/login' element={<OnlyUnAuth component={<Login />} />} />
-					<Route path='/register' element={<Register />} />
-					<Route path='/forgot-password' element={<ForgotPassword />} />
-					<Route path='/reset-password' element={<ResetPassword />} />
+					<Route
+						path='/register'
+						element={<OnlyUnAuth component={<Register />} />}
+					/>
+					<Route
+						path='/forgot-password'
+						element={<OnlyUnAuth component={<ForgotPassword />} />}
+					/>
+					<Route
+						path='/reset-password'
+						element={<OnlyUnAuth component={<ResetPassword />} />}
+					/>
 					<Route
 						path='/profile'
 						element={<OnlyAuth component={<Profile />} />}
