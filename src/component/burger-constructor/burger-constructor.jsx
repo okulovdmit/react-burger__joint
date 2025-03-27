@@ -79,7 +79,6 @@ const BurgerConstructor = ({
 };
 
 BurgerConstructor.propTypes = {
-	// ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
 	toggleOrder: PropTypes.func.isRequired,
 	onDropHandler: PropTypes.func.isRequired,
 	onHandlerDelete: PropTypes.func.isRequired,

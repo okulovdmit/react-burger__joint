@@ -1,6 +1,6 @@
-// src/components/section/section.jsx
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
+
 export const Section = ({
 	id,
 	children,

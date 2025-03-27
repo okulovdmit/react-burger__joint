@@ -1,5 +1,4 @@
 import { createPortal } from 'react-dom';
-// import { useEffect, useCallback } from 'react';
 import { useKey } from '../../hooks/use-key';
 import sModal from './modal.module.scss';
 import ModalOverlay from '../modal-overlay/modal-overlay';

@@ -1,5 +1,6 @@
 import BurgerIngredients from '../component/burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../component/burger-constructor/burger-constructor';
+
 export const Home = ({
 	toggle,
 	getProduct,

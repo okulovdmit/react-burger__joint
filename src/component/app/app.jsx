@@ -68,7 +68,6 @@ export const App = () => {
 	);
 
 	const toggle = useCallback(() => {
-		// setIsOpen(!isOpen);
 		navigate(-1);
 	}, [navigate]);
 
@@ -78,7 +77,6 @@ export const App = () => {
 
 	const getProduct = useCallback((product) => {
 		setSelectedProduct(product);
-		// toggle();
 	}, []);
 
 	useEffect(() => {
