@@ -5,7 +5,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Preloader } from '../preloader/preloader';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
 	getOrderLoading,
 	getOrderNumber,
@@ -15,6 +15,7 @@ import {
 import { Notification } from '../notification/notification';
 
 export default function OrderDetailes({ toggle }) {
+	const dispatch = useDispatch();
 	const isLoading = useSelector(getOrderLoading);
 	const error = useSelector(getOrderError);
 	const number = useSelector(getOrderNumber);
@@ -41,6 +42,13 @@ export default function OrderDetailes({ toggle }) {
 						Получаем данные о вашем заказе
 					</p>
 				</>
+			) : isError ? (
+				<Notification
+					type='error'
+					text={textError}
+					onClick={handleCloseError}
+					buttonText='Назад'
+				/>
 			) : (
 				<>
 					<CloseIcon type='primary' className={sOrder.close} onClick={toggle} />
@@ -59,14 +67,6 @@ export default function OrderDetailes({ toggle }) {
 						Дождитесь готовности на орбитальной станции
 					</p>
 				</>
-			)}
-			{isError && (
-				<Notification
-					type='error'
-					text={textError}
-					onClick={handleCloseError}
-					buttonText='Назад'
-				/>
 			)}
 		</div>
 	);

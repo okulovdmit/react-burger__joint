@@ -13,6 +13,7 @@ import {
 import { getOrder } from '../../services/ingredients/action';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useKey } from '../../hooks/use-key';
 import { getUser } from '../../services/auth/reducer';
 
 const BurgerConstructor = ({
@@ -48,6 +49,8 @@ const BurgerConstructor = ({
 		dispatch(getOrder(ingredientIds));
 		toggleOrder();
 	};
+
+	useKey('Enter', gettingOrder);
 
 	return (
 		<section className={`${sConstructor.main} mt-6 pr-4`}>
