@@ -20,7 +20,7 @@ export const Notification = ({ type, text, to, onClick, buttonText }) => {
 				className={sNotification.close}
 			/>
 
-			{type === 'done' ? (
+			{type === 'done' || type === 'success' ? (
 				<CheckMarkIcon type='success' className={sNotification.icon} />
 			) : (
 				<CloseIcon type='error' className={sNotification.icon} />
@@ -34,7 +34,7 @@ export const Notification = ({ type, text, to, onClick, buttonText }) => {
 				type='primary'
 				size='medium'
 				extraClass='mt-20'
-				onClick={type === 'done' ? handle : onClick}>
+				onClick={type === 'succes' ? handle : onClick}>
 				{buttonText}
 			</Button>
 		</div>

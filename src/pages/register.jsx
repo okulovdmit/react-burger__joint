@@ -134,10 +134,9 @@ export const Register = () => {
 			{isDone && (
 				<Modal toggle={closeRegistration}>
 					<Notification
-						type='done'
+						type='success'
 						text={text}
 						to='/login'
-						onClick={closeRegistration}
 						buttonText='Войти'
 					/>
 				</Modal>

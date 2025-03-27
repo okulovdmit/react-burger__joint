@@ -8,7 +8,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Preloader } from '../component/preloader/preloader';
 import { login } from '../services/auth/action';
-import { getError, getUserLoading, clearError } from '../services/auth/reducer';
+import { getUserLoading, getError, clearError } from '../services/auth/reducer';
 import Modal from '../component/modal/modal';
 import { Notification } from '../component/notification/notification';
 
@@ -16,8 +16,8 @@ export const Login = () => {
 	const location = useLocation();
 	const dispatch = useDispatch();
 
-	const isLoading = useSelector(getUserLoading);
 	const error = useSelector(getError);
+	const isLoading = useSelector(getUserLoading);
 	const redirectFromResetPassword = localStorage.getItem('getResetPassword');
 
 	const [typeInput, setTypeInput] = useState('password');
@@ -30,16 +30,16 @@ export const Login = () => {
 	const textError = 'Неверный Email или пароль';
 
 	useEffect(() => {
-		if (error) {
-			setIsError(true);
-		}
-	}, [error]);
-
-	useEffect(() => {
 		if (redirectFromResetPassword) {
 			localStorage.removeItem('getResetPassword');
 		}
 	}, [redirectFromResetPassword]);
+
+	useEffect(() => {
+		if (error) {
+			setIsError(true);
+		}
+	}, [error]);
 
 	const handleLogin = (e) => {
 		e.preventDefault();

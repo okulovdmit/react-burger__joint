@@ -19,11 +19,13 @@ export default function Modal({ toggle, children }) {
 		};
 	}, [handelKeyDown]);
 	return createPortal(
-		<ModalOverlay toggle={toggle}>
+		<ModalOverlay toggle={toggle} onKeyDown={handelKeyDown}>
 			<div
 				className={sModal.modal}
-				onClick={(e) => e.stopPropagation()}
-				aria-hidden='true'>
+				onKeyDown={handelKeyDown}
+				tabIndex={0}
+				role='button'
+				onClick={(e) => e.stopPropagation()}>
 				{children}
 			</div>
 		</ModalOverlay>,

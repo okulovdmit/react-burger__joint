@@ -74,7 +74,6 @@ export const userSlice = createSlice({
 			.addCase(updateData.fulfilled, (state, action) => {
 				state.user = action.payload;
 				state.loading = false;
-				state.error = null;
 			});
 	},
 });
