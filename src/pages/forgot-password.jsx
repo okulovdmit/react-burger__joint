@@ -1,6 +1,7 @@
 import sForgot from './forgot-password.module.scss';
 import { useRef, useState } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
+import { useKey } from '../hooks/use-key';
 import {
 	Input,
 	Button,
@@ -23,12 +24,7 @@ export const ForgotPassword = () => {
 	const inputRef = useRef('');
 	const textError = error;
 
-	if (redirect) {
-		return <Navigate to='/reset-password' />;
-	}
-
-	const handleRecover = async (e) => {
-		e.preventDefault();
+	const handleRecover = async () => {
 		if (!email) {
 			inputRef.current.focus();
 		} else {
@@ -44,10 +40,15 @@ export const ForgotPassword = () => {
 		}
 	};
 
+	useKey('Enter', handleRecover);
+
 	const closeError = () => {
 		setIsError(!isError);
 	};
 
+	if (redirect) {
+		return <Navigate to='/reset-password' />;
+	}
 	return (
 		<div className={sForgot.container}>
 			{isLoading ? (

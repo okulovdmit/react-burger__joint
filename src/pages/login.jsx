@@ -2,6 +2,7 @@ import sLogin from './login.module.scss';
 import { useRef, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { useKey } from '../hooks/use-key';
 import {
 	Input,
 	Button,
@@ -41,9 +42,7 @@ export const Login = () => {
 		}
 	}, [error]);
 
-	const handleLogin = (e) => {
-		e.preventDefault();
-
+	const handleLogin = () => {
 		if (!email) {
 			emailRef.current.focus();
 		} else if (!password) {
@@ -52,6 +51,8 @@ export const Login = () => {
 			dispatch(login({ email, password }));
 		}
 	};
+
+	useKey('Enter', handleLogin);
 
 	const changeTypeInput = () => {
 		typeInput === 'password' ? setTypeInput('text') : setTypeInput('password');

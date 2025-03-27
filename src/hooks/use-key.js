@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react';
-export function useKey(key = 'Enter', handler) {
+export function useKey(key, handler) {
 	const handleKeyDown = useCallback(
 		(e) => {
 			if (e.key === key) handler();

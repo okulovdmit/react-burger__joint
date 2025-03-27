@@ -2,6 +2,8 @@ import sProfile from './profile.module.scss';
 import { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { useKey } from '../hooks/use-key';
+
 import {
 	Input,
 	Button,
@@ -43,6 +45,20 @@ export const Profile = () => {
 		}
 	}, [error]);
 
+	const handleSave = () => {
+		if (!name) {
+			nameRef.current.focus();
+		} else if (!email) {
+			emailRef.current.focus();
+		} else {
+			dispatch(updateData({ name, email }))
+				.then(() => setIsSuccess(true))
+				.finally(() => setIsChanged(false));
+		}
+	};
+
+	useKey('Enter', handleSave);
+
 	const onIconClick = (ref) => {
 		ref.current.focus();
 	};
@@ -61,18 +77,6 @@ export const Profile = () => {
 		setName(user.name);
 		setEmail(user.email);
 		setIsChanged(false);
-	};
-
-	const handleSave = () => {
-		if (!name) {
-			nameRef.current.focus();
-		} else if (!email) {
-			emailRef.current.focus();
-		} else {
-			dispatch(updateData({ name, email }))
-				.then(() => setIsSuccess(true))
-				.finally(() => setIsChanged(false));
-		}
 	};
 
 	const handleCloseError = () => {

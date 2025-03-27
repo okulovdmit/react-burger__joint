@@ -2,6 +2,7 @@ import sRegister from './register.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { useRef, useState, useEffect } from 'react';
+import { useKey } from '../hooks/use-key';
 import {
 	Input,
 	Button,
@@ -49,22 +50,7 @@ export const Register = () => {
 		}
 	}, [token]);
 
-	const changeTypeInput = () => {
-		typeInput === 'password' ? setTypeInput('text') : setTypeInput('password');
-	};
-
-	const closeRegistration = () => {
-		setIsDone(!isDone);
-		dispatch(clearError());
-	};
-	const closeError = () => {
-		setIsError(!isError);
-		dispatch(clearError());
-	};
-
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-
+	const handleSubmit = async () => {
 		if (!name) {
 			nameRef.current.focus();
 		} else if (!email) {
@@ -76,6 +62,22 @@ export const Register = () => {
 			setIsDone(false);
 			dispatch(register({ email, password, name }));
 		}
+	};
+
+	useKey('Enter', handleSubmit);
+
+	const changeTypeInput = () => {
+		typeInput === 'password' ? setTypeInput('text') : setTypeInput('password');
+	};
+
+	const closeRegistration = () => {
+		setIsDone(!isDone);
+		dispatch(clearError());
+	};
+
+	const closeError = () => {
+		setIsError(!isError);
+		dispatch(clearError());
 	};
 
 	return (

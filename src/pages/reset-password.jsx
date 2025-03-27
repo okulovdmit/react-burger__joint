@@ -1,6 +1,7 @@
 import sReset from './forgot-password.module.scss';
 import { useRef, useState } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
+import { useKey } from '../hooks/use-key';
 import {
 	Input,
 	Button,
@@ -32,13 +33,7 @@ export const ResetPassword = () => {
 			: 'Произошла ошибка. Пожалуйста, проверьте данные и повторите попытку';
 	const text = 'Пароль успешно изменен';
 
-	if (!redirect) {
-		return <Navigate to='/forgot-password' />;
-	}
-
-	const handleReset = async (e) => {
-		e.preventDefault();
-
+	const handleReset = async () => {
 		if (!password) {
 			passwordRef.current.focus();
 		} else if (!token) {
@@ -61,6 +56,11 @@ export const ResetPassword = () => {
 				});
 		}
 	};
+	useKey('Enter', handleReset);
+
+	if (!redirect) {
+		return <Navigate to='/forgot-password' />;
+	}
 
 	const closeError = () => {
 		setIsError(!isError);

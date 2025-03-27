@@ -49,6 +49,7 @@ export const userSlice = createSlice({
 			})
 			.addCase(login.fulfilled, (state, action) => {
 				state.user = action.payload;
+				state.loading = false;
 				state.isAuthChecked = true;
 				state.error = null;
 			})
