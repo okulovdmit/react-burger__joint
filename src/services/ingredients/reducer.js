@@ -68,6 +68,9 @@ export const ingredientsSlice = createSlice({
 				state.selectedIngredients[hoverIndex];
 			state.selectedIngredients[hoverIndex] = draggedItem;
 		},
+		clearError: (state) => {
+			state.orderError = null;
+		},
 	},
 	selectors: {
 		getAllIngredients: (state) => state.ingredients,
@@ -125,4 +128,5 @@ export const {
 	deleteIngredient,
 	deleteCounts,
 	moveIngredient,
+	clearError,
 } = ingredientsSlice.actions;
