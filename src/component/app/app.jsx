@@ -6,6 +6,7 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import s from './app.module.scss';
 import { Header } from '../app-header/app-header';
 import Modal from '../modal/modal';
+import { Preloader } from '../preloader/preloader';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetailes from '../order-detailes/order-detailes';
 import { loadIngredients } from '../../services/ingredients/action';
@@ -38,7 +39,7 @@ export const App = () => {
 	const dispatch = useDispatch();
 	const data = useSelector(getAllIngredients);
 	const isLoading = useSelector(getIngredientsLoading);
-	const hasError = useSelector(getIngredientsError);
+	const isError = useSelector(getIngredientsError);
 	const [isOpenOrder, setIsOpenOrder] = useState(false);
 	const [selectedProduct, setSelectedProduct] = useState(null);
 
@@ -86,10 +87,14 @@ export const App = () => {
 	}, [dispatch]);
 
 	if (isLoading) {
-		return <div className='text text_type_main-small'>Загрузка...</div>;
+		return (
+			<div className={s.load}>
+				<Preloader />
+			</div>
+		);
 	}
 
-	if (hasError) {
+	if (isError) {
 		return (
 			<div className='text text_type_main-small'>
 				Произошла ошибка при загрузке данных

@@ -10,3 +10,11 @@
 	justify-content: center;
 	gap: 40px;
 }
+.load {
+	width: 100wh;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transform: scale(2);
+}
