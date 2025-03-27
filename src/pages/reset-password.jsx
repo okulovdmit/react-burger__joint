@@ -1,5 +1,5 @@
 import sReset from './forgot-password.module.scss';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useKey } from '../hooks/use-key';
 import {
@@ -26,6 +26,10 @@ export const ResetPassword = () => {
 
 	const passwordRef = useRef('');
 	const tokenRef = useRef('');
+
+	useEffect(() => {
+		passwordRef.current.focus();
+	}, []);
 
 	const textError =
 		error === 'Incorrect reset token'

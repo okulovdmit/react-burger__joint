@@ -1,5 +1,5 @@
 import sForgot from './forgot-password.module.scss';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useKey } from '../hooks/use-key';
 import {
@@ -23,6 +23,10 @@ export const ForgotPassword = () => {
 
 	const inputRef = useRef('');
 	const textError = error;
+
+	useEffect(() => {
+		inputRef.current.focus();
+	}, []);
 
 	const handleRecover = async () => {
 		if (!email) {

@@ -42,6 +42,10 @@ export const Login = () => {
 		}
 	}, [error]);
 
+	useEffect(() => {
+		emailRef.current.focus();
+	}, []);
+
 	const handleLogin = () => {
 		if (!email) {
 			emailRef.current.focus();

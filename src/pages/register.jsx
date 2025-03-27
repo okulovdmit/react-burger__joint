@@ -44,6 +44,10 @@ export const Register = () => {
 	}, [error]);
 
 	useEffect(() => {
+		nameRef.current.focus();
+	}, []);
+
+	useEffect(() => {
 		if (token) {
 			setIsDone(true);
 			setIsError(false);
