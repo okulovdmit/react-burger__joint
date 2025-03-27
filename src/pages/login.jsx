@@ -18,6 +18,7 @@ export const Login = () => {
 
 	const isLoading = useSelector(getUserLoading);
 	const error = useSelector(getError);
+	const redirectFromResetPassword = localStorage.getItem('getResetPassword');
 
 	const [typeInput, setTypeInput] = useState('password');
 	const [email, setEmail] = useState('');
@@ -33,6 +34,12 @@ export const Login = () => {
 			setIsError(true);
 		}
 	}, [error]);
+
+	useEffect(() => {
+		if (redirectFromResetPassword) {
+			localStorage.removeItem('getResetPassword');
+		}
+	}, [redirectFromResetPassword]);
 
 	const handleLogin = (e) => {
 		e.preventDefault();
