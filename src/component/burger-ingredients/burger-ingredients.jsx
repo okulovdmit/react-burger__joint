@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import * as PropTypes from 'prop-types';
 import sIngredients from './burger-ingredients.module.scss';
 import { IngredientCard } from '../ingredient-card/ingredient-card';
-// import { ingredientPropType } from '../../utils/prop-type';
 import { Tabs } from '../tabs/tabs';
 import { Section } from '../tabs/section';
 import { getAllIngredients } from '../../services/ingredients/reducer';
@@ -63,7 +62,6 @@ const BurgerIngredients = ({ toggle, getProduct }) => {
 };
 
 BurgerIngredients.propTypes = {
-	// data: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
 	toggle: PropTypes.func.isRequired,
 	getProduct: PropTypes.func.isRequired,
 };

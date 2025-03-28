@@ -16,33 +16,27 @@ export const ConsctructorIngredients = ({
 			onDropHandler(item);
 		},
 	});
-
 	return (
 		<div
 			ref={dropRef}
-			className={`${sIngredients.group} m-4 custom-scroll`}
+			className={`${sIngredients.group} m-4 mr-4 custom-scroll`}
 			onClick={(e) => e.stopPropagation()}
 			aria-hidden='true'>
-			{ingredients.map((item, index) => (
-				<RenderIngredient
-					key={item.key}
-					item={item}
-					index={index}
-					onHandlerDelete={onHandlerDelete}
-					onMoveIngredient={onMoveIngredient}
-				/>
-				// <div key={index} className={sIngredients.item}>
-				// 	<DragIcon type='primary' />
-				// 	<ConstructorElement
-				// 		text={item.name}
-				// 		price={item.price}
-				// 		thumbnail={item.image}
-				// 		handleClose={() => {
-				// 			onHandlerDelete(item._id);
-				// 		}}
-				// 	/>
-				// </div>
-			))}
+			{ingredients.length > 0 ? (
+				ingredients.map((item, index) => (
+					<RenderIngredient
+						key={item.key}
+						item={item}
+						index={index}
+						onHandlerDelete={onHandlerDelete}
+						onMoveIngredient={onMoveIngredient}
+					/>
+				))
+			) : (
+				<div className={`${sIngredients.text} text text_type_main-medium`}>
+					Перетащите сюда ингредиенты
+				</div>
+			)}
 		</div>
 	);
 };

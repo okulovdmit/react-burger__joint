@@ -13,6 +13,7 @@ module.exports = {
 		filename: production
 			? 'static/scripts/[name].[contenthash].js'
 			: 'static/scripts/[name].js', // имя нашего бандла
+		publicPath: '/',
 	},
 	//Нужно помочь вебпаку научится работать с jsx и tsx файлами для этого используют ts loader
 	module: {
@@ -76,11 +77,11 @@ module.exports = {
 	resolve: {
 		extensions: ['.js', '.jsx', '.tsx', '.ts', '.json'], //указываем файлы с которыми будет работать webpack
 		alias: {
-      '@pages': path.resolve(__dirname, './src/pages'),
-      '@components': path.resolve(__dirname, './src/component'),
-      '@services': path.resolve(__dirname, './src/services'),
-      '@utils': path.resolve(__dirname, '..', './src/utils'),
-  		}
+			'@pages': path.resolve(__dirname, './src/pages'),
+			'@components': path.resolve(__dirname, './src/component'),
+			'@services': path.resolve(__dirname, './src/services'),
+			'@utils': path.resolve(__dirname, '..', './src/utils'),
+		},
 	},
 	plugins: [
 		new HTMLWebpackPlugins({

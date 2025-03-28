@@ -1,5 +1,4 @@
 import * as PropTypes from 'prop-types';
-import { useCallback } from 'react';
 import sConstructor from './burger-constructor.module.scss';
 import Bun from './bun';
 import { ConsctructorIngredients } from '../constructor-ingredients/constructor-ingredients';
@@ -7,13 +6,15 @@ import {
 	CurrencyIcon,
 	Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-// import { ingredientPropType } from '../../utils/prop-type';
 import {
 	getSelectedBun,
 	getSelectedIngredients,
 } from '../../services/ingredients/reducer';
 import { getOrder } from '../../services/ingredients/action';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useKey } from '../../hooks/use-key';
+import { getUser } from '../../services/auth/reducer';
 
 const BurgerConstructor = ({
 	toggleOrder,
@@ -24,6 +25,8 @@ const BurgerConstructor = ({
 	const dispatch = useDispatch();
 	const bun = useSelector(getSelectedBun);
 	const ingredients = useSelector(getSelectedIngredients);
+	const navigate = useNavigate();
+	const user = useSelector(getUser);
 
 	const ingredientsCost = ingredients.reduce(
 		(acc, item) => acc + item.price,
@@ -32,7 +35,10 @@ const BurgerConstructor = ({
 	const bunCost = bun ? bun.price * 2 : 0;
 	const total = bunCost + ingredientsCost;
 
-	const gettingOrder = useCallback(() => {
+	const gettingOrder = () => {
+		if (!user) {
+			return navigate('/login');
+		}
 		const ingredientIds = [];
 		if (bun) {
 			ingredientIds.push(bun._id);
@@ -42,7 +48,9 @@ const BurgerConstructor = ({
 		});
 		dispatch(getOrder(ingredientIds));
 		toggleOrder();
-	}, [dispatch, bun, ingredients, toggleOrder]);
+	};
+
+	useKey('Enter', gettingOrder);
 
 	return (
 		<section className={`${sConstructor.main} mt-6 pr-4`}>
@@ -71,7 +79,6 @@ const BurgerConstructor = ({
 };
 
 BurgerConstructor.propTypes = {
-	// ingredients: PropTypes.arrayOf(ingredientPropType.isRequired).isRequired,
 	toggleOrder: PropTypes.func.isRequired,
 	onDropHandler: PropTypes.func.isRequired,
 	onHandlerDelete: PropTypes.func.isRequired,
