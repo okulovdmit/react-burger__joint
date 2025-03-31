@@ -8,8 +8,8 @@ import {
 	Input,
 	Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Preloader } from '../component/preloader/preloader';
-import { LogoutButton } from '../component/logout-button/logout-button';
+import { Preloader } from '../components/preloader/preloader';
+import { LogoutButton } from '../components/logout-button/logout-button';
 import {
 	getUser,
 	getUserLoading,
@@ -17,8 +17,8 @@ import {
 	clearError,
 } from '../services/auth/reducer';
 import { updateData } from '../services/auth/action';
-import Modal from '../component/modal/modal';
-import { Notification } from '../component/notification/notification';
+import Modal from '../components/modal/modal';
+import { Notification } from '../components/notification/notification';
 
 export const Profile = () => {
 	const dispatch = useDispatch();

@@ -7,11 +7,11 @@ import {
 	Input,
 	Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Preloader } from '../component/preloader/preloader';
+import { Preloader } from '../components/preloader/preloader';
 import { login } from '../services/auth/action';
 import { getUserLoading, getError, clearError } from '../services/auth/reducer';
-import Modal from '../component/modal/modal';
-import { Notification } from '../component/notification/notification';
+import Modal from '../components/modal/modal';
+import { Notification } from '../components/notification/notification';
 
 export const Login = () => {
 	const location = useLocation();

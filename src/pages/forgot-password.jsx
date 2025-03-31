@@ -7,9 +7,9 @@ import {
 	Button,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { forgotPassword } from '../utils/auth-api';
-import { Preloader } from '../component/preloader/preloader';
-import Modal from '../component/modal/modal';
-import { Notification } from '../component/notification/notification';
+import { Preloader } from '../components/preloader/preloader';
+import Modal from '../components/modal/modal';
+import { Notification } from '../components/notification/notification';
 
 export const ForgotPassword = () => {
 	const location = useLocation();

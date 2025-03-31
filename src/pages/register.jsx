@@ -9,9 +9,9 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { register } from '../services/auth/action';
 import { getError, getUserLoading, clearError } from '../services/auth/reducer';
-import { Preloader } from '../component/preloader/preloader';
-import Modal from '../component/modal/modal';
-import { Notification } from '../component/notification/notification';
+import { Preloader } from '../components/preloader/preloader';
+import Modal from '../components/modal/modal';
+import { Notification } from '../components/notification/notification';
 
 export const Register = () => {
 	const location = useLocation();
