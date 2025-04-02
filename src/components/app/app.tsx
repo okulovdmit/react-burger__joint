@@ -31,19 +31,31 @@ import {
 } from '../../pages/index';
 import { OnlyUnAuth, OnlyAuth } from '../protected-route/protected-route';
 import { checkUserAuth } from '../../services/auth/action';
+import { TDataIngredient } from '@utils/types';
+
+type TCallbackWithIngredient = (arg: TDataIngredient) => void;
 
 export const App = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const background = location.state && location.state.background;
 	const dispatch = useDispatch();
-	const data = useSelector(getAllIngredients);
+	const data: Array<TDataIngredient> = useSelector(getAllIngredients);
 	const isLoading = useSelector(getIngredientsLoading);
 	const isError = useSelector(getIngredientsError);
-	const [isOpenOrder, setIsOpenOrder] = useState(false);
-	const [selectedProduct, setSelectedProduct] = useState(null);
 
-	const handleDrop = useCallback(
+	const [isOpenOrder, setIsOpenOrder] = useState<boolean>(false);
+	const [selectedProduct, setSelectedProduct] =
+		useState<TDataIngredient | null>(null);
+
+	useEffect(() => {
+		//@ts-expect-error 'do it later'
+		dispatch(loadIngredients());
+		//@ts-expect-error 'do it later'
+		dispatch(checkUserAuth());
+	}, [dispatch]);
+
+	const handleDrop = useCallback<TCallbackWithIngredient>(
 		(item) => {
 			if (item.type === 'bun') {
 				dispatch(addBun(item));
@@ -53,14 +65,21 @@ export const App = () => {
 		},
 		[dispatch]
 	);
-	const handleDeleteIngredient = useCallback(
+	const handleDeleteIngredient = useCallback<
+		(
+			key: Pick<TDataIngredient, 'key'>,
+			id: Pick<TDataIngredient, '_id'>
+		) => void
+	>(
 		(key, id) => {
 			dispatch(deleteIngredient(key));
 			dispatch(deleteCounts(id));
 		},
 		[dispatch]
 	);
-	const handleMoveIngredient = useCallback(
+	const handleMoveIngredient = useCallback<
+		(dragIndex: number, hoverIndex: number) => void
+	>(
 		(dragIndex, hoverIndex) => {
 			dispatch(moveIngredient(dragIndex, hoverIndex));
 		},
@@ -75,14 +94,9 @@ export const App = () => {
 		setIsOpenOrder(!isOpenOrder);
 	}, [isOpenOrder]);
 
-	const getProduct = useCallback((product) => {
+	const getProduct = useCallback<TCallbackWithIngredient>((product) => {
 		setSelectedProduct(product);
 	}, []);
-
-	useEffect(() => {
-		dispatch(loadIngredients());
-		dispatch(checkUserAuth());
-	}, [dispatch]);
 
 	if (isLoading) {
 		return (
