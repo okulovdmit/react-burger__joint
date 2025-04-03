@@ -15,16 +15,29 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useKey } from '../../hooks/use-key';
 import { getUser } from '../../services/auth/reducer';
+import { TDataIngredient, TCallbackWithIngredient } from '@utils/types';
+
+type TBurgerConstructorProps = {
+	toggleOrder: () => void;
+	onDropHandler: TCallbackWithIngredient;
+	onHandlerDelete: (
+		key: Pick<TDataIngredient, 'key'>,
+		id: Pick<TDataIngredient, '_id'>
+	) => void;
+	onMoveIngredient: (dragIndex: number, hoverIndex: number) => void;
+};
 
 const BurgerConstructor = ({
 	toggleOrder,
 	onDropHandler,
 	onHandlerDelete,
 	onMoveIngredient,
-}) => {
+}: TBurgerConstructorProps): React.JSX.Element => {
 	const dispatch = useDispatch();
-	const bun = useSelector(getSelectedBun);
-	const ingredients = useSelector(getSelectedIngredients);
+	const bun: TDataIngredient = useSelector(getSelectedBun); // need to change type
+	const ingredients: Array<TDataIngredient> = useSelector(
+		getSelectedIngredients
+	); // need to change type
 	const navigate = useNavigate();
 	const user = useSelector(getUser);
 
@@ -39,13 +52,14 @@ const BurgerConstructor = ({
 		if (!user) {
 			return navigate('/login');
 		}
-		const ingredientIds = [];
+		const ingredientIds: Array<string> = [];
 		if (bun) {
 			ingredientIds.push(bun._id);
 		}
 		ingredients.forEach((ingredient) => {
 			ingredientIds.push(ingredient._id);
 		});
+		//@ts-expect-error 'do it later'
 		dispatch(getOrder(ingredientIds));
 		toggleOrder();
 	};

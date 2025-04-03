@@ -13,3 +13,5 @@ export type TDataIngredient = {
 	__v: number;
 	key?: string;
 };
+
+export type TCallbackWithIngredient = (item: TDataIngredient) => void;

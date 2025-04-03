@@ -3,9 +3,21 @@ import { useDrop } from 'react-dnd';
 import sBun from './burger-constructor.module.scss';
 import { getSelectedBun } from '../../services/ingredients/reducer';
 import { useSelector } from 'react-redux';
-export default function Bun({ type, text, onDropHandler }) {
-	const bun = useSelector(getSelectedBun);
-	const [, dropRef] = useDrop({
+import { TDataIngredient, TCallbackWithIngredient } from '@utils/types';
+
+type TBunProps = {
+	type: 'top' | 'bottom';
+	text: string;
+	onDropHandler: TCallbackWithIngredient;
+};
+
+export default function Bun({
+	type,
+	text,
+	onDropHandler,
+}: TBunProps): React.JSX.Element {
+	const bun: TDataIngredient = useSelector(getSelectedBun);
+	const [, dropRef] = useDrop<TDataIngredient, unknown, unknown>({
 		accept: 'ingredients',
 		drop(item) {
 			onDropHandler(item);
@@ -18,9 +30,9 @@ export default function Bun({ type, text, onDropHandler }) {
 					type={type}
 					isLocked={true}
 					text={`${bun.name} (${text})`}
-					price={`${bun.price}`}
+					price={bun.price}
 					thumbnail={`${bun.image}`}
-					className={'mr-10'}
+					extraClass={'mr-10'}
 				/>
 			) : (
 				<div className={`${sBun.bun} text text_type_main-medium`}>

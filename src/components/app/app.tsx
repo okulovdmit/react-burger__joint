@@ -31,9 +31,7 @@ import {
 } from '../../pages/index';
 import { OnlyUnAuth, OnlyAuth } from '../protected-route/protected-route';
 import { checkUserAuth } from '../../services/auth/action';
-import { TDataIngredient } from '@utils/types';
-
-type TCallbackWithIngredient = (arg: TDataIngredient) => void;
+import { TDataIngredient, TCallbackWithIngredient } from '@utils/types';
 
 export const App = () => {
 	const location = useLocation();
