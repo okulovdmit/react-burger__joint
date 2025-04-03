@@ -34,10 +34,8 @@ const BurgerConstructor = ({
 	onMoveIngredient,
 }: TBurgerConstructorProps): React.JSX.Element => {
 	const dispatch = useDispatch();
-	const bun: TDataIngredient = useSelector(getSelectedBun); // need to change type
-	const ingredients: Array<TDataIngredient> = useSelector(
-		getSelectedIngredients
-	); // need to change type
+	const bun = useSelector(getSelectedBun);
+	const ingredients = useSelector(getSelectedIngredients); // need to change type
 	const navigate = useNavigate();
 	const user = useSelector(getUser);
 

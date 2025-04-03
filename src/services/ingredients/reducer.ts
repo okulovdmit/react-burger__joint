@@ -1,8 +1,21 @@
 import { loadIngredients, getOrder } from './action.js';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
+import { TDataIngredient } from '../../utils/types';
 
-const initialState = {
+interface IngredientsState {
+	ingredients: Array<TDataIngredient>;
+	loading: boolean;
+	error: string | null;
+	selectedIngredients: Array<TDataIngredient>;
+	selectedBun: TDataIngredient | null;
+	ingredientCounts: { [key: string]: number };
+	orderNumber: number | null;
+	orderLoading: boolean;
+	orderError: string | null;
+}
+
+const initialState: IngredientsState = {
 	ingredients: [],
 	loading: false,
 	error: null,
@@ -19,7 +32,7 @@ export const ingredientsSlice = createSlice({
 	initialState,
 	reducers: {
 		addIngredient: {
-			reducer: (state, action) => {
+			reducer: (state, action: PayloadAction<TDataIngredient>) => {
 				const ingredient = action.payload;
 				state.selectedIngredients.push(ingredient);
 				if (state.ingredientCounts[ingredient._id]) {
@@ -28,12 +41,12 @@ export const ingredientsSlice = createSlice({
 					state.ingredientCounts[ingredient._id] = 1;
 				}
 			},
-			prepare: (item) => {
+			prepare: (item: TDataIngredient) => {
 				return { payload: { ...item, key: uuidv4() } };
 			},
 		},
 		addBun: {
-			reducer: (state, action) => {
+			reducer: (state, action: PayloadAction<TDataIngredient>) => {
 				const bun = action.payload;
 				if (state.selectedBun) {
 					const oldBunId = state.selectedBun._id;
@@ -90,7 +103,7 @@ export const ingredientsSlice = createSlice({
 			})
 			.addCase(loadIngredients.rejected, (state, action) => {
 				state.loading = false;
-				state.error = action.error?.message;
+				state.error = action.error?.message || null;
 			})
 			.addCase(loadIngredients.fulfilled, (state, action) => {
 				state.ingredients = action.payload.data;
@@ -105,7 +118,7 @@ export const ingredientsSlice = createSlice({
 			})
 			.addCase(getOrder.rejected, (state, action) => {
 				state.orderLoading = false;
-				state.orderError = action.error?.message;
+				state.orderError = action.error?.message || null;
 			});
 	},
 });

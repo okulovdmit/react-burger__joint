@@ -76,10 +76,16 @@ export const App = () => {
 		[dispatch]
 	);
 	const handleMoveIngredient = useCallback<
-		(dragIndex: number, hoverIndex: number) => void
+		({
+			dragIndex,
+			hoverIndex,
+		}: {
+			dragIndex: number;
+			hoverIndex: number;
+		}) => void
 	>(
-		(dragIndex, hoverIndex) => {
-			dispatch(moveIngredient(dragIndex, hoverIndex));
+		({ dragIndex, hoverIndex }) => {
+			dispatch(moveIngredient({ dragIndex, hoverIndex }));
 		},
 		[dispatch]
 	);

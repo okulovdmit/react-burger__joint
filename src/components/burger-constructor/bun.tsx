@@ -16,7 +16,7 @@ export default function Bun({
 	text,
 	onDropHandler,
 }: TBunProps): React.JSX.Element {
-	const bun: TDataIngredient = useSelector(getSelectedBun);
+	const bun = useSelector(getSelectedBun);
 	const [, dropRef] = useDrop<TDataIngredient, unknown, unknown>({
 		accept: 'ingredients',
 		drop(item) {
