@@ -7,8 +7,17 @@ import { useDrag } from 'react-dnd';
 import { useSelector } from 'react-redux';
 import { getIngredientCounts } from '../../services/ingredients/reducer';
 import { useLocation, Link } from 'react-router-dom';
+import { TDataIngredient, TCallbackWithIngredient } from '@utils/types';
 
-export const DraggableIngredient = ({ item, getProduct }) => {
+type TDraggableIngredientProps = {
+	item: TDataIngredient;
+	getProduct: TCallbackWithIngredient;
+};
+
+export const DraggableIngredient = ({
+	item,
+	getProduct,
+}: TDraggableIngredientProps): React.JSX.Element => {
 	const ingredientCounts = useSelector(getIngredientCounts);
 	const location = useLocation();
 	const ingredientId = item['_id'];
