@@ -5,16 +5,28 @@ import {
 	DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import sIngredients from './constructor-ingredients.module.scss';
+import { TBurgerConstructorProps } from '../burger-constructor/burger-constructor';
+import { TDataIngredient } from '@utils/types';
+import { Identifier } from 'dnd-core';
+
+type TRenderIngredient = { item: TDataIngredient; index: number } & Pick<
+	TBurgerConstructorProps,
+	'onHandlerDelete' | 'onMoveIngredient'
+>;
 
 export const RenderIngredient = ({
 	item,
 	index,
 	onHandlerDelete,
 	onMoveIngredient,
-}) => {
-	const ref = useRef(null);
+}: TRenderIngredient): React.JSX.Element => {
+	const ref = useRef<HTMLDivElement | null>(null);
 
-	const [{ handlerId }, dragRef] = useDrag({
+	const [{ handlerId }, dragRef] = useDrag<
+		{ type: 'ingredient'; index: number },
+		unknown,
+		{ handlerId: Identifier | null }
+	>({
 		type: 'ingredient',
 		item: { type: 'ingredient', index },
 		collect: (monitor) => ({
@@ -22,7 +34,11 @@ export const RenderIngredient = ({
 		}),
 	});
 
-	const [, drop] = useDrop({
+	const [, drop] = useDrop<
+		{ type: 'ingredient'; index: number },
+		unknown,
+		{ isOver: boolean }
+	>({
 		accept: 'ingredient',
 		hover(item, monitor) {
 			if (!ref.current) {
@@ -39,6 +55,10 @@ export const RenderIngredient = ({
 				(hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 
 			const clientOffset = monitor.getClientOffset();
+
+			if (!clientOffset) {
+				return;
+			}
 
 			const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
@@ -66,7 +86,11 @@ export const RenderIngredient = ({
 				text={item.name}
 				price={item.price}
 				thumbnail={item.image}
-				handleClose={() => onHandlerDelete(item.key, item._id)}
+				handleClose={() => {
+					if (item.key) {
+						onHandlerDelete(item.key, item._id);
+					}
+				}}
 			/>
 		</div>
 	);

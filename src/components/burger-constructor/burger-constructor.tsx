@@ -1,4 +1,3 @@
-import * as PropTypes from 'prop-types';
 import sConstructor from './burger-constructor.module.scss';
 import Bun from './bun';
 import { ConsctructorIngredients } from '../constructor-ingredients/constructor-ingredients';
@@ -15,16 +14,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useKey } from '../../hooks/use-key';
 import { getUser } from '../../services/auth/reducer';
-import { TDataIngredient, TCallbackWithIngredient } from '@utils/types';
+import { TCallbackWithIngredient } from '@utils/types';
 
-type TBurgerConstructorProps = {
+export type TBurgerConstructorProps = {
 	toggleOrder: () => void;
 	onDropHandler: TCallbackWithIngredient;
-	onHandlerDelete: (
-		key: Pick<TDataIngredient, 'key'>,
-		id: Pick<TDataIngredient, '_id'>
-	) => void;
-	onMoveIngredient: (dragIndex: number, hoverIndex: number) => void;
+	onHandlerDelete: (key: string, id: string) => void;
+	onMoveIngredient: (arg: { dragIndex: number; hoverIndex: number }) => void;
 };
 
 const BurgerConstructor = ({
@@ -88,13 +84,6 @@ const BurgerConstructor = ({
 			</div>
 		</section>
 	);
-};
-
-BurgerConstructor.propTypes = {
-	toggleOrder: PropTypes.func.isRequired,
-	onDropHandler: PropTypes.func.isRequired,
-	onHandlerDelete: PropTypes.func.isRequired,
-	onMoveIngredient: PropTypes.func.isRequired,
 };
 
 export default BurgerConstructor;
