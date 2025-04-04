@@ -23,7 +23,7 @@ export const userSlice = createSlice({
 		setUser: (state, action: PayloadAction<TUserWithoutPassword>) => {
 			state.user = action.payload;
 		},
-		setIsAuthChecked: (state, action) => {
+		setIsAuthChecked: (state, action: PayloadAction<boolean>) => {
 			state.isAuthChecked = action.payload;
 		},
 		clearError: (state) => {
