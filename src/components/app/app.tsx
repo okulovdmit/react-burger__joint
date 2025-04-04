@@ -38,7 +38,7 @@ export const App = () => {
 	const navigate = useNavigate();
 	const background = location.state && location.state.background;
 	const dispatch = useDispatch();
-	const data: Array<TDataIngredient> = useSelector(getAllIngredients);
+	const data = useSelector(getAllIngredients);
 	const isLoading = useSelector(getIngredientsLoading);
 	const isError = useSelector(getIngredientsError);
 

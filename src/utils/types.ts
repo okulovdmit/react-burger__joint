@@ -15,3 +15,11 @@ export type TDataIngredient = {
 };
 
 export type TCallbackWithIngredient = (item: TDataIngredient) => void;
+
+export type TUser = {
+	email: string;
+	name: string;
+	password: string;
+};
+
+export type TUserWithoutPassword = Pick<TUser, 'email' | 'name'>;

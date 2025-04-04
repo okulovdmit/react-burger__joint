@@ -1,7 +1,15 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { register, login, logout, updateData } from './action';
+import { TUserWithoutPassword } from '@utils/types';
 
-const initialState = {
+interface IUserState {
+	user: TUserWithoutPassword | null;
+	loading: boolean;
+	error: string | null;
+	isAuthChecked: boolean;
+}
+
+const initialState: IUserState = {
 	user: null,
 	loading: false,
 	error: null,
@@ -12,7 +20,7 @@ export const userSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
-		setUser: (state, action) => {
+		setUser: (state, action: PayloadAction<TUserWithoutPassword>) => {
 			state.user = action.payload;
 		},
 		setIsAuthChecked: (state, action) => {
@@ -34,17 +42,17 @@ export const userSlice = createSlice({
 				state.loading = true;
 			})
 			.addCase(register.rejected, (state, action) => {
-				state.error = action.error?.message;
+				state.error = action.error?.message || null;
 				state.loading = false;
 			})
 			.addCase(register.fulfilled, (state) => {
-				state.error = false;
+				state.error = null;
 			})
 			.addCase(login.pending, (state) => {
 				state.loading = true;
 			})
 			.addCase(login.rejected, (state, action) => {
-				state.error = action.error?.message;
+				state.error = action.error?.message || null;
 				state.loading = false;
 			})
 			.addCase(login.fulfilled, (state, action) => {
@@ -57,7 +65,7 @@ export const userSlice = createSlice({
 				state.loading = true;
 			})
 			.addCase(logout.rejected, (state, action) => {
-				state.error = action.error?.message;
+				state.error = action.error?.message || null;
 				state.loading = false;
 			})
 			.addCase(logout.fulfilled, (state) => {
@@ -69,7 +77,7 @@ export const userSlice = createSlice({
 				state.loading = true;
 			})
 			.addCase(updateData.rejected, (state, action) => {
-				state.error = action.error?.message;
+				state.error = action.error?.message || null;
 				state.loading = false;
 			})
 			.addCase(updateData.fulfilled, (state, action) => {
