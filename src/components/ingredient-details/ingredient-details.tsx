@@ -3,8 +3,18 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getAllIngredients } from '../../services/ingredients/reducer';
+import { TDataIngredient } from '@utils/types';
+import React from 'react';
 
-export default function IngredientDetails({ product, toggle }) {
+type TIngredientDetailesProps = {
+	product?: TDataIngredient | null;
+	toggle: () => void;
+};
+
+export default function IngredientDetails({
+	product,
+	toggle,
+}: TIngredientDetailesProps): React.JSX.Element {
 	const { ingredientId: id } = useParams();
 	const data = useSelector(getAllIngredients);
 	const productId = data.filter((item) => item._id === id)[0];
