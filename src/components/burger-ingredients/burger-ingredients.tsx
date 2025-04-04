@@ -1,19 +1,25 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import * as PropTypes from 'prop-types';
 import sIngredients from './burger-ingredients.module.scss';
 import { IngredientCard } from '../ingredient-card/ingredient-card';
 import { Tabs } from '../tabs/tabs';
 import { Section } from '../tabs/section';
 import { getAllIngredients } from '../../services/ingredients/reducer';
+import { TCallbackWithIngredient } from '@utils/types';
 
-const BurgerIngredients = ({ toggle, getProduct }) => {
+type TBurgerIngredientsProps = {
+	getProduct: TCallbackWithIngredient;
+};
+
+const BurgerIngredients = ({
+	getProduct,
+}: TBurgerIngredientsProps): React.JSX.Element => {
 	const data = useSelector(getAllIngredients);
 	const bunFilter = data.filter((item) => item.type === 'bun');
 	const sauceFilter = data.filter((item) => item.type === 'sauce');
 	const mainFilter = data.filter((item) => item.type === 'main');
 
-	const [activeTab, setActiveTab] = useState('булки');
+	const [activeTab, setActiveTab] = useState<string>('булки');
 
 	return (
 		<section className={sIngredients.main}>
@@ -25,11 +31,7 @@ const BurgerIngredients = ({ toggle, getProduct }) => {
 					classname={sIngredients.cards}
 					onVisibilityChange={setActiveTab}
 					label='Булки'>
-					<IngredientCard
-						data={bunFilter}
-						toggle={toggle}
-						getProduct={getProduct}
-					/>
+					<IngredientCard data={bunFilter} getProduct={getProduct} />
 				</Section>
 
 				<Section
@@ -37,12 +39,7 @@ const BurgerIngredients = ({ toggle, getProduct }) => {
 					classname={sIngredients.cards}
 					onVisibilityChange={setActiveTab}
 					label='Соусы'>
-					<IngredientCard
-						data={sauceFilter}
-						classname={sIngredients.cards}
-						toggle={toggle}
-						getProduct={getProduct}
-					/>
+					<IngredientCard data={sauceFilter} getProduct={getProduct} />
 				</Section>
 
 				<Section
@@ -50,19 +47,11 @@ const BurgerIngredients = ({ toggle, getProduct }) => {
 					classname={sIngredients.cards}
 					label='Начинки'
 					onVisibilityChange={setActiveTab}>
-					<IngredientCard
-						data={mainFilter}
-						toggle={toggle}
-						getProduct={getProduct}
-					/>
+					<IngredientCard data={mainFilter} getProduct={getProduct} />
 				</Section>
 			</div>
 		</section>
 	);
 };
 
-BurgerIngredients.propTypes = {
-	toggle: PropTypes.func.isRequired,
-	getProduct: PropTypes.func.isRequired,
-};
 export default BurgerIngredients;
