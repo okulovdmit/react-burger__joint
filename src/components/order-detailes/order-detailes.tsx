@@ -4,7 +4,7 @@ import {
 	CheckMarkIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Preloader } from '../preloader/preloader';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
 	getOrderLoading,
@@ -14,13 +14,19 @@ import {
 } from '../../services/ingredients/reducer';
 import { Notification } from '../notification/notification';
 
-export default function OrderDetailes({ toggle }) {
+type TOrderDetailesProp = {
+	toggle: () => void;
+};
+
+export default function OrderDetailes({
+	toggle,
+}: TOrderDetailesProp): React.JSX.Element {
 	const dispatch = useDispatch();
 	const isLoading = useSelector(getOrderLoading);
 	const error = useSelector(getOrderError);
 	const number = useSelector(getOrderNumber);
 
-	const [isError, setIsError] = useState(false);
+	const [isError, setIsError] = useState<boolean>(false);
 
 	const textError =
 		'Ошибка получения заказа. Попробуйте перезагрузить страницу и повторите попытку';

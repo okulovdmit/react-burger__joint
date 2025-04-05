@@ -10,7 +10,7 @@ import React from 'react';
 type TNotificationProps = {
 	type: 'done' | 'success' | 'error';
 	text: string;
-	to: string | null;
+	to?: string;
 	onClick: () => void;
 	buttonText: string;
 };
