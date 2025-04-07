@@ -1,5 +1,5 @@
 import sForgot from './forgot-password.module.scss';
-import { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useKey } from '../hooks/use-key';
 import {
@@ -11,25 +11,25 @@ import { Preloader } from '../components/preloader/preloader';
 import Modal from '../components/modal/modal';
 import { Notification } from '../components/notification/notification';
 
-export const ForgotPassword = () => {
+export const ForgotPassword = (): React.JSX.Element => {
 	const location = useLocation();
 
 	const redirect = localStorage.getItem('getResetPassword');
 
-	const [email, setEmail] = useState('');
-	const [error, setError] = useState('');
-	const [isError, setIsError] = useState(false);
-	const [isLoading, setIsloading] = useState(false);
+	const [email, setEmail] = useState<string>('');
+	const [error, setError] = useState<string>('');
+	const [isError, setIsError] = useState<boolean>(false);
+	const [isLoading, setIsloading] = useState<boolean>(false);
 
-	const inputRef = useRef('');
+	const inputRef = useRef<HTMLInputElement>(null);
 	const textError = error;
 
 	useEffect(() => {
-		inputRef.current.focus();
+		if (inputRef.current) inputRef.current.focus();
 	}, []);
 
 	const handleRecover = async () => {
-		if (!email) {
+		if (!email && inputRef.current) {
 			inputRef.current.focus();
 		} else {
 			setIsloading(true);
