@@ -1,7 +1,7 @@
 import sRegister from './register.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useKey } from '../hooks/use-key';
 import {
 	Input,
@@ -13,18 +13,18 @@ import { Preloader } from '../components/preloader/preloader';
 import Modal from '../components/modal/modal';
 import { Notification } from '../components/notification/notification';
 
-export const Register = () => {
+export const Register = (): React.JSX.Element => {
 	const location = useLocation();
 	const dispatch = useDispatch();
 	const isLoading = useSelector(getUserLoading);
 	const error = useSelector(getError);
 
-	const [name, setName] = useState('');
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
-	const [typeInput, setTypeInput] = useState('password');
-	const [isDone, setIsDone] = useState(false);
-	const [isError, setIsError] = useState(false);
+	const [name, setName] = useState<string>('');
+	const [email, setEmail] = useState<string>('');
+	const [password, setPassword] = useState<string>('');
+	const [typeInput, setTypeInput] = useState<'text' | 'password'>('password');
+	const [isDone, setIsDone] = useState<boolean>(false);
+	const [isError, setIsError] = useState<boolean>(false);
 
 	const textError =
 		'Введенные вами данные отсутствуют или неверны. Пожалуйста, проверьте ваши данные и попробуйте еще раз.';
@@ -32,9 +32,9 @@ export const Register = () => {
 	const text = isDone ? 'Вы успешно зарегистрировались!' : textError;
 	const token = localStorage.getItem('accessToken');
 
-	const emailRef = useRef('');
-	const passwordRef = useRef('');
-	const nameRef = useRef('');
+	const emailRef = useRef<HTMLInputElement>(null);
+	const passwordRef = useRef<HTMLInputElement>(null);
+	const nameRef = useRef<HTMLInputElement>(null);
 
 	useEffect(() => {
 		if (error) {
@@ -44,7 +44,7 @@ export const Register = () => {
 	}, [error]);
 
 	useEffect(() => {
-		nameRef.current.focus();
+		if (nameRef.current) nameRef.current.focus();
 	}, []);
 
 	useEffect(() => {
@@ -55,15 +55,16 @@ export const Register = () => {
 	}, [token]);
 
 	const handleSubmit = async () => {
-		if (!name) {
+		if (!name && nameRef.current) {
 			nameRef.current.focus();
-		} else if (!email) {
+		} else if (!email && emailRef.current) {
 			emailRef.current.focus();
-		} else if (!password) {
+		} else if (!password && passwordRef.current) {
 			passwordRef.current.focus();
 		} else {
 			setIsError(false);
 			setIsDone(false);
+			//@ts-expect-error 'do it later'
 			dispatch(register({ email, password, name }));
 		}
 	};

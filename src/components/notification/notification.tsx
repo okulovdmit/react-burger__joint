@@ -11,7 +11,7 @@ type TNotificationProps = {
 	type: 'done' | 'success' | 'error';
 	text: string;
 	to?: string;
-	onClick: () => void;
+	onClick?: () => void;
 	buttonText: string;
 };
 export const Notification = ({
