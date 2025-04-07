@@ -1,5 +1,5 @@
 import sReset from './forgot-password.module.scss';
-import { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
 import { useKey } from '../hooks/use-key';
 import {
@@ -11,24 +11,24 @@ import { Preloader } from '../components/preloader/preloader';
 import Modal from '../components/modal/modal';
 import { Notification } from '../components/notification/notification';
 
-export const ResetPassword = () => {
+export const ResetPassword = (): React.JSX.Element => {
 	const location = useLocation();
 
 	const redirect = localStorage.getItem('getResetPassword');
 
-	const [typeInput, setTypeInput] = useState('password');
-	const [password, setPassword] = useState('');
-	const [token, setToken] = useState('');
-	const [error, setError] = useState('');
-	const [isError, setIsError] = useState(false);
-	const [isLoading, setIsloading] = useState(false);
-	const [isDone, setIsDone] = useState(false);
+	const [typeInput, setTypeInput] = useState<'text' | 'password'>('password');
+	const [password, setPassword] = useState<string>('');
+	const [token, setToken] = useState<string>('');
+	const [error, setError] = useState<string>('');
+	const [isError, setIsError] = useState<boolean>(false);
+	const [isLoading, setIsloading] = useState<boolean>(false);
+	const [isDone, setIsDone] = useState<boolean>(false);
 
-	const passwordRef = useRef('');
-	const tokenRef = useRef('');
+	const passwordRef = useRef<HTMLInputElement>(null);
+	const tokenRef = useRef<HTMLInputElement>(null);
 
 	useEffect(() => {
-		passwordRef.current.focus();
+		if (passwordRef.current) passwordRef.current.focus();
 	}, []);
 
 	const textError =
@@ -38,9 +38,9 @@ export const ResetPassword = () => {
 	const text = 'Пароль успешно изменен';
 
 	const handleReset = async () => {
-		if (!password) {
+		if (!password && passwordRef.current) {
 			passwordRef.current.focus();
-		} else if (!token) {
+		} else if (!token && tokenRef.current) {
 			tokenRef.current.focus();
 		} else {
 			setIsloading(true);
