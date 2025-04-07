@@ -1,8 +1,9 @@
 import sNot from './not-found.module.scss';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from 'react-router-dom';
+import React from 'react';
 
-export const NotFound = () => {
+export const NotFound = (): React.JSX.Element => {
 	const navigate = useNavigate();
 	return (
 		<div className={sNot.not}>

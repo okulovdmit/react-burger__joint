@@ -1,9 +1,8 @@
 import sProfile from './profile.module.scss';
-import { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useKey } from '../hooks/use-key';
-
 import {
 	Input,
 	Button,
@@ -19,21 +18,22 @@ import {
 import { updateData } from '../services/auth/action';
 import Modal from '../components/modal/modal';
 import { Notification } from '../components/notification/notification';
+import { TUserWithoutPassword } from '@utils/types';
 
-export const Profile = () => {
+export const Profile = (): React.JSX.Element => {
 	const dispatch = useDispatch();
 	const user = useSelector(getUser);
 	const isLoading = useSelector(getUserLoading);
 	const error = useSelector(getError);
 
-	const [name, setName] = useState(user.name);
-	const [email, setEmail] = useState(user.email);
-	const [isError, setIsError] = useState(false);
-	const [isSuccess, setIsSuccess] = useState(false);
-	const [isChanged, setIsChanged] = useState(false);
+	const [name, setName] = useState((user as TUserWithoutPassword).name);
+	const [email, setEmail] = useState((user as TUserWithoutPassword).email);
+	const [isError, setIsError] = useState<boolean>(false);
+	const [isSuccess, setIsSuccess] = useState<boolean>(false);
+	const [isChanged, setIsChanged] = useState<boolean>(false);
 
-	const nameRef = useRef('');
-	const emailRef = useRef('');
+	const nameRef = useRef<HTMLInputElement>(null);
+	const emailRef = useRef<HTMLInputElement>(null);
 
 	const text = 'Данные успешно обновлены!';
 	const textError =
@@ -46,11 +46,12 @@ export const Profile = () => {
 	}, [error]);
 
 	const handleSave = () => {
-		if (!name) {
+		if (!name && nameRef.current) {
 			nameRef.current.focus();
-		} else if (!email) {
+		} else if (!email && emailRef.current) {
 			emailRef.current.focus();
 		} else {
+			//@ts-expect-error 'do it later'
 			dispatch(updateData({ name, email }))
 				.then(() => setIsSuccess(true))
 				.finally(() => setIsChanged(false));
@@ -59,24 +60,26 @@ export const Profile = () => {
 
 	useKey('Enter', handleSave);
 
-	const onIconClick = (ref) => {
-		ref.current.focus();
+	const onIconClick = (ref: React.RefObject<HTMLInputElement>) => {
+		if (ref.current) ref.current.focus();
 	};
 
-	const handleNameChange = (e) => {
+	const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setName(e.target.value);
 		setIsChanged(true);
 	};
 
-	const handleEmailChange = (e) => {
+	const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setEmail(e.target.value);
 		setIsChanged(true);
 	};
 
 	const handleCancel = () => {
-		setName(user.name);
-		setEmail(user.email);
-		setIsChanged(false);
+		if (user) {
+			setName(user.name);
+			setEmail(user.email);
+			setIsChanged(false);
+		}
 	};
 
 	const handleCloseError = () => {
@@ -96,9 +99,11 @@ export const Profile = () => {
 				<>
 					<div className={sProfile.navigate}>
 						<nav className={`${sProfile.links} mb-20`}>
+							{/* @ts-expect-error 'need to add 'to' next spint' */}
 							<NavLink className={'text text_type_main-medium'}>
 								<span className={sProfile.active}>Профиль</span>
 							</NavLink>
+							{/* @ts-expect-error 'need to add 'to' next spint' */}
 							<NavLink className={'text text_type_main-medium'}>
 								<span className={'text_color_inactive'}>История заказов</span>
 							</NavLink>
@@ -132,6 +137,7 @@ export const Profile = () => {
 							size={'default'}
 							extraClass='ml-1 mb-6'
 						/>
+						{/* @ts-expect-error 'need to add 'onChange' next spint' */}
 						<Input
 							type={'password'}
 							placeholder={'Пароль'}
