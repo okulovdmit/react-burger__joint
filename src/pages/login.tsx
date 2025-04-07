@@ -1,5 +1,5 @@
 import sLogin from './login.module.scss';
-import { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useKey } from '../hooks/use-key';
@@ -13,7 +13,7 @@ import { getUserLoading, getError, clearError } from '../services/auth/reducer';
 import Modal from '../components/modal/modal';
 import { Notification } from '../components/notification/notification';
 
-export const Login = () => {
+export const Login = (): React.JSX.Element => {
 	const location = useLocation();
 	const dispatch = useDispatch();
 
@@ -21,13 +21,13 @@ export const Login = () => {
 	const isLoading = useSelector(getUserLoading);
 	const redirectFromResetPassword = localStorage.getItem('getResetPassword');
 
-	const [typeInput, setTypeInput] = useState('password');
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
-	const [isError, setIsError] = useState(false);
+	const [typeInput, setTypeInput] = useState<'text' | 'password'>('password');
+	const [email, setEmail] = useState<string>('');
+	const [password, setPassword] = useState<string>('');
+	const [isError, setIsError] = useState<boolean>(false);
 
-	const emailRef = useRef('');
-	const passwordRef = useRef('');
+	const emailRef = useRef<HTMLInputElement>(null);
+	const passwordRef = useRef<HTMLInputElement>(null);
 	const textError = 'Неверный Email или пароль';
 
 	useEffect(() => {
@@ -43,15 +43,16 @@ export const Login = () => {
 	}, [error]);
 
 	useEffect(() => {
-		emailRef.current.focus();
+		if (emailRef.current) emailRef.current.focus();
 	}, []);
 
 	const handleLogin = () => {
-		if (!email) {
+		if (!email && emailRef.current) {
 			emailRef.current.focus();
-		} else if (!password) {
+		} else if (!password && passwordRef.current) {
 			passwordRef.current.focus();
 		} else {
+			//@ts-expect-error 'do it later'
 			dispatch(login({ email, password }));
 		}
 	};
