@@ -10,6 +10,7 @@ import { TCallbackWithIngredient } from '@utils/types';
 type TBurgerIngredientsProps = {
 	getProduct: TCallbackWithIngredient;
 };
+export type TStateTabs = 'булки' | 'соусы' | 'начинки';
 
 const BurgerIngredients = ({
 	getProduct,
@@ -19,7 +20,7 @@ const BurgerIngredients = ({
 	const sauceFilter = data.filter((item) => item.type === 'sauce');
 	const mainFilter = data.filter((item) => item.type === 'main');
 
-	const [activeTab, setActiveTab] = useState<string>('булки');
+	const [activeTab, setActiveTab] = useState<TStateTabs>('булки');
 
 	return (
 		<section className={sIngredients.main}>

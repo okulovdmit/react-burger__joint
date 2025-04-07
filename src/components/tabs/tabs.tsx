@@ -1,7 +1,17 @@
+import React from 'react';
 import sTabs from './tabs.module.scss';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
+import { TStateTabs } from '@components/burger-ingredients/burger-ingredients';
 
-export const Tabs = ({ activeTab, setActiveTab }) => {
+type TabsProps = {
+	activeTab: string;
+	setActiveTab: React.Dispatch<React.SetStateAction<TStateTabs>>;
+};
+
+export const Tabs = ({
+	activeTab,
+	setActiveTab,
+}: TabsProps): React.JSX.Element => {
 	return (
 		<div className={`${sTabs.tabs} mt-5`}>
 			<Tab
@@ -11,7 +21,7 @@ export const Tabs = ({ activeTab, setActiveTab }) => {
 					setActiveTab('булки');
 					document
 						.getElementById('булки')
-						.scrollIntoView({ behavior: 'smooth' });
+						?.scrollIntoView({ behavior: 'smooth' });
 				}}>
 				Булки
 			</Tab>
@@ -22,7 +32,7 @@ export const Tabs = ({ activeTab, setActiveTab }) => {
 					setActiveTab('соусы');
 					document
 						.getElementById('соусы')
-						.scrollIntoView({ behavior: 'smooth' });
+						?.scrollIntoView({ behavior: 'smooth' });
 				}}>
 				Соусы
 			</Tab>
@@ -33,7 +43,7 @@ export const Tabs = ({ activeTab, setActiveTab }) => {
 					setActiveTab('начинки');
 					document
 						.getElementById('начинки')
-						.scrollIntoView({ behavior: 'smooth' });
+						?.scrollIntoView({ behavior: 'smooth' });
 				}}>
 				Начинки
 			</Tab>

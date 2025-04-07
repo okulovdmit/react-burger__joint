@@ -1,5 +1,14 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { TStateTabs } from '@components/burger-ingredients/burger-ingredients';
+
+type TSectionProps = {
+	id: TStateTabs;
+	children: React.ReactElement;
+	classname: string;
+	label: string;
+	onVisibilityChange: (id: TStateTabs) => void;
+};
 
 export const Section = ({
 	id,
@@ -7,7 +16,7 @@ export const Section = ({
 	classname,
 	label,
 	onVisibilityChange,
-}) => {
+}: TSectionProps): React.JSX.Element => {
 	const { ref, inView } = useInView({
 		threshold: 0.4,
 	});
