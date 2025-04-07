@@ -63,12 +63,7 @@ export const App = () => {
 		},
 		[dispatch]
 	);
-	const handleDeleteIngredient = useCallback<
-		(
-			key: Pick<TDataIngredient, 'key'>,
-			id: Pick<TDataIngredient, '_id'>
-		) => void
-	>(
+	const handleDeleteIngredient = useCallback<(key: string, id: string) => void>(
 		(key, id) => {
 			dispatch(deleteIngredient(key));
 			dispatch(deleteCounts(id));
@@ -131,12 +126,11 @@ export const App = () => {
 						element={
 							<DndProvider backend={HTML5Backend}>
 								<Home
-									toggle={toggle}
 									getProduct={getProduct}
 									toggleOrder={toggleOrder}
-									handleDrop={handleDrop}
-									handleDeleteIngredient={handleDeleteIngredient}
-									handleMoveIngredient={handleMoveIngredient}
+									onDropHandler={handleDrop}
+									onHandlerDelete={handleDeleteIngredient}
+									onMoveIngredient={handleMoveIngredient}
 								/>
 							</DndProvider>
 						}

@@ -7,7 +7,7 @@ import { Section } from '../tabs/section';
 import { getAllIngredients } from '../../services/ingredients/reducer';
 import { TCallbackWithIngredient } from '@utils/types';
 
-type TBurgerIngredientsProps = {
+export type TBurgerIngredientsProps = {
 	getProduct: TCallbackWithIngredient;
 };
 export type TStateTabs = 'булки' | 'соусы' | 'начинки';
