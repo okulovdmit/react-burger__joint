@@ -1,4 +1,4 @@
-import { loadIngredients, getOrder } from './action.js';
+import { loadIngredients, getOrder } from './action';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 import { TDataIngredient } from '../../utils/types';

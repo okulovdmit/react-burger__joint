@@ -9,7 +9,7 @@ export const loadIngredients = createAsyncThunk(
 );
 export const getOrder = createAsyncThunk(
 	'ingredients/getNumber',
-	async (id) => {
+	async (id: string[]) => {
 		return getNumber(id);
 	}
 );
