@@ -13,7 +13,7 @@ import {
 	clearError,
 } from '../../services/ingredients/reducer';
 import { Notification } from '../notification/notification';
-import { useAppDispatch } from '@services/store';
+import { useAppDispatch } from '../../services/store';
 
 type TOrderDetailesProp = {
 	toggle: () => void;

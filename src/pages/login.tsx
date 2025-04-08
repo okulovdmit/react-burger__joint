@@ -12,7 +12,7 @@ import { login } from '../services/auth/action';
 import { getUserLoading, getError, clearError } from '../services/auth/reducer';
 import Modal from '../components/modal/modal';
 import { Notification } from '../components/notification/notification';
-import { useAppDispatch } from '@services/store';
+import { useAppDispatch } from '../services/store';
 
 export const Login = (): React.JSX.Element => {
 	const location = useLocation();

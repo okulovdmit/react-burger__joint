@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { register, login, logout, updateData } from './action';
-import { TUserWithoutPassword } from '@utils/types';
+import { TUser } from '@utils/types';
 
 interface IUserState {
-	user: TUserWithoutPassword | null;
+	user: TUser | null;
 	loading: boolean;
 	error: string | null;
 	isAuthChecked: boolean;
@@ -20,7 +20,7 @@ export const userSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
-		setUser: (state, action: PayloadAction<TUserWithoutPassword>) => {
+		setUser: (state, action: PayloadAction<TUser>) => {
 			state.user = action.payload;
 		},
 		setIsAuthChecked: (state, action: PayloadAction<boolean>) => {

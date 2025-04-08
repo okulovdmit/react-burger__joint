@@ -12,7 +12,7 @@ import { getError, getUserLoading, clearError } from '../services/auth/reducer';
 import { Preloader } from '../components/preloader/preloader';
 import Modal from '../components/modal/modal';
 import { Notification } from '../components/notification/notification';
-import { useAppDispatch } from '@services/store';
+import { useAppDispatch } from '../services/store';
 
 export const Register = (): React.JSX.Element => {
 	const location = useLocation();

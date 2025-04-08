@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { useKey } from '../../hooks/use-key';
 import { getUser } from '../../services/auth/reducer';
 import { TCallbackWithIngredient } from '@utils/types';
-import { useAppDispatch } from '@services/store';
+import { useAppDispatch } from '../../services/store';
 
 export type TBurgerConstructorProps = {
 	toggleOrder: () => void;

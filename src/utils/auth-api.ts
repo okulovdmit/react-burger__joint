@@ -1,10 +1,5 @@
 import { BURGER_API_URL, getResponse } from './constants';
-import {
-	TUser,
-	TAuthData,
-	TResetPasswordData,
-	TUserWithoutPassword,
-} from './types';
+import { TUser, TAuthData, TResetPasswordData } from './types';
 
 const refreshToken = async (): Promise<TAuthData> => {
 	try {
@@ -57,7 +52,7 @@ const fetchWithRefresh = async <T>(
 	}
 };
 
-export const checkUser = async (): Promise<TUserWithoutPassword> => {
+export const checkUser = async (): Promise<TUser> => {
 	const url = `${BURGER_API_URL}/auth/user`;
 	const options = {
 		method: 'GET',
@@ -67,7 +62,7 @@ export const checkUser = async (): Promise<TUserWithoutPassword> => {
 		},
 	};
 
-	const request = await fetchWithRefresh<TUserWithoutPassword>(url, options);
+	const request = await fetchWithRefresh<TUser>(url, options);
 
 	try {
 		return request;

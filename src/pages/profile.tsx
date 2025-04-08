@@ -18,7 +18,7 @@ import {
 import { updateData } from '../services/auth/action';
 import Modal from '../components/modal/modal';
 import { Notification } from '../components/notification/notification';
-import { useAppDispatch } from '@services/store';
+import { useAppDispatch } from '../services/store';
 
 export const Profile = (): React.JSX.Element => {
 	const dispatch = useAppDispatch();

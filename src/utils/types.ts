@@ -22,8 +22,6 @@ export type TUser = {
 	password?: string;
 };
 
-export type TUserWithoutPassword = Pick<TUser, 'email' | 'name'>;
-
 export type TResetPasswordData = {
 	password: string;
 	token: string;
@@ -31,7 +29,7 @@ export type TResetPasswordData = {
 
 export type TAuthData = {
 	success: boolean;
-	user?: TUserWithoutPassword;
+	user?: TUser;
 	accessToken?: string;
 	refreshToken?: string;
 	message?: string;
