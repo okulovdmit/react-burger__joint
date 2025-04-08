@@ -18,7 +18,6 @@ import {
 import { updateData } from '../services/auth/action';
 import Modal from '../components/modal/modal';
 import { Notification } from '../components/notification/notification';
-import { TUserWithoutPassword } from '@utils/types';
 
 export const Profile = (): React.JSX.Element => {
 	const dispatch = useDispatch();
@@ -26,8 +25,8 @@ export const Profile = (): React.JSX.Element => {
 	const isLoading = useSelector(getUserLoading);
 	const error = useSelector(getError);
 
-	const [name, setName] = useState((user as TUserWithoutPassword).name);
-	const [email, setEmail] = useState((user as TUserWithoutPassword).email);
+	const [name, setName] = useState<string>('');
+	const [email, setEmail] = useState<string>('');
 	const [isError, setIsError] = useState<boolean>(false);
 	const [isSuccess, setIsSuccess] = useState<boolean>(false);
 	const [isChanged, setIsChanged] = useState<boolean>(false);
@@ -38,6 +37,13 @@ export const Profile = (): React.JSX.Element => {
 	const text = 'Данные успешно обновлены!';
 	const textError =
 		'Ошибка обновления данных! Попробуйте обновить страницу или проверьте введенные данные';
+
+	useEffect(() => {
+		if (user) {
+			setName(user.name || '');
+			setEmail(user.email || '');
+		}
+	}, [user]);
 
 	useEffect(() => {
 		if (error) {
@@ -76,8 +82,8 @@ export const Profile = (): React.JSX.Element => {
 
 	const handleCancel = () => {
 		if (user) {
-			setName(user.name);
-			setEmail(user.email);
+			setName(user.name || '');
+			setEmail(user.email || '');
 			setIsChanged(false);
 		}
 	};

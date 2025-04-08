@@ -18,8 +18,21 @@ export type TCallbackWithIngredient = (item: TDataIngredient) => void;
 
 export type TUser = {
 	email: string;
-	name: string;
-	password: string;
+	name?: string;
+	password?: string;
 };
 
 export type TUserWithoutPassword = Pick<TUser, 'email' | 'name'>;
+
+export type TResetPasswordData = {
+	password: string;
+	token: string;
+};
+
+export type TAuthData = {
+	success: boolean;
+	user?: TUserWithoutPassword;
+	accessToken?: string;
+	refreshToken?: string;
+	message?: string;
+};

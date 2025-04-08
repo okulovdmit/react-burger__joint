@@ -56,7 +56,7 @@ export const userSlice = createSlice({
 				state.loading = false;
 			})
 			.addCase(login.fulfilled, (state, action) => {
-				state.user = action.payload;
+				state.user = action.payload.user || null;
 				state.loading = false;
 				state.isAuthChecked = true;
 				state.error = null;
@@ -81,7 +81,7 @@ export const userSlice = createSlice({
 				state.loading = false;
 			})
 			.addCase(updateData.fulfilled, (state, action) => {
-				state.user = action.payload;
+				state.user = action.payload.user || null;
 				state.loading = false;
 			});
 	},

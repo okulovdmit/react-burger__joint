@@ -1,6 +1,12 @@
 import { BURGER_API_URL, getResponse } from './constants';
+import {
+	TUser,
+	TAuthData,
+	TResetPasswordData,
+	TUserWithoutPassword,
+} from './types';
 
-const refreshToken = async () => {
+const refreshToken = async (): Promise<TAuthData> => {
 	try {
 		const response = await fetch(`${BURGER_API_URL}/auth/token`, {
 			method: 'POST',
@@ -11,14 +17,16 @@ const refreshToken = async () => {
 				token: localStorage.getItem('refreshToken'),
 			}),
 		});
-		const refreshData = await getResponse(response);
+		const refreshData = await getResponse<TAuthData>(response);
 		if (!refreshData.success) {
 			localStorage.removeItem('accessToken');
 			localStorage.removeItem('refreshToken');
 			return Promise.reject(new Error(refreshData.message));
 		}
-		localStorage.setItem('refreshToken', refreshData.refreshToken);
-		localStorage.setItem('accessToken', refreshData.accessToken);
+		if (refreshData.refreshToken && refreshData.accessToken) {
+			localStorage.setItem('refreshToken', refreshData.refreshToken);
+			localStorage.setItem('accessToken', refreshData.accessToken);
+		}
 		return refreshData;
 	} catch (err) {
 		localStorage.removeItem('accessToken');
@@ -27,33 +35,39 @@ const refreshToken = async () => {
 	}
 };
 
-const fetchWithRefresh = async (url, options) => {
+const fetchWithRefresh = async <T>(
+	url: string,
+	options: RequestInit
+): Promise<T> => {
 	try {
 		const res = await fetch(url, options);
-		return await getResponse(res);
+		return await getResponse<T>(res);
 	} catch (err) {
-		if (err.message === 'jwt expired') {
+		if (err instanceof TypeError && err.message === 'jwt expired') {
 			const refreshData = await refreshToken();
-			options.headers.authorization = refreshData.accessToken;
+			options.headers = {
+				...options.headers,
+				authorization: refreshData.accessToken || '',
+			};
 			const res = await fetch(url, options);
-			return await getResponse(res);
+			return await getResponse<T>(res);
 		} else {
 			return Promise.reject(err);
 		}
 	}
 };
 
-export const checkUser = async () => {
+export const checkUser = async (): Promise<TUserWithoutPassword> => {
 	const url = `${BURGER_API_URL}/auth/user`;
 	const options = {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json;charset=utf-8',
-			authorization: localStorage.getItem('accessToken'),
+			authorization: localStorage.getItem('accessToken') || '',
 		},
 	};
 
-	const request = await fetchWithRefresh(url, options);
+	const request = await fetchWithRefresh<TUserWithoutPassword>(url, options);
 
 	try {
 		return request;
@@ -64,7 +78,11 @@ export const checkUser = async () => {
 	}
 };
 
-const register = async ({ email, password, name }) => {
+const register = async ({
+	email,
+	password,
+	name,
+}: TUser): Promise<TAuthData> => {
 	return fetch(`${BURGER_API_URL}/auth/register`, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json;charset=utf-8' },
@@ -74,17 +92,17 @@ const register = async ({ email, password, name }) => {
 			name: name,
 		}),
 	})
-		.then(getResponse)
+		.then(getResponse<TAuthData>)
 		.then((data) => {
-			if (data.success) {
+			if (data.success && data.accessToken && data.refreshToken) {
 				localStorage.setItem('accessToken', data.accessToken);
 				localStorage.setItem('refreshToken', data.refreshToken);
 			}
-			return data.user;
+			return data;
 		});
 };
 
-const login = async ({ email, password }) => {
+const login = async ({ email, password }: TUser): Promise<TAuthData> => {
 	return fetch(`${BURGER_API_URL}/auth/login`, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json;charset=utf-8' },
@@ -93,17 +111,17 @@ const login = async ({ email, password }) => {
 			password: password,
 		}),
 	})
-		.then(getResponse)
+		.then(getResponse<TAuthData>)
 		.then((data) => {
-			if (data.success) {
+			if (data.success && data.accessToken && data.refreshToken) {
 				localStorage.setItem('accessToken', data.accessToken);
 				localStorage.setItem('refreshToken', data.refreshToken);
 			}
-			return data.user;
+			return data;
 		});
 };
 
-const logout = async () => {
+const logout = async (): Promise<TAuthData> => {
 	return fetch(`${BURGER_API_URL}/auth/logout`, {
 		method: 'POST',
 		headers: {
@@ -111,16 +129,21 @@ const logout = async () => {
 		},
 		body: JSON.stringify({ token: localStorage.getItem('refreshToken') }),
 	})
-		.then(getResponse)
+		.then(getResponse<TAuthData>)
 		.then((data) => {
 			if (data.success) {
-				localStorage.removeItem('accessToken', data.accessToken);
-				localStorage.removeItem('refreshToken', data.refreshToken);
+				localStorage.removeItem('accessToken');
+				localStorage.removeItem('refreshToken');
 			}
+			return data;
 		});
 };
 
-const forgotPassword = async ({ email }) => {
+const forgotPassword = async ({
+	email,
+}: {
+	email: string;
+}): Promise<TAuthData> => {
 	return fetch(`${BURGER_API_URL}/password-reset`, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json;charset=utf-8' },
@@ -128,15 +151,19 @@ const forgotPassword = async ({ email }) => {
 			email: email,
 		}),
 	})
-		.then(getResponse)
+		.then(getResponse<TAuthData>)
 		.then((data) => {
 			if (data.success) {
 				localStorage.setItem('getResetPassword', 'true');
 			}
+			return data;
 		});
 };
 
-const resetPassword = async ({ password, token }) => {
+const resetPassword = async ({
+	password,
+	token,
+}: TResetPasswordData): Promise<TAuthData> => {
 	return fetch(`${BURGER_API_URL}/password-reset/reset`, {
 		method: 'POST',
 		headers: { 'Content-Type': 'application/json;charset=utf-8' },
@@ -145,28 +172,32 @@ const resetPassword = async ({ password, token }) => {
 			token: token,
 		}),
 	})
-		.then(getResponse)
+		.then(getResponse<TAuthData>)
 		.then((data) => {
 			if (data.success) {
 				localStorage.removeItem('getResetPassword');
 			}
+			return data;
 		});
 };
 
-export const updateUserData = async ({ name, email }) => {
+export const updateUserData = async ({
+	name,
+	email,
+}: TUser): Promise<TAuthData> => {
 	return fetch(`${BURGER_API_URL}/auth/user`, {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json;charset=utf-8',
-			authorization: localStorage.getItem('accessToken'),
+			authorization: localStorage.getItem('accessToken') || '',
 		},
 		body: JSON.stringify({
 			name: name,
 			email: email,
 		}),
 	})
-		.then(getResponse)
-		.then((data) => data.user);
+		.then(getResponse<TAuthData>)
+		.then((data) => data);
 };
 
 export { forgotPassword, resetPassword };
