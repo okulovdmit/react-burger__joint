@@ -10,11 +10,12 @@ import {
 	getSelectedIngredients,
 } from '../../services/ingredients/reducer';
 import { getOrder } from '../../services/ingredients/action';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useKey } from '../../hooks/use-key';
 import { getUser } from '../../services/auth/reducer';
 import { TCallbackWithIngredient } from '@utils/types';
+import { useAppDispatch } from '@services/store';
 
 export type TBurgerConstructorProps = {
 	toggleOrder: () => void;
@@ -29,7 +30,7 @@ const BurgerConstructor = ({
 	onHandlerDelete,
 	onMoveIngredient,
 }: TBurgerConstructorProps): React.JSX.Element => {
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	const bun = useSelector(getSelectedBun);
 	const ingredients = useSelector(getSelectedIngredients); // need to change type
 	const navigate = useNavigate();
@@ -53,7 +54,6 @@ const BurgerConstructor = ({
 		ingredients.forEach((ingredient) => {
 			ingredientIds.push(ingredient._id);
 		});
-		//@ts-expect-error 'do it later'
 		dispatch(getOrder(ingredientIds));
 		toggleOrder();
 	};

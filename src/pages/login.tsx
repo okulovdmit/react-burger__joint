@@ -1,7 +1,7 @@
 import sLogin from './login.module.scss';
 import React, { useRef, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useKey } from '../hooks/use-key';
 import {
 	Input,
@@ -12,10 +12,11 @@ import { login } from '../services/auth/action';
 import { getUserLoading, getError, clearError } from '../services/auth/reducer';
 import Modal from '../components/modal/modal';
 import { Notification } from '../components/notification/notification';
+import { useAppDispatch } from '@services/store';
 
 export const Login = (): React.JSX.Element => {
 	const location = useLocation();
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
 	const error = useSelector(getError);
 	const isLoading = useSelector(getUserLoading);
@@ -52,7 +53,6 @@ export const Login = (): React.JSX.Element => {
 		} else if (!password && passwordRef.current) {
 			passwordRef.current.focus();
 		} else {
-			//@ts-expect-error 'do it later'
 			dispatch(login({ email, password }));
 		}
 	};

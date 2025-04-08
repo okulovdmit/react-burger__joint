@@ -1,5 +1,5 @@
 import sRegister from './register.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import React, { useRef, useState, useEffect } from 'react';
 import { useKey } from '../hooks/use-key';
@@ -12,10 +12,11 @@ import { getError, getUserLoading, clearError } from '../services/auth/reducer';
 import { Preloader } from '../components/preloader/preloader';
 import Modal from '../components/modal/modal';
 import { Notification } from '../components/notification/notification';
+import { useAppDispatch } from '@services/store';
 
 export const Register = (): React.JSX.Element => {
 	const location = useLocation();
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	const isLoading = useSelector(getUserLoading);
 	const error = useSelector(getError);
 
@@ -64,7 +65,6 @@ export const Register = (): React.JSX.Element => {
 		} else {
 			setIsError(false);
 			setIsDone(false);
-			//@ts-expect-error 'do it later'
 			dispatch(register({ email, password, name }));
 		}
 	};

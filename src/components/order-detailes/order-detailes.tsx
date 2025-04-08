@@ -5,7 +5,7 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Preloader } from '../preloader/preloader';
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
 	getOrderLoading,
 	getOrderNumber,
@@ -13,6 +13,7 @@ import {
 	clearError,
 } from '../../services/ingredients/reducer';
 import { Notification } from '../notification/notification';
+import { useAppDispatch } from '@services/store';
 
 type TOrderDetailesProp = {
 	toggle: () => void;
@@ -21,7 +22,7 @@ type TOrderDetailesProp = {
 export default function OrderDetailes({
 	toggle,
 }: TOrderDetailesProp): React.JSX.Element {
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	const isLoading = useSelector(getOrderLoading);
 	const error = useSelector(getOrderError);
 	const number = useSelector(getOrderNumber);

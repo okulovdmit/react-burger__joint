@@ -1,6 +1,6 @@
 import sProfile from './profile.module.scss';
 import React, { useRef, useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useKey } from '../hooks/use-key';
 import {
@@ -18,9 +18,10 @@ import {
 import { updateData } from '../services/auth/action';
 import Modal from '../components/modal/modal';
 import { Notification } from '../components/notification/notification';
+import { useAppDispatch } from '@services/store';
 
 export const Profile = (): React.JSX.Element => {
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 	const user = useSelector(getUser);
 	const isLoading = useSelector(getUserLoading);
 	const error = useSelector(getError);
@@ -57,7 +58,6 @@ export const Profile = (): React.JSX.Element => {
 		} else if (!email && emailRef.current) {
 			emailRef.current.focus();
 		} else {
-			//@ts-expect-error 'do it later'
 			dispatch(updateData({ name, email }))
 				.then(() => setIsSuccess(true))
 				.finally(() => setIsChanged(false));
@@ -105,11 +105,11 @@ export const Profile = (): React.JSX.Element => {
 				<>
 					<div className={sProfile.navigate}>
 						<nav className={`${sProfile.links} mb-20`}>
-							{/* @ts-expect-error 'need to add 'to' next spint' */}
+							{/* @ts-expect-error 'need to add 'to' next sprint' */}
 							<NavLink className={'text text_type_main-medium'}>
 								<span className={sProfile.active}>Профиль</span>
 							</NavLink>
-							{/* @ts-expect-error 'need to add 'to' next spint' */}
+							{/* @ts-expect-error 'need to add 'to' next sprint' */}
 							<NavLink className={'text text_type_main-medium'}>
 								<span className={'text_color_inactive'}>История заказов</span>
 							</NavLink>
@@ -143,7 +143,7 @@ export const Profile = (): React.JSX.Element => {
 							size={'default'}
 							extraClass='ml-1 mb-6'
 						/>
-						{/* @ts-expect-error 'need to add 'onChange' next spint' */}
+						{/* @ts-expect-error 'need to add 'onChange' next sprint' */}
 						<Input
 							type={'password'}
 							placeholder={'Пароль'}
