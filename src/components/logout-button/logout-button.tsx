@@ -1,12 +1,11 @@
 import sButton from './logout-button.module.scss';
-import { useDispatch } from 'react-redux';
 import { logout } from '../../services/auth/action';
+import { useAppDispatch } from '../../services/store';
 
 export const LogoutButton = () => {
-	const dispatch = useDispatch();
+	const dispatch = useAppDispatch();
 
-	const handleLogout = (e) => {
-		e.preventDefault();
+	const handleLogout = () => {
 		dispatch(logout());
 	};
 	return (
