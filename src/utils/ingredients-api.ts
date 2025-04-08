@@ -1,7 +1,7 @@
 import { BURGER_API_URL, getResponse } from './constants';
 import { TDataIngredient } from './types';
 
-type TGetNumber = {
+export type TGetNumber = {
 	name: string;
 	order: {
 		number: number;

@@ -1,15 +1,23 @@
-import { getIngredients, getNumber } from '../../utils/ingredients-api';
+import { TDataIngredient } from '@utils/types';
+import { getIngredients, getNumber, TGetNumber } from '@utils/ingredients-api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AppDispatch, RootState } from '@services/store';
 
-export const loadIngredients = createAsyncThunk(
-	'ingredients/loadIngredients',
-	async () => {
-		return getIngredients();
-	}
-);
-export const getOrder = createAsyncThunk(
+type ThunkApiConfig = {
+	state: RootState;
+	dispatch: AppDispatch;
+};
+
+export const loadIngredients = createAsyncThunk<
+	{ data: TDataIngredient[] },
+	void,
+	ThunkApiConfig
+>('ingredients/loadIngredients', async () => {
+	return getIngredients();
+});
+export const getOrder = createAsyncThunk<TGetNumber, string[], ThunkApiConfig>(
 	'ingredients/getNumber',
-	async (id: string[]) => {
+	async (id) => {
 		return getNumber(id);
 	}
 );
