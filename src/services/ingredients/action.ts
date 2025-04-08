@@ -3,7 +3,7 @@ import { getIngredients, getNumber, TGetNumber } from '@utils/ingredients-api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, RootState } from '@services/store';
 
-type ThunkApiConfig = {
+export type ThunkApiConfig = {
 	state: RootState;
 	dispatch: AppDispatch;
 };

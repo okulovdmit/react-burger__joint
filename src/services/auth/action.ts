@@ -1,30 +1,37 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { checkUser, updateUserData, api } from '../../utils/auth-api';
 import { setUser, setIsAuthChecked } from './reducer';
-import { TUser } from '@utils/types';
+import { TAuthData, TUser } from '@utils/types';
+import { ThunkApiConfig } from '@services/ingredients/action';
 
-export const register = createAsyncThunk(
+export const register = createAsyncThunk<TAuthData, TUser, ThunkApiConfig>(
 	'auth/register',
-	async (user: TUser) => {
+	async (user) => {
 		return await api.register(user);
 	}
 );
 
-export const login = createAsyncThunk('auth/login', async (user: TUser) => {
-	return await api.login(user);
-});
+export const login = createAsyncThunk<TAuthData, TUser, ThunkApiConfig>(
+	'auth/login',
+	async (user) => {
+		return await api.login(user);
+	}
+);
 
-export const logout = createAsyncThunk('auth/logout', async () => {
-	api.logout();
-});
-export const updateData = createAsyncThunk(
+export const logout = createAsyncThunk<void, void, ThunkApiConfig>(
+	'auth/logout',
+	async () => {
+		api.logout();
+	}
+);
+export const updateData = createAsyncThunk<TAuthData, TUser, ThunkApiConfig>(
 	'auth/changeData',
 	async (data: TUser) => {
 		return await updateUserData(data);
 	}
 );
 
-export const checkUserAuth = createAsyncThunk(
+export const checkUserAuth = createAsyncThunk<void, void, ThunkApiConfig>(
 	'auth/checkUserAuth',
 	async (_, { dispatch }) => {
 		if (localStorage.getItem('accessToken')) {
