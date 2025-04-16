@@ -1,6 +1,5 @@
 import sProfile from './profile.module.scss';
 import React, { useRef, useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { useKey } from '../hooks/use-key';
 import {
@@ -18,13 +17,13 @@ import {
 import { updateData } from '../services/auth/action';
 import Modal from '../components/modal/modal';
 import { Notification } from '../components/notification/notification';
-import { useAppDispatch } from '../services/store';
+import { useAppDispatch, useAppSelector } from '../services/store';
 
 export const Profile = (): React.JSX.Element => {
 	const dispatch = useAppDispatch();
-	const user = useSelector(getUser);
-	const isLoading = useSelector(getUserLoading);
-	const error = useSelector(getError);
+	const user = useAppSelector(getUser);
+	const isLoading = useAppSelector(getUserLoading);
+	const error = useAppSelector(getError);
 
 	const [name, setName] = useState<string>('');
 	const [email, setEmail] = useState<string>('');

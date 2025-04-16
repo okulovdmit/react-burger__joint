@@ -10,12 +10,11 @@ import {
 	getSelectedIngredients,
 } from '../../services/ingredients/reducer';
 import { getOrder } from '../../services/ingredients/action';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useKey } from '../../hooks/use-key';
 import { getUser } from '../../services/auth/reducer';
 import { TCallbackWithIngredient } from '@utils/types';
-import { useAppDispatch } from '../../services/store';
+import { useAppDispatch, useAppSelector } from '../../services/store';
 
 export type TBurgerConstructorProps = {
 	toggleOrder: () => void;
@@ -31,10 +30,10 @@ const BurgerConstructor = ({
 	onMoveIngredient,
 }: TBurgerConstructorProps): React.JSX.Element => {
 	const dispatch = useAppDispatch();
-	const bun = useSelector(getSelectedBun);
-	const ingredients = useSelector(getSelectedIngredients); // need to change type
+	const bun = useAppSelector(getSelectedBun);
+	const ingredients = useAppSelector(getSelectedIngredients); // need to change type
 	const navigate = useNavigate();
-	const user = useSelector(getUser);
+	const user = useAppSelector(getUser);
 
 	const ingredientsCost = ingredients.reduce(
 		(acc, item) => acc + item.price,

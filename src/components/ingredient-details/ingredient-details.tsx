@@ -1,10 +1,10 @@
 import sDetails from './ingredient-details.module.scss';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { getAllIngredients } from '../../services/ingredients/reducer';
 import { TDataIngredient } from '@utils/types';
 import React from 'react';
+import { useAppSelector } from '../../services/store';
 
 type TIngredientDetailesProps = {
 	product?: TDataIngredient | null;
@@ -16,7 +16,7 @@ export default function IngredientDetails({
 	toggle,
 }: TIngredientDetailesProps): React.JSX.Element {
 	const { ingredientId: id } = useParams();
-	const data = useSelector(getAllIngredients);
+	const data = useAppSelector(getAllIngredients);
 	const productId = data.filter((item) => item._id === id)[0];
 	const { name, image, calories, proteins, fat, carbohydrates } = product
 		? product

@@ -1,5 +1,4 @@
 import sRegister from './register.module.scss';
-import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import React, { useRef, useState, useEffect } from 'react';
 import { useKey } from '../hooks/use-key';
@@ -12,13 +11,13 @@ import { getError, getUserLoading, clearError } from '../services/auth/reducer';
 import { Preloader } from '../components/preloader/preloader';
 import Modal from '../components/modal/modal';
 import { Notification } from '../components/notification/notification';
-import { useAppDispatch } from '../services/store';
+import { useAppDispatch, useAppSelector } from '../services/store';
 
 export const Register = (): React.JSX.Element => {
 	const location = useLocation();
 	const dispatch = useAppDispatch();
-	const isLoading = useSelector(getUserLoading);
-	const error = useSelector(getError);
+	const isLoading = useAppSelector(getUserLoading);
+	const error = useAppSelector(getError);
 
 	const [name, setName] = useState<string>('');
 	const [email, setEmail] = useState<string>('');

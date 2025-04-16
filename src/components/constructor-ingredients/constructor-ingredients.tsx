@@ -1,10 +1,10 @@
 import sIngredients from './constructor-ingredients.module.scss';
 import { useDrop } from 'react-dnd';
-import { useSelector } from 'react-redux';
 import { getSelectedIngredients } from '../../services/ingredients/reducer';
 import { RenderIngredient } from './render-ingredient';
 import { TBurgerConstructorProps } from '../burger-constructor/burger-constructor';
 import { TDataIngredient } from '@utils/types';
+import { useAppSelector } from '../../services/store';
 
 type TConstructorIngredientsProps = Pick<
 	TBurgerConstructorProps,
@@ -16,7 +16,7 @@ export const ConsctructorIngredients = ({
 	onHandlerDelete,
 	onMoveIngredient,
 }: TConstructorIngredientsProps): React.JSX.Element => {
-	const ingredients = useSelector(getSelectedIngredients);
+	const ingredients = useAppSelector(getSelectedIngredients);
 	const [, dropRef] = useDrop<TDataIngredient, unknown, unknown>({
 		accept: 'ingredients',
 		drop(item) {

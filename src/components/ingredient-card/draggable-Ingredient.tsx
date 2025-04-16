@@ -4,10 +4,10 @@ import {
 	Counter,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag } from 'react-dnd';
-import { useSelector } from 'react-redux';
 import { getIngredientCounts } from '../../services/ingredients/reducer';
 import { useLocation, Link } from 'react-router-dom';
 import { TDataIngredient, TCallbackWithIngredient } from '@utils/types';
+import { useAppSelector } from '../../services/store';
 
 type TDraggableIngredientProps = {
 	item: TDataIngredient;
@@ -18,7 +18,7 @@ export const DraggableIngredient = ({
 	item,
 	getProduct,
 }: TDraggableIngredientProps): React.JSX.Element => {
-	const ingredientCounts = useSelector(getIngredientCounts);
+	const ingredientCounts = useAppSelector(getIngredientCounts);
 	const location = useLocation();
 	const ingredientId = item['_id'];
 	const [{ isDragging }, dragRef] = useDrag({

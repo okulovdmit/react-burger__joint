@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useSelector } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
@@ -32,16 +31,16 @@ import {
 import { OnlyUnAuth, OnlyAuth } from '../protected-route/protected-route';
 import { checkUserAuth } from '../../services/auth/action';
 import { TDataIngredient, TCallbackWithIngredient } from '@utils/types';
-import { useAppDispatch } from '../../services/store';
+import { useAppDispatch, useAppSelector } from '../../services/store';
 
 export const App = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const background = location.state && location.state.background;
 	const dispatch = useAppDispatch();
-	const data = useSelector(getAllIngredients);
-	const isLoading = useSelector(getIngredientsLoading);
-	const isError = useSelector(getIngredientsError);
+	const data = useAppSelector(getAllIngredients);
+	const isLoading = useAppSelector(getIngredientsLoading);
+	const isError = useAppSelector(getIngredientsError);
 
 	const [isOpenOrder, setIsOpenOrder] = useState<boolean>(false);
 	const [selectedProduct, setSelectedProduct] =
