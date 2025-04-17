@@ -5,6 +5,7 @@ import { ForgotPassword } from './forgot-password';
 import { ResetPassword } from './reset-password';
 import { Profile } from './profile';
 import { NotFound } from './not-found';
+import { Feed } from './feed';
 export {
 	Home,
 	Login,
@@ -13,4 +14,5 @@ export {
 	ResetPassword,
 	Profile,
 	NotFound,
+	Feed,
 };

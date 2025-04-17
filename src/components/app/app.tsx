@@ -27,6 +27,7 @@ import {
 	ResetPassword,
 	Profile,
 	NotFound,
+	Feed,
 } from '../../pages/index';
 import { OnlyUnAuth, OnlyAuth } from '../protected-route/protected-route';
 import { checkUserAuth } from '../../services/auth/action';
@@ -157,6 +158,7 @@ export const App = () => {
 						element={<OnlyAuth component={<Profile />} />}
 					/>
 					<Route path='/*' element={<NotFound />} />
+					<Route path='/feed' element={<Feed />} />
 				</Routes>
 			</section>
 

@@ -1,18 +1,20 @@
 .container {
-	width: 584px;
+	width: 536px;
 	height: auto;
 	background: #1c1c21;
-	border-radius: 10px;
+	border-radius: 30px;
 	display: flex;
 	flex-flow: column;
 	align-items: flex-start;
 }
 
 .header {
+	width: 100%;
 	display: flex;
 	align-items: center;
-	justify-content: flex-start;
+	justify-content: space-between;
 }
+
 .detailes {
 	display: flex;
 	align-items: center;
