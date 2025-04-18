@@ -26,7 +26,7 @@ export const Header = () => {
 					)}
 				</NavLink>
 				<NavLink
-					to='/order'
+					to='/feed'
 					className={({ isActive }) =>
 						isActive ? activeClass : noneActiveClass
 					}>

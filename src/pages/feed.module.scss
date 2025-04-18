@@ -1,0 +1,11 @@
+.container {
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	gap: 68px;
+}
+.feed {
+	height: 852px;
+	width: 608px;
+	overflow-x: hidden;
+}
