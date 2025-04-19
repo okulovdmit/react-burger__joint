@@ -34,3 +34,26 @@ export type TAuthData = {
 	refreshToken?: string;
 	message?: string;
 };
+
+export type TFeedOrders = {
+	ingredients: string[];
+	_id: string;
+	status: string;
+	name: string;
+	number: number;
+	createdAt: string;
+	updatedAt: string;
+};
+
+export type TFeedData = {
+	success: boolean;
+	orders: TFeedOrders[];
+	total: number;
+	totalToday: number;
+};
+
+export enum WebsocketStatus {
+	CONNECTING = 'CONNECTING...',
+	ONLINE = 'ONLINE',
+	OFFLINE = 'OFFLINE',
+}

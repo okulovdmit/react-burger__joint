@@ -90,3 +90,8 @@ export const userSlice = createSlice({
 export const { getUser, getUserLoading, getError, getIsAuthChecked } =
 	userSlice.selectors;
 export const { setUser, setIsAuthChecked, clearError } = userSlice.actions;
+
+export type UserActions =
+	| ReturnType<typeof setUser>
+	| ReturnType<typeof setIsAuthChecked>
+	| ReturnType<typeof clearError>;

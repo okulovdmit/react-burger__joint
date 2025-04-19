@@ -143,3 +143,11 @@ export const {
 	moveIngredient,
 	clearError,
 } = ingredientsSlice.actions;
+
+export type IngredientsActions =
+	| ReturnType<typeof addIngredient>
+	| ReturnType<typeof addBun>
+	| ReturnType<typeof deleteIngredient>
+	| ReturnType<typeof deleteCounts>
+	| ReturnType<typeof moveIngredient>
+	| ReturnType<typeof clearError>;
