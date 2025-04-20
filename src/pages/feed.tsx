@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../services/store';
 import { connect } from '../services/feed/actions';
 import { WS_ORDERS_URL } from '../utils/constants';
 import { getOrders } from '../services/feed/reducer';
+import { Preloader } from '../components/preloader/preloader';
 
 export const Feed = (): React.JSX.Element => {
 	const dispatch = useAppDispatch();
@@ -13,6 +14,15 @@ export const Feed = (): React.JSX.Element => {
 	useEffect(() => {
 		dispatch(connect(WS_ORDERS_URL));
 	}, [dispatch]);
+
+	if (orders.length === 0) {
+		return (
+			<div className={styles.load}>
+				<Preloader />
+			</div>
+		);
+	}
+
 	return (
 		<section className={`${styles.container} mt-10`}>
 			<div className={styles.feed}>
@@ -20,13 +30,14 @@ export const Feed = (): React.JSX.Element => {
 				{orders.map((item) => (
 					<CardOrder
 						key={item._id}
+						ingredients={item.ingredients}
 						number={item.number}
 						name={item.name}
 						date={item.updatedAt}
 					/>
 				))}
 			</div>
-			<Statistic />
+			<Statistic orders={orders} />
 		</section>
 	);
 };

@@ -1,19 +1,23 @@
-import React from 'react';
 import styles from './ingredients-order.module.scss';
-import { dataIngredients } from '@utils/dataIngredients';
 
-export const IngredientsOrder = (): React.JSX.Element => {
+type TIngredientsOrder = {
+	images: string[];
+};
+
+export const IngredientsOrder = ({
+	images,
+}: TIngredientsOrder): React.JSX.Element => {
 	const maxVisibleItems = 6;
-	const visibleItems = dataIngredients.slice(0, maxVisibleItems);
-	const ingredientsLeft = dataIngredients.length - maxVisibleItems;
+	const visibleItems = images.slice(0, maxVisibleItems);
+	const ingredientsLeft = images.length - maxVisibleItems;
 	return (
 		<div className={styles.container}>
 			{visibleItems.map((item, index) => (
 				<div
 					className={styles.border}
-					key={item._id}
+					key={index}
 					style={{ zIndex: 6 - index }}>
-					<img className={styles.image} src={item.image_mobile} alt={''} />
+					<img className={styles.image} src={item} alt={''} />
 				</div>
 			))}
 			{ingredientsLeft > 0 && (
