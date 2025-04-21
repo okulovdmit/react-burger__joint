@@ -160,7 +160,7 @@ export const App = () => {
 					/>
 					<Route path='/*' element={<NotFound />} />
 					<Route path='/feed' element={<Feed />} />
-					<Route path='/feed/:orderId' element={<OrderInfo />} />
+					<Route path='/feed/:number' element={<OrderInfo />} />
 				</Routes>
 			</section>
 
@@ -175,7 +175,7 @@ export const App = () => {
 						}
 					/>
 					<Route
-						path='/feed/:orderId'
+						path='/feed/:number'
 						element={
 							<Modal toggle={toggle}>
 								<OrderInfo />

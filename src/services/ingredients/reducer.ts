@@ -2,9 +2,11 @@ import { loadIngredients, getOrder } from './action';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 import { TDataIngredient } from '../../utils/types';
+import { convertArrayToObject } from './ingredient-object';
 
 interface IngredientsState {
 	ingredients: Array<TDataIngredient>;
+	ingredientsById: { [key: string]: TDataIngredient };
 	loading: boolean;
 	error: string | null;
 	selectedIngredients: Array<TDataIngredient>;
@@ -17,6 +19,7 @@ interface IngredientsState {
 
 const initialState: IngredientsState = {
 	ingredients: [],
+	ingredientsById: {},
 	loading: false,
 	error: null,
 	selectedIngredients: [],
@@ -87,6 +90,7 @@ export const ingredientsSlice = createSlice({
 	},
 	selectors: {
 		getAllIngredients: (state) => state.ingredients,
+		getIngredientsById: (state) => state.ingredientsById,
 		getIngredientsLoading: (state) => state.loading,
 		getIngredientsError: (state) => state.error,
 		getSelectedIngredients: (state) => state.selectedIngredients,
@@ -107,6 +111,7 @@ export const ingredientsSlice = createSlice({
 			})
 			.addCase(loadIngredients.fulfilled, (state, action) => {
 				state.ingredients = action.payload.data;
+				state.ingredientsById = convertArrayToObject(action.payload.data);
 				state.loading = false;
 			})
 			.addCase(getOrder.pending, (state) => {
@@ -125,6 +130,7 @@ export const ingredientsSlice = createSlice({
 
 export const {
 	getAllIngredients,
+	getIngredientsById,
 	getIngredientsLoading,
 	getIngredientsError,
 	getSelectedIngredients,

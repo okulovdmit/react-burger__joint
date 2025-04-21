@@ -21,6 +21,7 @@ export const CardOrder = ({
 	date,
 	ingredients,
 }: TCardOrder): React.JSX.Element => {
+	const location = useLocation();
 	const dataIngredients = useAppSelector(
 		(state) => state.ingredients.ingredients
 	);
@@ -41,9 +42,6 @@ export const CardOrder = ({
 		return order;
 	}, [ingredients, dataIngredients]);
 
-	const orderId = 123456;
-	const location = useLocation();
-
 	const total = useMemo<number>(() => {
 		return orderDetailes.price.reduce((sum, item) => {
 			return sum + item;
@@ -51,8 +49,8 @@ export const CardOrder = ({
 	}, [orderDetailes]);
 	return (
 		<Link
-			key={orderId}
-			to={`/feed/${orderId}`}
+			key={number}
+			to={`/feed/${number}`}
 			state={{ background: location }}
 			discover='none'
 			className={styles.link}>
