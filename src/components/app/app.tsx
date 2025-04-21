@@ -33,6 +33,7 @@ import { OnlyUnAuth, OnlyAuth } from '../protected-route/protected-route';
 import { checkUserAuth } from '../../services/auth/action';
 import { TDataIngredient, TCallbackWithIngredient } from '@utils/types';
 import { useAppDispatch, useAppSelector } from '../../services/store';
+import { OrderInfo } from '../order-info/order-info';
 
 export const App = () => {
 	const location = useLocation();
@@ -159,6 +160,7 @@ export const App = () => {
 					/>
 					<Route path='/*' element={<NotFound />} />
 					<Route path='/feed' element={<Feed />} />
+					<Route path='/feed/:orderId' element={<OrderInfo />} />
 				</Routes>
 			</section>
 
@@ -169,6 +171,14 @@ export const App = () => {
 						element={
 							<Modal toggle={toggle}>
 								<IngredientDetails toggle={toggle} product={selectedProduct} />
+							</Modal>
+						}
+					/>
+					<Route
+						path='/feed/:orderId'
+						element={
+							<Modal toggle={toggle}>
+								<OrderInfo />
 							</Modal>
 						}
 					/>
