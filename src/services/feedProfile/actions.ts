@@ -10,7 +10,7 @@ export const disconnectProfile = createAction('feedProfile/disconnectProfile');
 export const onConnectingProfile = createAction(
 	'feedProfile/onConnectingProfile'
 );
-export const onOpenProfile = createAction('feedProfile/onOpen');
+export const onOpenProfile = createAction('feedProfile/onOpenProfile');
 export const onCloseProfile = createAction('feedProfile/onCloseProfile');
 export const onErrorProfile = createAction<
 	string,
@@ -18,8 +18,8 @@ export const onErrorProfile = createAction<
 >('feedProfile/onErrorProfile');
 export const onMessageProfile = createAction<
 	TFeedData,
-	'feedProfile/onMessage'
->('feedProfile/onMessage');
+	'feedProfile/onMessageProfile'
+>('feedProfile/onMessageProfile');
 
 export type FeedProfileActions =
 	| ReturnType<typeof connectProfile>
