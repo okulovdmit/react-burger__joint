@@ -3,10 +3,10 @@ import styles from './statistic.module.scss';
 import { OrderBoard } from '../order-board/order-board';
 import { useAppSelector } from '../../services/store';
 import { getTotal, getTotalToday } from '../../services/feed/reducer';
-import { TFeedOrders } from '../../utils/types';
+import { TFeedOrder } from '../../utils/types';
 
 type TStatistic = {
-	orders: TFeedOrders[];
+	orders: TFeedOrder[];
 };
 export const Statistic = ({ orders }: TStatistic): React.JSX.Element => {
 	const total = useAppSelector(getTotal);

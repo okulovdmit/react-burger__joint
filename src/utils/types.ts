@@ -14,6 +14,13 @@ export type TDataIngredient = {
 	key?: string;
 };
 
+export type TIngredientsDetailes = {
+	name: string;
+	price: number;
+	image: string;
+	count: number;
+};
+
 export type TCallbackWithIngredient = (item: TDataIngredient) => void;
 
 export type TUser = {
@@ -35,7 +42,7 @@ export type TAuthData = {
 	message?: string;
 };
 
-export type TFeedOrders = {
+export type TFeedOrder = {
 	ingredients: string[];
 	_id: string;
 	status: string;
@@ -47,7 +54,7 @@ export type TFeedOrders = {
 
 export type TFeedData = {
 	success: boolean;
-	orders: TFeedOrders[];
+	orders: TFeedOrder[];
 	total: number;
 	totalToday: number;
 };

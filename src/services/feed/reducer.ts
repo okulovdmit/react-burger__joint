@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TFeedOrders, WebsocketStatus } from '@utils/types';
+import { TFeedOrder, WebsocketStatus } from '@utils/types';
 import { onClose, onConnecting, onError, onMessage, onOpen } from './actions';
 
 export type FeedState = {
 	status: WebsocketStatus;
-	orders: TFeedOrders[];
+	orders: TFeedOrder[];
 	total: number;
 	totalToday: number;
 	error: string | null;

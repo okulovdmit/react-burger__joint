@@ -1,4 +1,4 @@
-import { TDataIngredient } from '@utils/types';
+import { TDataIngredient, TIngredientsDetailes } from '@utils/types';
 
 export const convertArrayToObject = (
 	array: TDataIngredient[]
@@ -23,4 +23,28 @@ export const getIngredientsDataById = (
 			};
 		}
 	});
+};
+
+export const groupIngredients = (
+	ingredientIds: string[],
+	allIngredients: TDataIngredient[]
+) => {
+	const groupedIngredients: Record<string, TIngredientsDetailes> = {};
+
+	ingredientIds.forEach((id) => {
+		const ingredient = allIngredients.find((item) => item._id === id);
+		if (ingredient) {
+			if (groupedIngredients[id]) {
+				groupedIngredients[id].count += 1;
+			} else {
+				groupedIngredients[id] = {
+					name: ingredient.name,
+					price: ingredient.price,
+					image: ingredient.image_mobile,
+					count: 1,
+				};
+			}
+		}
+	});
+	return Object.values(groupedIngredients);
 };
