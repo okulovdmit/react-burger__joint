@@ -22,8 +22,8 @@ export default function IngredientDetails({
 		? product
 		: productId;
 	return (
-		<div className={`${sDetails.details} mb-15`}>
-			<header className={`${sDetails.header} mt-10 ml-10 mr-10`}>
+		<div className={`${sDetails.details}`}>
+			<header className={`${sDetails.header}`}>
 				<h2 className={'text text_type_main-large'}>Детали заказа</h2>
 				<CloseIcon type='primary' className={sDetails.close} onClick={toggle} />
 			</header>

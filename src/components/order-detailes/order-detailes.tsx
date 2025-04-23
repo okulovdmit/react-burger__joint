@@ -44,7 +44,7 @@ export default function OrderDetailes({
 			{isLoading ? (
 				<>
 					<Preloader />
-					<p className={'text text_type_main-medium mt-30'}>
+					<p className={'text text_type_main-medium mt-15'}>
 						Получаем данные о вашем заказе
 					</p>
 				</>
@@ -58,7 +58,7 @@ export default function OrderDetailes({
 			) : (
 				<>
 					<CloseIcon type='primary' className={sOrder.close} onClick={toggle} />
-					<p className={'text text_type_digits-large mt-30'}>{number}</p>
+					<p className={'text text_type_digits-large'}>{number}</p>
 					<p className={'text text_type_main-medium mt-8'}>
 						идентификатор заказа
 					</p>
@@ -66,10 +66,7 @@ export default function OrderDetailes({
 					<p className={'text text_type_main-default mt-15'}>
 						Ваш заказ начали готовить
 					</p>
-					<p
-						className={
-							'text text_type_main-default text_color_inactive mt-2 mb-15'
-						}>
+					<p className={'text text_type_main-default text_color_inactive mt-2'}>
 						Дождитесь готовности на орбитальной станции
 					</p>
 				</>
