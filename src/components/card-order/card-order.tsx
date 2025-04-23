@@ -6,11 +6,12 @@ import {
 	FormattedDate,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useAppSelector } from '../../services/store';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useMatch } from 'react-router-dom';
 
 type TCardOrder = {
 	number: number;
 	name: string;
+	status: string;
 	date: string;
 	ingredients: string[];
 };
@@ -18,6 +19,7 @@ type TCardOrder = {
 export const CardOrder = ({
 	number,
 	name,
+	status,
 	date,
 	ingredients,
 }: TCardOrder): React.JSX.Element => {
@@ -25,6 +27,8 @@ export const CardOrder = ({
 	const dataIngredients = useAppSelector(
 		(state) => state.ingredients.ingredients
 	);
+	const feed = useMatch('/feed');
+	const feedProfile = useMatch('/profile/orders');
 
 	const orderDetailes = useMemo<{ images: string[]; price: number[] }>(() => {
 		const order: { images: string[]; price: number[] } = {
@@ -47,6 +51,21 @@ export const CardOrder = ({
 			return sum + item;
 		}, 0);
 	}, [orderDetailes]);
+	const statusRussian =
+		status === 'done'
+			? 'Выполнен'
+			: status === 'pending'
+			? 'Готовится'
+			: status === 'created'
+			? 'Создан'
+			: 'Отменен';
+
+	const colorStatus =
+		statusRussian === 'Выполнен'
+			? '#00CCCC'
+			: statusRussian === 'Отменен'
+			? '#ff0000'
+			: '#fff';
 	return (
 		<Link
 			key={number}
@@ -54,7 +73,9 @@ export const CardOrder = ({
 			state={{ background: location }}
 			discover='none'
 			className={styles.link}>
-			<div className={`${styles.container} mt-6 pl-6 pr-6`}>
+			<div
+				className={`${styles.container} mt-6 pl-6 pr-6`}
+				style={{ width: feed ? 536 : 844 }}>
 				<div className={`${styles.header} mt-6`}>
 					<p className={'text text_type_digits-default'}>#{number}</p>
 					<FormattedDate
@@ -62,7 +83,12 @@ export const CardOrder = ({
 						className='text text_type_main-default text_color_inactive'
 					/>
 				</div>
-				<p className={'text text_type_main-default mt-6'}>{name}</p>
+				<p className={'text text_type_main-medium mt-6'}>{name}</p>
+				<p
+					className={'text text_type_main-default mt-2'}
+					style={{ color: colorStatus }}>
+					{feedProfile ? statusRussian : ''}
+				</p>
 				<div className={`${styles.detailes} mt-6 mb-6`}>
 					<IngredientsOrder images={orderDetailes.images} />
 					<div className={styles.cost}>

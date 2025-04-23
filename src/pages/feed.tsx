@@ -27,15 +27,19 @@ export const Feed = (): React.JSX.Element => {
 		<section className={`${styles.container} mt-10`}>
 			<div className={styles.feed}>
 				<h1 className={'text text_type_main-large'}>Лента заказов</h1>
-				{orders.map((item) => (
-					<CardOrder
-						key={item._id}
-						ingredients={item.ingredients}
-						number={item.number}
-						name={item.name}
-						date={item.updatedAt}
-					/>
-				))}
+				{orders
+					.slice()
+					.reverse()
+					.map((item) => (
+						<CardOrder
+							key={item._id}
+							ingredients={item.ingredients}
+							number={item.number}
+							name={item.name}
+							status={item.status}
+							date={item.updatedAt}
+						/>
+					))}
 			</div>
 			<Statistic orders={orders} />
 		</section>

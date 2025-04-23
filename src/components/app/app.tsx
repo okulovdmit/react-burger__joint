@@ -35,6 +35,7 @@ import { TDataIngredient, TCallbackWithIngredient } from '@utils/types';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { OrderInfo } from '../order-info/order-info';
 import { ProfileForm } from '../profile-form/ptofile-form';
+import { FeedProfile } from '../feed-profile/feed-profile';
 
 export const App = () => {
 	const location = useLocation();
@@ -157,7 +158,7 @@ export const App = () => {
 					/>
 					<Route path='/profile' element={<OnlyAuth component={<Profile />} />}>
 						<Route index element={<ProfileForm />} />
-						<Route path='orders' element={<NotFound />} />
+						<Route path='orders' element={<FeedProfile />} />
 					</Route>
 					<Route path='/*' element={<NotFound />} />
 					<Route path='/feed' element={<Feed />} />

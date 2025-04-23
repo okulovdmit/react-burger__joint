@@ -29,8 +29,6 @@ export const ProfileForm = () => {
 	const [isSuccess, setIsSuccess] = useState<boolean>(false);
 	const [isChanged, setIsChanged] = useState<boolean>(false);
 
-	console.log(user);
-
 	const nameRef = useRef<HTMLInputElement>(null);
 	const emailRef = useRef<HTMLInputElement>(null);
 

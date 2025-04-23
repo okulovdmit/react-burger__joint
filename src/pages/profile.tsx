@@ -31,7 +31,9 @@ export const Profile = (): React.JSX.Element => {
 				</p>
 			</div>
 
-			<div className={`${sProfile.main} ml-15`}>
+			<div
+				className={`${sProfile.main} ml-15`}
+				style={{ marginTop: profile ? 0 : -180 }}>
 				<Outlet />
 			</div>
 		</div>
