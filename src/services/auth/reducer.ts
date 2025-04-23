@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { register, login, logout, updateData } from './action';
-import { TUser } from '@utils/types';
+import { TAuthData, TUser } from '@utils/types';
 
 interface IUserState {
 	user: TUser | null;
@@ -20,8 +20,8 @@ export const userSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
-		setUser: (state, action: PayloadAction<TUser>) => {
-			state.user = action.payload;
+		setUser: (state, action: PayloadAction<TAuthData>) => {
+			state.user = action.payload.user || null;
 		},
 		setIsAuthChecked: (state, action: PayloadAction<boolean>) => {
 			state.isAuthChecked = action.payload;

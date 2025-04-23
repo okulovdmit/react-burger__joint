@@ -34,6 +34,7 @@ import { checkUserAuth } from '../../services/auth/action';
 import { TDataIngredient, TCallbackWithIngredient } from '@utils/types';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { OrderInfo } from '../order-info/order-info';
+import { ProfileForm } from '../profile-form/ptofile-form';
 
 export const App = () => {
 	const location = useLocation();
@@ -154,10 +155,10 @@ export const App = () => {
 						path='/reset-password'
 						element={<OnlyUnAuth component={<ResetPassword />} />}
 					/>
-					<Route
-						path='/profile'
-						element={<OnlyAuth component={<Profile />} />}
-					/>
+					<Route path='/profile' element={<OnlyAuth component={<Profile />} />}>
+						<Route index element={<ProfileForm />} />
+						<Route path='orders' element={<NotFound />} />
+					</Route>
 					<Route path='/*' element={<NotFound />} />
 					<Route path='/feed' element={<Feed />} />
 					<Route path='/feed/:number' element={<OrderInfo />} />

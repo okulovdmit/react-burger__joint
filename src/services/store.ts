@@ -15,7 +15,7 @@ import {
 	onOpen,
 } from './feed/actions';
 import { TFeedData } from '@utils/types';
-import { feedProfileSlice } from './feedProfile/reducer';
+import { feedProfileSlice } from './feed-profile/reducer';
 import {
 	connectProfile,
 	disconnectProfile,
@@ -25,7 +25,7 @@ import {
 	onErrorProfile,
 	onMessageProfile,
 	FeedProfileActions,
-} from './feedProfile/actions';
+} from './feed-profile/actions';
 
 const rootReducer = combineSlices(
 	ingredientsSlice,
