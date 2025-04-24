@@ -120,6 +120,8 @@ export const ingredientsSlice = createSlice({
 			.addCase(getOrder.fulfilled, (state, action) => {
 				state.orderNumber = action.payload.order.number;
 				state.orderLoading = false;
+				state.selectedBun = null;
+				state.selectedIngredients = [];
 			})
 			.addCase(getOrder.rejected, (state, action) => {
 				state.orderLoading = false;

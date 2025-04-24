@@ -60,6 +60,8 @@ const BurgerConstructor = ({
 
 	useKey('Enter', gettingOrder);
 
+	const buttonDisabled = bun && ingredients.length > 0 ? false : true;
+
 	return (
 		<section className={`${sConstructor.main} mt-6 pr-4`}>
 			<Bun type={'top'} text={'верх'} onDropHandler={onDropHandler} />
@@ -78,7 +80,8 @@ const BurgerConstructor = ({
 					htmlType='button'
 					type='primary'
 					size='large'
-					onClick={() => gettingOrder()}>
+					onClick={() => gettingOrder()}
+					disabled={buttonDisabled}>
 					Оформить заказ
 				</Button>
 			</div>
