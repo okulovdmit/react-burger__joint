@@ -12,12 +12,22 @@ import { groupIngredients } from '../../services/ingredients/ingredient-object';
 import { TFeedOrder, TIngredientsDetailes } from '@utils/types';
 import { getOrderDetailes } from '@utils/order-number-api';
 import { Preloader } from '../preloader/preloader';
+import { getProfileOrders } from '../../services/feed-profile/reducer';
 
 export const OrderInfo = (): React.JSX.Element => {
 	const { number } = useParams();
 	const dataIngredients = useAppSelector(getAllIngredients);
 	const orders = useAppSelector(getOrders);
-	const order = orders.find((order) => order.number.toString() === number);
+	const ordersProfile = useAppSelector(getProfileOrders);
+	const order = useMemo(() => {
+		let order = orders.find((order) => order.number.toString() === number);
+		if (order) {
+			return order;
+		}
+		order = ordersProfile.find((order) => order.number.toString() === number);
+		if (order) return order;
+	}, [orders, ordersProfile, number]);
+
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [orderApi, setOrderApi] = useState<TFeedOrder[]>([]);
 

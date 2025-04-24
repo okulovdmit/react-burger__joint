@@ -38,6 +38,7 @@ export default function OrderDetailes({
 	const handleCloseError = () => {
 		setIsError(!isError);
 		dispatch(clearError());
+		toggle();
 	};
 	return (
 		<div className={sOrder.order}>
