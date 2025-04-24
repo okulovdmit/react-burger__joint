@@ -38,8 +38,9 @@ export const Header = () => {
 					)}
 				</NavLink>
 			</nav>
-
-			<Logo />
+			<NavLink to={'/'}>
+				<Logo />
+			</NavLink>
 			<div className={sHeader.item}>
 				<NavLink
 					to='/profile'
