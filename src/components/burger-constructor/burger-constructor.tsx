@@ -47,12 +47,13 @@ const BurgerConstructor = ({
 			return navigate('/login');
 		}
 		const ingredientIds: Array<string> = [];
-		if (bun) {
-			ingredientIds.push(bun._id);
-		}
 		ingredients.forEach((ingredient) => {
 			ingredientIds.push(ingredient._id);
 		});
+		if (bun) {
+			ingredientIds.unshift(bun._id);
+			ingredientIds.push(bun._id);
+		}
 		dispatch(getOrder(ingredientIds));
 		toggleOrder();
 	};

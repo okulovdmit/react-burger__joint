@@ -19,7 +19,6 @@ export const FeedProfile = (): React.JSX.Element => {
 			dispatch(connectProfile(url));
 		}
 	}, [dispatch]);
-
 	if (orders.length === 0) {
 		return (
 			<div className={styles.load}>
