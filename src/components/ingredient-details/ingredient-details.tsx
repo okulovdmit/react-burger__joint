@@ -9,11 +9,13 @@ import { useAppSelector } from '../../services/store';
 type TIngredientDetailesProps = {
 	product?: TDataIngredient | null;
 	toggle: () => void;
+	isPopup?: boolean;
 };
 
 export default function IngredientDetails({
 	product,
 	toggle,
+	isPopup = false,
 }: TIngredientDetailesProps): React.JSX.Element {
 	const { ingredientId: id } = useParams();
 	const data = useAppSelector(getAllIngredients);
@@ -21,11 +23,20 @@ export default function IngredientDetails({
 	const { name, image, calories, proteins, fat, carbohydrates } = product
 		? product
 		: productId;
+	const titlePosition = isPopup ? 'space-between' : 'center';
 	return (
 		<div className={`${sDetails.details}`}>
-			<header className={`${sDetails.header}`}>
+			<header
+				className={`${sDetails.header}`}
+				style={{ justifyContent: titlePosition }}>
 				<h2 className={'text text_type_main-large'}>Детали заказа</h2>
-				<CloseIcon type='primary' className={sDetails.close} onClick={toggle} />
+				{isPopup && (
+					<CloseIcon
+						type='primary'
+						className={sDetails.close}
+						onClick={toggle}
+					/>
+				)}
 			</header>
 			<img src={image} alt='{name}' className={sDetails.image} />
 			<p className={'text text_type_main-medium mt-4'}>{name}</p>

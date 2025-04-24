@@ -176,7 +176,11 @@ export const App = () => {
 						path='/ingredients/:ingredientId'
 						element={
 							<Modal toggle={toggle}>
-								<IngredientDetails toggle={toggle} product={selectedProduct} />
+								<IngredientDetails
+									toggle={toggle}
+									product={selectedProduct}
+									isPopup={true}
+								/>
 							</Modal>
 						}
 					/>
