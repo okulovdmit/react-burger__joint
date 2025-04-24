@@ -47,10 +47,16 @@ export const socketMiddleware = <R, S>(
 				onConnecting && dispatch(onConnecting());
 
 				socket.onopen = () => {
+					isConnected = true;
 					onOpen && dispatch(onOpen());
 				};
 				socket.onerror = () => {
 					dispatch(onError('Ошибка соединения'));
+					if (isConnected) {
+						reconnectTimer = window.setTimeout(() => {
+							dispatch(connect(url));
+						}, RECONNECT_PERIOD);
+					}
 				};
 
 				socket.onclose = () => {

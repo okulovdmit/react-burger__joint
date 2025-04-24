@@ -44,15 +44,18 @@ const feedMiddleware = socketMiddleware<TFeedData, unknown>({
 	onMessage,
 });
 
-export const feedProfileMiddleware = socketMiddleware<TFeedData, unknown>({
-	connect: connectProfile,
-	disconnect: disconnectProfile,
-	onConnecting: onConnectingProfile,
-	onOpen: onOpenProfile,
-	onClose: onCloseProfile,
-	onError: onErrorProfile,
-	onMessage: onMessageProfile,
-});
+export const feedProfileMiddleware = socketMiddleware<TFeedData, unknown>(
+	{
+		connect: connectProfile,
+		disconnect: disconnectProfile,
+		onConnecting: onConnectingProfile,
+		onOpen: onOpenProfile,
+		onClose: onCloseProfile,
+		onError: onErrorProfile,
+		onMessage: onMessageProfile,
+	},
+	true
+);
 export const store = configureStore({
 	reducer: rootReducer,
 	middleware: (getDefaultMiddleware) => {

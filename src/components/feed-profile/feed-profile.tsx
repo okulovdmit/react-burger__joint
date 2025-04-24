@@ -3,7 +3,10 @@ import styles from './feed-profile.module.scss';
 import { CardOrder } from '../card-order/card-order';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 import { getProfileOrders } from '../../services/feed-profile/reducer';
-import { connectProfile } from '../../services/feed-profile/actions';
+import {
+	connectProfile,
+	disconnectProfile,
+} from '../../services/feed-profile/actions';
 import { WS_PROFILE_ORDERS_URL } from '@utils/constants';
 import { Preloader } from '../preloader/preloader';
 
@@ -18,6 +21,9 @@ export const FeedProfile = (): React.JSX.Element => {
 			const url = `${WS_PROFILE_ORDERS_URL}?token=${accessToken}`;
 			dispatch(connectProfile(url));
 		}
+		return () => {
+			dispatch(disconnectProfile());
+		};
 	}, [dispatch]);
 	if (orders.length === 0) {
 		return (
