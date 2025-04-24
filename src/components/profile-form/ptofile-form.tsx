@@ -96,7 +96,9 @@ export const ProfileForm = () => {
 	return (
 		<>
 			{isLoading ? (
-				<Preloader />
+				<div className={styles.load}>
+					<Preloader />
+				</div>
 			) : (
 				<>
 					<Input

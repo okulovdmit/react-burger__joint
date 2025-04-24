@@ -28,7 +28,7 @@ export const FeedProfile = (): React.JSX.Element => {
 		);
 	}
 	return (
-		<div className={styles.container}>
+		<>
 			{orders
 				.slice()
 				.reverse()
@@ -42,6 +42,6 @@ export const FeedProfile = (): React.JSX.Element => {
 						date={item.updatedAt}
 					/>
 				))}
-		</div>
+		</>
 	);
 };
