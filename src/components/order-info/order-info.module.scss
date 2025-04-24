@@ -6,6 +6,13 @@
 	justify-content: flex-start;
 	align-items: flex-start;
 	margin: 30px;
+	position: relative;
+}
+.close {
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	right: 0;
 }
 
 .number {

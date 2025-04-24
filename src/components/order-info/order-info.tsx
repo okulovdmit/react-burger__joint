@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import styles from './order-info.module.scss';
 import {
+	CloseIcon,
 	CurrencyIcon,
 	FormattedDate,
 } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -14,7 +15,15 @@ import { getOrderDetailes } from '@utils/order-number-api';
 import { Preloader } from '../preloader/preloader';
 import { getProfileOrders } from '../../services/feed-profile/reducer';
 
-export const OrderInfo = (): React.JSX.Element => {
+type TOrderInfo = {
+	toggle: () => void;
+	isPopup?: boolean;
+};
+
+export const OrderInfo = ({
+	toggle,
+	isPopup = false,
+}: TOrderInfo): React.JSX.Element => {
 	const { number } = useParams();
 	const dataIngredients = useAppSelector(getAllIngredients);
 	const orders = useAppSelector(getOrders);
@@ -78,8 +87,12 @@ export const OrderInfo = (): React.JSX.Element => {
 			: statusRussian === 'Отменен'
 			? '#ff0000'
 			: '#fff';
+
 	return (
 		<div className={styles.container}>
+			{isPopup && (
+				<CloseIcon type='primary' className={styles.close} onClick={toggle} />
+			)}
 			<p className={`${styles.number} text text_type_digits-default mb-10`}>
 				{number}
 			</p>
@@ -92,20 +105,18 @@ export const OrderInfo = (): React.JSX.Element => {
 			<p className='text text_type_main-medium mb-6'>Состав:</p>
 			<div className={`${styles.main} mb-10`}>
 				{ingredientsDetails.map((item, index) => (
-					<>
-						<div className={`${styles.detailes} mb-4`}>
-							<div className={`${styles.border} mr-4`} key={index}>
-								<img className={styles.image} src={item.image} alt={''} />
-							</div>
-							<p>{item.name}</p>
-							<div className={`${styles.cost} ml-4`}>
-								<p className={'text text_type_digits-default'}>
-									{item.count} x {item.price}
-								</p>
-								<CurrencyIcon type='primary' />
-							</div>
+					<div className={`${styles.detailes} mb-4`} key={index}>
+						<div className={`${styles.border} mr-4`}>
+							<img className={styles.image} src={item.image} alt={''} />
 						</div>
-					</>
+						<p>{item.name}</p>
+						<div className={`${styles.cost} ml-4`}>
+							<p className={'text text_type_digits-default'}>
+								{item.count} x {item.price}
+							</p>
+							<CurrencyIcon type='primary' />
+						</div>
+					</div>
 				))}
 			</div>
 			<div className={styles.footer}>

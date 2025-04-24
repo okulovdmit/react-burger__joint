@@ -162,11 +162,11 @@ export const App = () => {
 					</Route>
 					<Route
 						path='profile/orders/:number'
-						element={<OnlyAuth component={<OrderInfo />} />}
+						element={<OnlyAuth component={<OrderInfo toggle={toggle} />} />}
 					/>
 					<Route path='/*' element={<NotFound />} />
 					<Route path='/feed' element={<Feed />} />
-					<Route path='/feed/:number' element={<OrderInfo />} />
+					<Route path='/feed/:number' element={<OrderInfo toggle={toggle} />} />
 				</Routes>
 			</section>
 
@@ -184,7 +184,7 @@ export const App = () => {
 						path='/feed/:number'
 						element={
 							<Modal toggle={toggle}>
-								<OrderInfo />
+								<OrderInfo toggle={toggle} isPopup={true} />
 							</Modal>
 						}
 					/>
@@ -192,7 +192,7 @@ export const App = () => {
 						path='/profile/orders/:number'
 						element={
 							<Modal toggle={toggle}>
-								<OrderInfo />
+								<OrderInfo toggle={toggle} isPopup={true} />
 							</Modal>
 						}
 					/>
