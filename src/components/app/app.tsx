@@ -160,6 +160,10 @@ export const App = () => {
 						<Route index element={<ProfileForm />} />
 						<Route path='orders' element={<FeedProfile />} />
 					</Route>
+					<Route
+						path='profile/orders/:number'
+						element={<OnlyAuth component={<OrderInfo />} />}
+					/>
 					<Route path='/*' element={<NotFound />} />
 					<Route path='/feed' element={<Feed />} />
 					<Route path='/feed/:number' element={<OrderInfo />} />
@@ -178,6 +182,14 @@ export const App = () => {
 					/>
 					<Route
 						path='/feed/:number'
+						element={
+							<Modal toggle={toggle}>
+								<OrderInfo />
+							</Modal>
+						}
+					/>
+					<Route
+						path='/profile/orders/:number'
 						element={
 							<Modal toggle={toggle}>
 								<OrderInfo />

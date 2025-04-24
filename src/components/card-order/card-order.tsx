@@ -66,10 +66,12 @@ export const CardOrder = ({
 			: statusRussian === 'Отменен'
 			? '#ff0000'
 			: '#fff';
+
+	const url = feed ? `/feed/${number}` : `/profile/orders/${number}`;
 	return (
 		<Link
 			key={number}
-			to={`/feed/${number}`}
+			to={url}
 			state={{ background: location }}
 			discover='none'
 			className={styles.link}>
