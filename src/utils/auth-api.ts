@@ -1,7 +1,7 @@
 import { BURGER_API_URL, getResponse } from './constants';
 import { TUser, TAuthData, TResetPasswordData } from './types';
 
-const refreshToken = async (): Promise<TAuthData> => {
+export const refreshToken = async (): Promise<TAuthData> => {
 	try {
 		const response = await fetch(`${BURGER_API_URL}/auth/token`, {
 			method: 'POST',

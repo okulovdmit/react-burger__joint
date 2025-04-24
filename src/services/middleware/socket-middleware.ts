@@ -4,6 +4,7 @@ import {
 	Middleware,
 } from '@reduxjs/toolkit';
 import { RootState } from '@services/store';
+import { refreshToken } from '@utils/auth-api';
 
 export type WsActions<R, S> = {
 	connect: ActionCreatorWithPayload<string>;
@@ -19,7 +20,8 @@ export type WsActions<R, S> = {
 export const RECONNECT_PERIOD = 3000;
 
 export const socketMiddleware = <R, S>(
-	wsActions: WsActions<R, S>
+	wsActions: WsActions<R, S>,
+	withTokenRefresh = false
 ): Middleware<Record<string, never>, RootState> => {
 	return (store) => {
 		let socket: WebSocket | null = null;
@@ -65,6 +67,26 @@ export const socketMiddleware = <R, S>(
 
 					try {
 						const parsedData = JSON.parse(data);
+						if (
+							withTokenRefresh &&
+							parsedData.message === 'Invalid or missing token'
+						) {
+							refreshToken()
+								.then((refreshData) => {
+									const wssUrl = new URL(url);
+									wssUrl.searchParams.set(
+										'token',
+										//@ts-expect-error 'do it later'
+										refreshData.accessToken.replace('Bearer ', '')
+									);
+									dispatch(connect(wssUrl.toString()));
+								})
+								.catch((error) => {
+									dispatch(onError((error as Error).message));
+								});
+							dispatch(disconnect());
+							return;
+						}
 						dispatch(onMessage(parsedData));
 					} catch (e) {
 						dispatch(onError(`Ошибка: ${e}`));
