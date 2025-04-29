@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useSelector } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
@@ -28,20 +27,24 @@ import {
 	ResetPassword,
 	Profile,
 	NotFound,
+	Feed,
 } from '../../pages/index';
 import { OnlyUnAuth, OnlyAuth } from '../protected-route/protected-route';
 import { checkUserAuth } from '../../services/auth/action';
 import { TDataIngredient, TCallbackWithIngredient } from '@utils/types';
-import { useAppDispatch } from '../../services/store';
+import { useAppDispatch, useAppSelector } from '../../services/store';
+import { OrderInfo } from '../order-info/order-info';
+import { ProfileForm } from '../profile-form/ptofile-form';
+import { FeedProfile } from '../feed-profile/feed-profile';
 
 export const App = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const background = location.state && location.state.background;
 	const dispatch = useAppDispatch();
-	const data = useSelector(getAllIngredients);
-	const isLoading = useSelector(getIngredientsLoading);
-	const isError = useSelector(getIngredientsError);
+	const data = useAppSelector(getAllIngredients);
+	const isLoading = useAppSelector(getIngredientsLoading);
+	const isError = useAppSelector(getIngredientsError);
 
 	const [isOpenOrder, setIsOpenOrder] = useState<boolean>(false);
 	const [selectedProduct, setSelectedProduct] =
@@ -153,11 +156,17 @@ export const App = () => {
 						path='/reset-password'
 						element={<OnlyUnAuth component={<ResetPassword />} />}
 					/>
+					<Route path='/profile' element={<OnlyAuth component={<Profile />} />}>
+						<Route index element={<ProfileForm />} />
+						<Route path='orders' element={<FeedProfile />} />
+					</Route>
 					<Route
-						path='/profile'
-						element={<OnlyAuth component={<Profile />} />}
+						path='profile/orders/:number'
+						element={<OnlyAuth component={<OrderInfo toggle={toggle} />} />}
 					/>
 					<Route path='/*' element={<NotFound />} />
+					<Route path='/feed' element={<Feed />} />
+					<Route path='/feed/:number' element={<OrderInfo toggle={toggle} />} />
 				</Routes>
 			</section>
 
@@ -167,7 +176,27 @@ export const App = () => {
 						path='/ingredients/:ingredientId'
 						element={
 							<Modal toggle={toggle}>
-								<IngredientDetails toggle={toggle} product={selectedProduct} />
+								<IngredientDetails
+									toggle={toggle}
+									product={selectedProduct}
+									isPopup={true}
+								/>
+							</Modal>
+						}
+					/>
+					<Route
+						path='/feed/:number'
+						element={
+							<Modal toggle={toggle}>
+								<OrderInfo toggle={toggle} isPopup={true} />
+							</Modal>
+						}
+					/>
+					<Route
+						path='/profile/orders/:number'
+						element={
+							<Modal toggle={toggle}>
+								<OrderInfo toggle={toggle} isPopup={true} />
 							</Modal>
 						}
 					/>

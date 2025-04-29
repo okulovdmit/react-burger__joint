@@ -1,7 +1,7 @@
 import { BURGER_API_URL, getResponse } from './constants';
 import { TUser, TAuthData, TResetPasswordData } from './types';
 
-const refreshToken = async (): Promise<TAuthData> => {
+export const refreshToken = async (): Promise<TAuthData> => {
 	try {
 		const response = await fetch(`${BURGER_API_URL}/auth/token`, {
 			method: 'POST',
@@ -38,7 +38,8 @@ const fetchWithRefresh = async <T>(
 		const res = await fetch(url, options);
 		return await getResponse<T>(res);
 	} catch (err) {
-		if (err instanceof TypeError && err.message === 'jwt expired') {
+		//@ts-expect-error 'do it later'
+		if (err.message === 'jwt expired') {
 			const refreshData = await refreshToken();
 			options.headers = {
 				...options.headers,
@@ -52,7 +53,7 @@ const fetchWithRefresh = async <T>(
 	}
 };
 
-export const checkUser = async (): Promise<TUser> => {
+export const checkUser = async (): Promise<TAuthData> => {
 	const url = `${BURGER_API_URL}/auth/user`;
 	const options = {
 		method: 'GET',
@@ -62,7 +63,7 @@ export const checkUser = async (): Promise<TUser> => {
 		},
 	};
 
-	const request = await fetchWithRefresh<TUser>(url, options);
+	const request = await fetchWithRefresh<TAuthData>(url, options);
 
 	try {
 		return request;

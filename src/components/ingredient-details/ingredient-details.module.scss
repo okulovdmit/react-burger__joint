@@ -2,13 +2,13 @@
 	display: flex;
 	flex-flow: column;
 	align-items: center;
+	margin: 50px;
 }
 .header {
 	height: 64px;
 	width: 640px;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;
 }
 .info {
 	display: flex;

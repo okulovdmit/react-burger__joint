@@ -1,31 +1,42 @@
 import sDetails from './ingredient-details.module.scss';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { getAllIngredients } from '../../services/ingredients/reducer';
 import { TDataIngredient } from '@utils/types';
 import React from 'react';
+import { useAppSelector } from '../../services/store';
 
 type TIngredientDetailesProps = {
 	product?: TDataIngredient | null;
 	toggle: () => void;
+	isPopup?: boolean;
 };
 
 export default function IngredientDetails({
 	product,
 	toggle,
+	isPopup = false,
 }: TIngredientDetailesProps): React.JSX.Element {
 	const { ingredientId: id } = useParams();
-	const data = useSelector(getAllIngredients);
+	const data = useAppSelector(getAllIngredients);
 	const productId = data.filter((item) => item._id === id)[0];
 	const { name, image, calories, proteins, fat, carbohydrates } = product
 		? product
 		: productId;
+	const titlePosition = isPopup ? 'space-between' : 'center';
 	return (
-		<div className={`${sDetails.details} mb-15`}>
-			<header className={`${sDetails.header} mt-10 ml-10 mr-10`}>
+		<div className={`${sDetails.details}`}>
+			<header
+				className={`${sDetails.header}`}
+				style={{ justifyContent: titlePosition }}>
 				<h2 className={'text text_type_main-large'}>Детали заказа</h2>
-				<CloseIcon type='primary' className={sDetails.close} onClick={toggle} />
+				{isPopup && (
+					<CloseIcon
+						type='primary'
+						className={sDetails.close}
+						onClick={toggle}
+					/>
+				)}
 			</header>
 			<img src={image} alt='{name}' className={sDetails.image} />
 			<p className={'text text_type_main-medium mt-4'}>{name}</p>

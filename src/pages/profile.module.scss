@@ -1,23 +1,19 @@
 .container {
-	height: 320px;
-	width: 860px;
+	// height: 320px;
+	// width: 860px;
 	display: flex;
 	align-items: flex-start;
 	justify-content: center;
 	margin-top: 200px;
 }
-.inputs {
-	height: 240px;
-	width: 480px;
+.main {
+	// height: 240px;
+	// width: 480px;
 	display: flex;
 	flex-flow: column;
 	align-items: center;
 }
-.btns {
-	align-self: flex-end;
-	display: flex;
-	align-items: center;
-}
+
 .navigate {
 	height: 320px;
 	width: 320px;

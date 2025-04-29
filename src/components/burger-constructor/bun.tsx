@@ -2,8 +2,8 @@ import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-comp
 import { useDrop } from 'react-dnd';
 import sBun from './burger-constructor.module.scss';
 import { getSelectedBun } from '../../services/ingredients/reducer';
-import { useSelector } from 'react-redux';
 import { TDataIngredient, TCallbackWithIngredient } from '@utils/types';
+import { useAppSelector } from '../../services/store';
 
 type TBunProps = {
 	type: 'top' | 'bottom';
@@ -16,7 +16,7 @@ export default function Bun({
 	text,
 	onDropHandler,
 }: TBunProps): React.JSX.Element {
-	const bun = useSelector(getSelectedBun);
+	const bun = useAppSelector(getSelectedBun);
 	const [, dropRef] = useDrop<TDataIngredient, unknown, unknown>({
 		accept: 'ingredients',
 		drop(item) {

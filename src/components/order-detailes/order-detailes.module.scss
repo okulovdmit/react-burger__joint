@@ -1,18 +1,18 @@
 .order {
 	background-color: #1c1c21;
-	width: 720px;
-	border: 1px solid #4c4cff33;
+	// width: 720px;
 	border-radius: 40px;
 	display: flex;
 	flex-flow: column;
 	align-items: center;
 	position: relative;
+	margin: 50px;
 }
 .close {
 	cursor: pointer;
 	position: absolute;
-	top: 60px;
-	right: 40px;
+	top: -20px;
+	right: -20px;
 }
 .done {
 	margin-top: 60px;

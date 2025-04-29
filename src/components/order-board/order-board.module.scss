@@ -1,0 +1,22 @@
+.container {
+	width: 272px;
+	height: 206px;
+	display: flex;
+	flex-flow: column;
+}
+.title {
+	width: 100%;
+}
+
+.number {
+	width: 100%;
+	height: 100%;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	overflow: hidden;
+}
+
+.completed {
+	width: 100%;
+	height: 150px;
+}

@@ -10,12 +10,11 @@ import {
 	getSelectedIngredients,
 } from '../../services/ingredients/reducer';
 import { getOrder } from '../../services/ingredients/action';
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useKey } from '../../hooks/use-key';
 import { getUser } from '../../services/auth/reducer';
 import { TCallbackWithIngredient } from '@utils/types';
-import { useAppDispatch } from '../../services/store';
+import { useAppDispatch, useAppSelector } from '../../services/store';
 
 export type TBurgerConstructorProps = {
 	toggleOrder: () => void;
@@ -31,10 +30,10 @@ const BurgerConstructor = ({
 	onMoveIngredient,
 }: TBurgerConstructorProps): React.JSX.Element => {
 	const dispatch = useAppDispatch();
-	const bun = useSelector(getSelectedBun);
-	const ingredients = useSelector(getSelectedIngredients); // need to change type
+	const bun = useAppSelector(getSelectedBun);
+	const ingredients = useAppSelector(getSelectedIngredients); // need to change type
 	const navigate = useNavigate();
-	const user = useSelector(getUser);
+	const user = useAppSelector(getUser);
 
 	const ingredientsCost = ingredients.reduce(
 		(acc, item) => acc + item.price,
@@ -48,17 +47,20 @@ const BurgerConstructor = ({
 			return navigate('/login');
 		}
 		const ingredientIds: Array<string> = [];
-		if (bun) {
-			ingredientIds.push(bun._id);
-		}
 		ingredients.forEach((ingredient) => {
 			ingredientIds.push(ingredient._id);
 		});
+		if (bun) {
+			ingredientIds.unshift(bun._id);
+			ingredientIds.push(bun._id);
+		}
 		dispatch(getOrder(ingredientIds));
 		toggleOrder();
 	};
 
 	useKey('Enter', gettingOrder);
+
+	const buttonDisabled = bun && ingredients.length > 0 ? false : true;
 
 	return (
 		<section className={`${sConstructor.main} mt-6 pr-4`}>
@@ -78,7 +80,8 @@ const BurgerConstructor = ({
 					htmlType='button'
 					type='primary'
 					size='large'
-					onClick={() => gettingOrder()}>
+					onClick={() => gettingOrder()}
+					disabled={buttonDisabled}>
 					Оформить заказ
 				</Button>
 			</div>

@@ -1,7 +1,6 @@
 import sLogin from './login.module.scss';
 import React, { useRef, useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { useKey } from '../hooks/use-key';
 import {
 	Input,
@@ -12,14 +11,14 @@ import { login } from '../services/auth/action';
 import { getUserLoading, getError, clearError } from '../services/auth/reducer';
 import Modal from '../components/modal/modal';
 import { Notification } from '../components/notification/notification';
-import { useAppDispatch } from '../services/store';
+import { useAppDispatch, useAppSelector } from '../services/store';
 
 export const Login = (): React.JSX.Element => {
 	const location = useLocation();
 	const dispatch = useAppDispatch();
 
-	const error = useSelector(getError);
-	const isLoading = useSelector(getUserLoading);
+	const error = useAppSelector(getError);
+	const isLoading = useAppSelector(getUserLoading);
 	const redirectFromResetPassword = localStorage.getItem('getResetPassword');
 
 	const [typeInput, setTypeInput] = useState<'text' | 'password'>('password');

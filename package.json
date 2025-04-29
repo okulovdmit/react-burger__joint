@@ -79,6 +79,7 @@
 	},
 	"dependencies": {
 		"@reduxjs/toolkit": "^2.5.1",
+		"@vtjhyn/formatdate": "^0.1.0",
 		"@ya.praktikum/react-developer-burger-ui-components": "^1.14.2",
 		"clsx": "^2.1.0",
 		"core-js": "^3.38.1",

@@ -1,8 +1,8 @@
-import { useSelector } from 'react-redux';
 import { useLocation, Navigate } from 'react-router-dom';
 import { getIsAuthChecked, getUser } from '../../services/auth/reducer';
 import { Preloader } from '../preloader/preloader';
 import React from 'react';
+import { useAppSelector } from '../../services/store';
 
 type TProtectedProps = {
 	onlyUnAuth?: boolean;
@@ -13,8 +13,8 @@ const Protected = ({
 	onlyUnAuth = false,
 	component,
 }: TProtectedProps): React.ReactElement => {
-	const user = useSelector(getUser);
-	const isAuth = useSelector(getIsAuthChecked);
+	const user = useAppSelector(getUser);
+	const isAuth = useAppSelector(getIsAuthChecked);
 	const location = useLocation();
 
 	if (!isAuth) {

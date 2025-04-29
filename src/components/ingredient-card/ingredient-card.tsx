@@ -1,6 +1,7 @@
 import sCard from './ingredinet-card.module.scss';
 import { DraggableIngredient } from './draggable-Ingredient';
 import { TDataIngredient, TCallbackWithIngredient } from '@utils/types';
+import React from 'react';
 
 type TIngredientCardProps = {
 	data: Array<TDataIngredient>;

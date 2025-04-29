@@ -5,7 +5,6 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Preloader } from '../preloader/preloader';
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import {
 	getOrderLoading,
 	getOrderNumber,
@@ -13,7 +12,7 @@ import {
 	clearError,
 } from '../../services/ingredients/reducer';
 import { Notification } from '../notification/notification';
-import { useAppDispatch } from '../../services/store';
+import { useAppDispatch, useAppSelector } from '../../services/store';
 
 type TOrderDetailesProp = {
 	toggle: () => void;
@@ -23,9 +22,9 @@ export default function OrderDetailes({
 	toggle,
 }: TOrderDetailesProp): React.JSX.Element {
 	const dispatch = useAppDispatch();
-	const isLoading = useSelector(getOrderLoading);
-	const error = useSelector(getOrderError);
-	const number = useSelector(getOrderNumber);
+	const isLoading = useAppSelector(getOrderLoading);
+	const error = useAppSelector(getOrderError);
+	const number = useAppSelector(getOrderNumber);
 
 	const [isError, setIsError] = useState<boolean>(false);
 
@@ -39,13 +38,14 @@ export default function OrderDetailes({
 	const handleCloseError = () => {
 		setIsError(!isError);
 		dispatch(clearError());
+		toggle();
 	};
 	return (
 		<div className={sOrder.order}>
 			{isLoading ? (
 				<>
 					<Preloader />
-					<p className={'text text_type_main-medium mt-30'}>
+					<p className={'text text_type_main-medium mt-15'}>
 						Получаем данные о вашем заказе
 					</p>
 				</>
@@ -59,7 +59,7 @@ export default function OrderDetailes({
 			) : (
 				<>
 					<CloseIcon type='primary' className={sOrder.close} onClick={toggle} />
-					<p className={'text text_type_digits-large mt-30'}>{number}</p>
+					<p className={'text text_type_digits-large'}>{number}</p>
 					<p className={'text text_type_main-medium mt-8'}>
 						идентификатор заказа
 					</p>
@@ -67,10 +67,7 @@ export default function OrderDetailes({
 					<p className={'text text_type_main-default mt-15'}>
 						Ваш заказ начали готовить
 					</p>
-					<p
-						className={
-							'text text_type_main-default text_color_inactive mt-2 mb-15'
-						}>
+					<p className={'text text_type_main-default text_color_inactive mt-2'}>
 						Дождитесь готовности на орбитальной станции
 					</p>
 				</>

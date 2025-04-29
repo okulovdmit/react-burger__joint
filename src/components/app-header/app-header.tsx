@@ -26,7 +26,7 @@ export const Header = () => {
 					)}
 				</NavLink>
 				<NavLink
-					to='/order'
+					to='/feed'
 					className={({ isActive }) =>
 						isActive ? activeClass : noneActiveClass
 					}>
@@ -38,8 +38,9 @@ export const Header = () => {
 					)}
 				</NavLink>
 			</nav>
-
-			<Logo />
+			<NavLink to={'/'}>
+				<Logo />
+			</NavLink>
 			<div className={sHeader.item}>
 				<NavLink
 					to='/profile'

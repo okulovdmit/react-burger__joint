@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import sIngredients from './burger-ingredients.module.scss';
 import { IngredientCard } from '../ingredient-card/ingredient-card';
 import { Tabs } from '../tabs/tabs';
 import { Section } from '../tabs/section';
 import { getAllIngredients } from '../../services/ingredients/reducer';
 import { TCallbackWithIngredient } from '@utils/types';
+import { useAppSelector } from '../../services/store';
 
 export type TBurgerIngredientsProps = {
 	getProduct: TCallbackWithIngredient;
@@ -15,7 +15,7 @@ export type TStateTabs = 'булки' | 'соусы' | 'начинки';
 const BurgerIngredients = ({
 	getProduct,
 }: TBurgerIngredientsProps): React.JSX.Element => {
-	const data = useSelector(getAllIngredients);
+	const data = useAppSelector(getAllIngredients);
 	const bunFilter = data.filter((item) => item.type === 'bun');
 	const sauceFilter = data.filter((item) => item.type === 'sauce');
 	const mainFilter = data.filter((item) => item.type === 'main');
