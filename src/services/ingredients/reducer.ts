@@ -17,7 +17,7 @@ interface IngredientsState {
 	orderError: string | null;
 }
 
-const initialState: IngredientsState = {
+export const initialState: IngredientsState = {
 	ingredients: [],
 	ingredientsById: {},
 	loading: false,
