@@ -60,7 +60,7 @@ const BurgerConstructor = ({
 
 	useKey('Enter', gettingOrder);
 
-	const buttonDisabled = bun && ingredients.length > 0 ? false : true;
+	const buttonDisabled = !(bun && ingredients.length > 0);
 
 	return (
 		<section className={`${sConstructor.main} mt-6 pr-4`}>
@@ -81,7 +81,8 @@ const BurgerConstructor = ({
 					type='primary'
 					size='large'
 					onClick={() => gettingOrder()}
-					disabled={buttonDisabled}>
+					disabled={buttonDisabled}
+					data-cy={'buttonOrder'}>
 					Оформить заказ
 				</Button>
 			</div>

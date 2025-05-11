@@ -34,7 +34,8 @@ export const DraggableIngredient = ({
 			to={`/ingredients/${ingredientId}`}
 			discover='none'
 			state={{ background: location }}
-			className={sCard.link}>
+			className={sCard.link}
+			data-cy={`ingredient-${ingredientId}`}>
 			<div
 				ref={dragRef}
 				aria-hidden='true'

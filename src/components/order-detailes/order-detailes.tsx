@@ -59,7 +59,9 @@ export default function OrderDetailes({
 			) : (
 				<>
 					<CloseIcon type='primary' className={sOrder.close} onClick={toggle} />
-					<p className={'text text_type_digits-large'}>{number}</p>
+					<p className={'text text_type_digits-large'} data-cy={'orderNumber'}>
+						{number}
+					</p>
 					<p className={'text text_type_main-medium mt-8'}>
 						идентификатор заказа
 					</p>

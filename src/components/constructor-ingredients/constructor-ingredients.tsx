@@ -28,7 +28,8 @@ export const ConsctructorIngredients = ({
 			ref={dropRef}
 			className={`${sIngredients.group} m-4 mr-4 custom-scroll`}
 			onClick={(e) => e.stopPropagation()}
-			aria-hidden='true'>
+			aria-hidden='true'
+			data-cy={'ingredientsContainer'}>
 			{ingredients.length > 0 ? (
 				ingredients.map((item, index) => (
 					<RenderIngredient
