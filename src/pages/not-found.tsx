@@ -24,3 +24,4 @@ export const NotFound = (): React.JSX.Element => {
 		</div>
 	);
 };
+export default NotFound;

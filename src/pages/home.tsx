@@ -8,7 +8,7 @@ import React from 'react';
 
 type THomeProps = TBurgerConstructorProps & TBurgerIngredientsProps;
 
-export const Home = ({
+const Home = ({
 	getProduct,
 	toggleOrder,
 	onDropHandler,
@@ -27,3 +27,5 @@ export const Home = ({
 		</>
 	);
 };
+
+export default Home;

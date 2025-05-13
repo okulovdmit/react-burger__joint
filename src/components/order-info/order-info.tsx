@@ -20,7 +20,7 @@ type TOrderInfo = {
 	isPopup?: boolean;
 };
 
-export const OrderInfo = ({
+const OrderInfo = ({
 	toggle,
 	isPopup = false,
 }: TOrderInfo): React.JSX.Element => {
@@ -132,3 +132,4 @@ export const OrderInfo = ({
 		</div>
 	);
 };
+export default OrderInfo;

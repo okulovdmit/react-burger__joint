@@ -48,3 +48,4 @@ export const Feed = (): React.JSX.Element => {
 		</section>
 	);
 };
+export default Feed;

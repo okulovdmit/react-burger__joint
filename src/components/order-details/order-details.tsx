@@ -1,4 +1,4 @@
-import sOrder from './order-detailes.module.scss';
+import sOrder from './order-details.module.scss';
 import {
 	CloseIcon,
 	CheckMarkIcon,
@@ -14,13 +14,13 @@ import {
 import { Notification } from '../notification/notification';
 import { useAppDispatch, useAppSelector } from '../../services/store';
 
-type TOrderDetailesProp = {
+type TOrderDetailsProp = {
 	toggle: () => void;
 };
 
-export default function OrderDetailes({
+export default function OrderDetails({
 	toggle,
-}: TOrderDetailesProp): React.JSX.Element {
+}: TOrderDetailsProp): React.JSX.Element {
 	const dispatch = useAppDispatch();
 	const isLoading = useAppSelector(getOrderLoading);
 	const error = useAppSelector(getOrderError);
