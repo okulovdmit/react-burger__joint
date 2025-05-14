@@ -10,7 +10,7 @@ import {
 import { WS_PROFILE_ORDERS_URL } from '@utils/constants';
 import { Preloader } from '../preloader/preloader';
 
-export const FeedProfile = (): React.JSX.Element => {
+const FeedProfile = (): React.JSX.Element => {
 	const dispatch = useAppDispatch();
 	const orders = useAppSelector(getProfileOrders);
 	useEffect(() => {
@@ -50,3 +50,4 @@ export const FeedProfile = (): React.JSX.Element => {
 		</>
 	);
 };
+export default FeedProfile;

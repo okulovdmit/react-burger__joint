@@ -1,0 +1,19 @@
+{
+	"compilerOptions": {
+		"target": "es5",
+		"lib": ["es5", "dom"],
+		"sourceMap": true,
+		"noEmit": true,
+		"types": ["node", "cypress"],
+		"allowImportingTsExtensions": true,
+
+		"baseUrl": "/",
+		"paths": {
+			"@pages/*": ["./src/pages/*"],
+			"@components/*": ["./src/components/*"],
+			"@services/*": ["./src/services/*"],
+			"@utils/*": ["./src/utils/*"]
+		}
+	},
+	"include": ["**/*.ts", "**/*.tsx"]
+}

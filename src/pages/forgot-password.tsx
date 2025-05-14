@@ -11,7 +11,7 @@ import { Preloader } from '../components/preloader/preloader';
 import Modal from '../components/modal/modal';
 import { Notification } from '../components/notification/notification';
 
-export const ForgotPassword = (): React.JSX.Element => {
+const ForgotPassword = (): React.JSX.Element => {
 	const location = useLocation();
 
 	const redirect = localStorage.getItem('getResetPassword');
@@ -101,3 +101,4 @@ export const ForgotPassword = (): React.JSX.Element => {
 		</div>
 	);
 };
+export default ForgotPassword;

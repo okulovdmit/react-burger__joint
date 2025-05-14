@@ -1,4 +1,4 @@
-import { BURGER_API_URL, getResponse } from './constants';
+import { BURGER_API_URL, getResponse, request } from './constants';
 import { TDataIngredient } from './types';
 
 export type TGetNumber = {
@@ -9,15 +9,8 @@ export type TGetNumber = {
 	success: boolean;
 };
 
-export const getIngredients = async (): Promise<{
-	data: TDataIngredient[];
-}> => {
-	return fetch(`${BURGER_API_URL}/ingredients`, {
-		headers: {
-			'Content-Type': 'application/json;charset=utf-8',
-		},
-	}).then(getResponse<{ data: TDataIngredient[] }>);
-};
+export const getIngredients = () =>
+	request<{ data: TDataIngredient[] }>('/ingredients');
 
 export const getNumber = async (
 	ingredientIds: string[]

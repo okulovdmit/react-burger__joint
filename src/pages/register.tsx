@@ -13,7 +13,7 @@ import Modal from '../components/modal/modal';
 import { Notification } from '../components/notification/notification';
 import { useAppDispatch, useAppSelector } from '../services/store';
 
-export const Register = (): React.JSX.Element => {
+const Register = (): React.JSX.Element => {
 	const location = useLocation();
 	const dispatch = useAppDispatch();
 	const isLoading = useAppSelector(getUserLoading);
@@ -160,3 +160,5 @@ export const Register = (): React.JSX.Element => {
 		</div>
 	);
 };
+
+export default Register;

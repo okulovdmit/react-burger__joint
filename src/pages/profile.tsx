@@ -39,3 +39,4 @@ export const Profile = (): React.JSX.Element => {
 		</div>
 	);
 };
+export default Profile;

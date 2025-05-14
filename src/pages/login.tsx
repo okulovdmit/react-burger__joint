@@ -13,7 +13,7 @@ import Modal from '../components/modal/modal';
 import { Notification } from '../components/notification/notification';
 import { useAppDispatch, useAppSelector } from '../services/store';
 
-export const Login = (): React.JSX.Element => {
+const Login = (): React.JSX.Element => {
 	const location = useLocation();
 	const dispatch = useAppDispatch();
 
@@ -129,3 +129,5 @@ export const Login = (): React.JSX.Element => {
 		</div>
 	);
 };
+
+export default Login;

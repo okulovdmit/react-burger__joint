@@ -17,7 +17,7 @@ import Modal from '../modal/modal';
 import { Notification } from '../notification/notification';
 import { Preloader } from '../preloader/preloader';
 
-export const ProfileForm = () => {
+const ProfileForm = () => {
 	const dispatch = useAppDispatch();
 	const user = useAppSelector(getUser);
 	const isLoading = useAppSelector(getUserLoading);
@@ -181,3 +181,5 @@ export const ProfileForm = () => {
 		</>
 	);
 };
+
+export default ProfileForm;
