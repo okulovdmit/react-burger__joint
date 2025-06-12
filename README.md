@@ -30,7 +30,5 @@ npm install
 ```
 npm run start
 ```
-## Demo 
-You can view the work of the project at the link [https://burger.okulov.nomorepartiessbs.ru](https://burger.okulov.nomorepartiessbs.ru)
 ## Contacts
 If you have any questions or suggestions, please contact me via telegram: https://t.me/sharkcbr
